@@ -1,0 +1,106 @@
+html {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#container {
+  height: 98vh;
+  width: 98vw;
+  display: grid;
+  grid-template: 1fr 5fr 2fr/ 1fr 1fr 1fr;
+  gap: 2px;
+  grid-template-areas:
+    "header header header"
+    "commands visualization visualization"
+    "info plots tables";
+}
+#header {
+  background-color: yellow;
+  grid-area: header;
+}
+
+#header ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header ul li {
+  list-style: none;
+}
+
+#commands {
+  grid-area: commands;
+  display: grid;
+  grid-template: 1fr 2fr/ 1fr;
+  gap: 2px;
+  grid-template-areas:
+    "commandSelect"
+    "selectedCommand"
+    "routineConfirm";
+}
+#visualization {
+  background-color: green;
+  grid-area: visualization;
+}
+#info {
+  background-color: grey;
+  grid-area: info;
+}
+#plots {
+  background-color: orange;
+  grid-area: plots;
+}
+#tables {
+  background-color: saddlebrown;
+  grid-area: tables;
+}
+#coordinates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#commandSelect {
+  grid-area: commandSelect;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: gray 2px solid;
+}
+
+#commandSelect button {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+#selectedCommand {
+  grid-area: selectedCommand;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: saddlebrown 2px solid;
+}
+#routineConfirm {
+  grid-area: routineConfirm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: green 2px solid;
+}
+#routineConfirm select,
+button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}

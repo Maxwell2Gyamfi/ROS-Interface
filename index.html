@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="container">
+      <nav id="header">
+        <ul>
+          <li>Overview</li>
+          <li>Robot and Cell</li>
+          <li>Sensors</li>
+          <li>Analysis</li>
+        </ul>
+      </nav>
+
+      <div id="commands">
+        <div id="commandSelect">
+          <button id="joystickbutton">Joystick</button>
+          <button id="coordinatesbutton">Coordinates</button>
+          <button id="keysbutton">Keys</button>
+        </div>
+        <div id="selectedCommand">
+          <div id="coordinates" style="display: none">
+            Coordinates
+            <label
+              >Set x:
+              <input type="number" />
+            </label>
+            <label
+              >Set y:
+              <input type="number" />
+            </label>
+
+            <label
+              >Set z:
+              <input type="number" />
+            </label>
+          </div>
+
+          <div id="joystick" style="display: none">Joystick</div>
+          <div id="keys" style="display: none">Keys</div>
+        </div>
+        <div id="routineConfirm">
+          <select name="" id="">
+            <option value="">Home</option>
+            <option value="">Menu</option>
+            <option value="">Reset</option>
+          </select>
+          <button>Routine</button>
+          <button>Plan</button>
+          <button>Execute</button>
+        </div>
+      </div>
+
+      <div id="visualization">Visualization</div>
+
+      <div id="info">Info</div>
+
+      <div id="plots">Plots</div>
+      <div id="tables">Tables</div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
