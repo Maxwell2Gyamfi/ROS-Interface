@@ -2,7 +2,6 @@ html {
   box-sizing: border-box;
   overflow: hidden;
 }
-
 #container {
   height: 98vh;
   width: 98vw;
@@ -10,13 +9,18 @@ html {
   grid-template: 1fr 5fr 2fr/ 1fr 1fr 1fr;
   gap: 2px;
   grid-template-areas:
-    "header header header"
+    "logo header header"
     "commands visualization visualization"
     "info plots tables";
 }
+
+#logo {
+  grid-area: logo;
+  border: gray 2px solid;
+}
 #header {
-  background-color: yellow;
   grid-area: header;
+  border: gray 2px solid;
 }
 
 #header ul {
@@ -39,22 +43,25 @@ html {
     "commandSelect"
     "selectedCommand"
     "routineConfirm";
+  border: gray 2px solid;
 }
 #visualization {
-  background-color: green;
   grid-area: visualization;
+  border: gray 2px solid;
 }
 #info {
-  background-color: grey;
   grid-area: info;
+  overflow-y: scroll;
+  border: gray 2px solid;
 }
+
 #plots {
-  background-color: orange;
   grid-area: plots;
+  border: gray 2px solid;
 }
 #tables {
-  background-color: saddlebrown;
   grid-area: tables;
+  border: gray 2px solid;
 }
 #coordinates {
   display: flex;
@@ -68,11 +75,9 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: gray 2px solid;
 }
 
 #commandSelect button {
-  background-color: #4caf50;
   color: white;
   padding: 16px 32px;
   text-decoration: none;
@@ -85,14 +90,12 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: saddlebrown 2px solid;
 }
 #routineConfirm {
   grid-area: routineConfirm;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: green 2px solid;
 }
 #routineConfirm select,
 button {

@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="main.css" />
+    <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
   </head>
   <body>
     <div id="container">
-      <nav id="header">
+      <div id="logo">
+        <img src="amrc.jpg" alt="" srcset="">
+      </div>
+      <nav id="header">        
         <ul>
           <li>Overview</li>
           <li>Robot and Cell</li>
@@ -19,8 +25,8 @@
 
       <div id="commands">
         <div id="commandSelect">
-          <button id="joystickbutton">Joystick</button>
-          <button id="coordinatesbutton">Coordinates</button>
+          <button id="joystickbutton" style="position: relative;" onclick="displayJoystick()">Joystick</button>
+          <button id="coordinatesbutton" onclick="displayCoordinatesSetting()">Coordinates</button>
           <button id="keysbutton">Keys</button>
         </div>
         <div id="selectedCommand">
@@ -28,20 +34,24 @@
             Coordinates
             <label
               >Set x:
-              <input type="number" />
+              <input type="number" id="xcoordinate"/>
             </label>
             <label
               >Set y:
-              <input type="number" />
+              <input type="number" id="ycoordinate"/>
             </label>
 
             <label
               >Set z:
-              <input type="number" />
+              <input type="number" id="zcoordinate"/>
             </label>
+            <div>
+              <button onclick="planCoordinates()">Plan</button>
+              <button>Execute</button>
+            </div>
           </div>
 
-          <div id="joystick" style="display: none">Joystick</div>
+          <div id="zone_joystick" style="display: none"></div>
           <div id="keys" style="display: none">Keys</div>
         </div>
         <div id="routineConfirm">
@@ -51,14 +61,15 @@
             <option value="">Reset</option>
           </select>
           <button>Routine</button>
-          <button>Plan</button>
-          <button>Execute</button>
         </div>
       </div>
 
       <div id="visualization">Visualization</div>
 
-      <div id="info">Info</div>
+      <div id="info">
+        <p>Connection status: <span id="status"></span></p>          
+        </p>
+      </div>
 
       <div id="plots">Plots</div>
       <div id="tables">Tables</div>
