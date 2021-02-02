@@ -38,6 +38,8 @@ html {
   grid-area: commands;
   gap: 2px;
   border: gray 2px solid;
+  overflow-y: auto;
+  overflow-x:hidden;
 }
 #visualization {
   grid-area: visualization;
