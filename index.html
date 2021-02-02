@@ -1,80 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="main.css" />
-    <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-    <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
-  </head>
-  <body>
-    <div id="container">
-      <div id="logo">
-        <img src="amrc.jpg" alt="" srcset="">
-      </div>
-      <nav id="header">        
-        <ul>
-          <li>Overview</li>
-          <li>Robot and Cell</li>
-          <li>Sensors</li>
-          <li>Analysis</li>
-        </ul>
-      </nav>
 
-      <div id="commands">
-        <div id="commandSelect">
-          <button id="joystickbutton" style="position: relative;" onclick="displayJoystick()">Joystick</button>
-          <button id="coordinatesbutton" onclick="displayCoordinatesSetting()">Coordinates</button>
-          <button id="keysbutton">Keys</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css" />
+  <script type="text/javascript"
+    src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="logo">
+      <img src="amrc.jpg" alt="" srcset="">
+    </div>
+    <nav id="header">
+      <ul>
+        <li>Overview</li>
+        <li>Robot and Cell</li>
+        <li>Sensors</li>
+        <li>Analysis</li>
+      </ul>
+    </nav>
+
+    <div id="commands">
+      <details>
+        <summary>Pose Goal</summary>
+        <div id="coordinates">
+
+          <input type="number" name="wCoord" id="wCoord" placeholder="set w:">
+          <input type="number" name="xCoord" id="xCoord" placeholder="set x:">
+          <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
+          <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
         </div>
-        <div id="selectedCommand">
-          <div id="coordinates" style="display: none">
-            Coordinates
-            <label
-              >Set x:
-              <input type="number" id="xcoordinate"/>
-            </label>
-            <label
-              >Set y:
-              <input type="number" id="ycoordinate"/>
-            </label>
-
-            <label
-              >Set z:
-              <input type="number" id="zcoordinate"/>
-            </label>
-            <div>
-              <button onclick="planCoordinates()">Plan</button>
-              <button>Execute</button>
-            </div>
+        <button onclick="getGoalPoseValues()">Submit</button>
+      </details>
+      <details>
+        <summary>Joints</summary>
+        <div class="joints">
+          <div class="range-slider">
+            <label>Joint 1</label>
+            <input type="range" value="10" min="-10" max="10" range="true" step="any">
+            <span class="range-value">50</span>
+          </div>
+          <div class="range-slider">
+            <label>Joint 2</label>
+            <input type="range" value="2" min="-10" max="10" range="true" step="any">
+            <span class="range-value">20</span>
+          </div>
+          <div class="range-slider">
+            <label>Joint 3</label>
+            <input type="range" value="5" min="-10" max="10" range="true" step="any">
+            <span class="range-value">20</span>
           </div>
 
-          <div id="zone_joystick" style="display: none"></div>
-          <div id="keys" style="display: none">Keys</div>
+          <div class="range-slider">
+            <label>Joint 4</label>
+            <input type="range" value="-3" min="-10" max="10" range="true" step="any">
+            <span class="range-value">20</span>
+          </div>
+          <div class="range-slider">
+            <label>Joint 5</label>
+            <input type="range" value="8" min="-10" max="10" range="true" step="any">
+            <span class="range-value">20</span>
+          </div>
+          <button>Adjust Joint Values</button>
         </div>
-        <div id="routineConfirm">
-          <select name="" id="">
-            <option value="">Home</option>
-            <option value="">Menu</option>
-            <option value="">Reset</option>
-          </select>
-          <button>Routine</button>
+      </details>
+      <details>
+        <summary>WayPoints</summary>
+        <div>
+          <input type="text" name="newwaypoint" placeholder="New waypoint Name">
+          <button>Add WaypPoint</button>
         </div>
-      </div>
 
-      <div id="visualization">Visualization</div>
+        <div>
+          <button>Load All WayPoints</button>
+          <button>Run All WayPoints</button>
+          <button>Save WayPoint</button>
+        </div>
 
-      <div id="info">
-        <p>Connection status: <span id="status"></span></p>          
-        </p>
-      </div>
+      </details>
+      <details>
+        <summary>Plan & Execute</summary>
+        <button onclick="planCartesian()">Plan Cartesian</button>
+        <button onclick="executePlan()">Execute</button>
+      </details>
+      <details>
+        <summary>Set Visualization</summary>
+        <button>3D URDF View</button>
+        <button>Gazebo View</button>
+      </details>
+      <details>
+        <summary>Connection Status</summary>
+        <button id="connectionStatus"></button>
+      </details>
+      <details>
+        <summary>Reset</summary>
+        <button class="danger">Reset</button>
+      </details>
+      <!-- <details>
+        <summary>Plots</summary>
+        <p>Plots</p>
+      </details> -->
+      <details>
+        <summary>Tables</summary>
+        <p>Tables</p>
+      </details>
+      <details>
+        <summary>Logs</summary>
+        <p>Logs</p>
+      </details>
 
-      <div id="plots">Plots</div>
-      <div id="tables">Tables</div>
     </div>
 
-    <script src="main.js"></script>
-  </body>
+    <div id="visualization">Visualization</div>
+
+    <!-- <div id="info">
+      <p>Connection status: <span id="status"></span></p>
+      </p>
+    </div>
+
+    <div id="plots">Plots</div>
+    <div id="tables">Tables</div> -->
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
 </html>

@@ -11,7 +11,7 @@ html {
   grid-template-areas:
     "logo header header"
     "commands visualization visualization"
-    "info plots tables";
+    "commands visualization visualization";
 }
 
 #logo {
@@ -36,13 +36,7 @@ html {
 
 #commands {
   grid-area: commands;
-  display: grid;
-  grid-template: 1fr 2fr/ 1fr;
   gap: 2px;
-  grid-template-areas:
-    "commandSelect"
-    "selectedCommand"
-    "routineConfirm";
   border: gray 2px solid;
 }
 #visualization {
@@ -65,9 +59,10 @@ html {
 }
 #coordinates {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-left: 5px;
 }
 
 #commandSelect {
@@ -97,7 +92,7 @@ html {
   align-items: center;
   justify-content: center;
 }
-#routineConfirm select,
+
 button {
   background-color: #4caf50;
   border: none;
@@ -106,4 +101,148 @@ button {
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
+  border-radius: 10px;
+  outline:0;
 }
+.danger {
+  background-color: #f44336;
+} /* Red */
+#coordinatesSubmit {
+  margin-left: 35%;
+}
+
+summary {
+  outline: 0;
+  font-size: 20px;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary {
+  width: 98%;
+  padding: 0.5rem 5px;
+  border-top: 1px solid black;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 300;
+  list-style: none;
+  margin-bottom: 2px;
+}
+
+details summary:after {
+  content: "+";
+  color: black;
+  position: absolute;
+  font-size: 1.75rem;
+  line-height: 0;
+  margin-top: 0.75rem;
+  right: 0;
+  font-weight: 200;
+  transform-origin: center;
+  transition: 200ms linear;
+}
+
+details[open] summary:after {
+  transform: rotate(45deg);
+  font-size: 2rem;
+}
+
+details summary {
+  outline: 0;
+}
+
+details p {
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+  padding-top: 1rem;
+}
+
+details[open] summary ~ * {
+  animation: open 0.3s ease-in-out;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 65%;
+  padding: 12px 20px;
+  margin: 8px 2px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+.range-slider {
+  padding: 10px 60px 15px 0;
+  /* margin: 20px 0 0 0; */
+  position: relative;
+}
+.range-slider input[type="range"] {
+  background: #dcdcdc;
+  width: 50%;
+  height: 4px;
+  border-radius: 20px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.range-slider input[type="range"]::-webkit-slider-thumb {
+  background: #0775c0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  box-shadow: 0 0 2px #999 inset, 0 0 0 13px #fff inset, 0 0 0 1px #dcdcdc;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out 0s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.range-slider input[type="range"]::-webkit-slider-thumb:hover,
+.range-slider input[type="range"]:active::-webkit-slider-thumb {
+  box-shadow: 0 0 2px #999 inset, 0 0 0 13px #fff inset, 0 0 3px 3px #dcdcdc;
+}
+.range-slider input[type="range"]::-moz-range-thumb {
+  background: #0775c0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 2px #999 inset, 0 0 0 13px #fff inset, 0 0 0 1px #dcdcdc;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out 0s;
+}
+.range-slider input[type="range"]::-moz-range-thumb:hover,
+.range-slider input[type="range"]:active::-moz-range-thumb {
+  box-shadow: 0 0 2px #999 inset, 0 0 0 13px #fff inset, 0 0 3px 3px #dcdcdc;
+}
+.range-slider .range-value {
+  color: #fff;
+  background-color: #45a049;
+  /* font-size: 18px; */
+  font-weight: 600;
+  text-align: center;
+  width: 70px;
+  padding: 5px 5px;
+  border-radius: 30% 0 30% 30%;
+  position: absolute;
+  bottom: 4px;
+  /* right: 0; */
+}
+::-moz-range-track {
+  background: transparent;
+  border: 0;
+}
+label {
+  font-weight: bold;
+  border-radius: 30% 0 30% 30%;
+  text-align: center;
+  color: #fff;
+  background-color: #45a049;
+  padding: 5px 5px;
+}
+

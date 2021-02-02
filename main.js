@@ -3,183 +3,169 @@ var twist;
 var cmdVel;
 var linear_speed = 0;
 var angular_speed = 0;
-var plannedCoordinates =[]
+var plannedCoordinates = []
 
-keys =  document.getElementById('keys');
+keys = document.getElementById('keys');
 joystick = document.getElementById('zone_joystick');
-coordinates =  document.getElementById('coordinates');
+coordinates = document.getElementById('coordinates');
 
-function initROS()
-{
-    ros = new ROSLIB.Ros({
-        url : 'ws://localhost:9090'
-      });
+function initROS() {
+  ros = new ROSLIB.Ros({
+    url: 'ws://localhost:9090'
+  });
 
-    displayConnectionMessage()  
+  displayConnectionMessage()
 }
 
-function initVelocityPublisher()
-{
-    cmdVel = new ROSLIB.Topic({
-        ros : ros,
-        name : '/cmd_vel',
-        messageType : 'geometry_msgs/Twist'
-      });
-    
-    cmdVel.publish(twist);
+function initVelocityPublisher() {
+  cmdVel = new ROSLIB.Topic({
+    ros: ros,
+    name: '/cmd_vel',
+    messageType: 'geometry_msgs/Twist'
+  });
+
+  cmdVel.publish(twist);
 
 }
 
-function initTwist()
-{
+function initTwist() {
   twist = new ROSLIB.Message({
-        linear : {
-          x : 0.0,
-          y : 0.0,
-          z : 0.0
-        },
-        angular : {
-          x : 0.0,
-          y : 0.0,
-          z : 0.0
-        }
-      });
-      
-}
-
-function subscribeToTopic()
-{
-      var listener = new ROSLIB.Topic({
-        ros : ros,
-        name : '/listener',
-        messageType : 'std_msgs/String'
-      });
-    
-        listener.subscribe(function(message) {
-        var info = document.getElementById('info');
-        var p = document.createElement("p"); 
-        p.innerHTML = 'Received message on ' + listener.name + ': ' + message.data
-        listener.unsubscribe();
-        info.appendChild(p);
-       
-      });
-}
-
-function manageParamValues()
-{
-    ros.getParams(function(params) {
-        console.log(params);
-      });
-    
-      var maxVelX = new ROSLIB.Param({
-        ros : ros,
-        name : 'max_vel_y'
-      });
-    
-      maxVelX.set(0.8);
-      maxVelX.get(function(value) {
-        console.log('MAX VAL: ' + value);
-      });
-
-}
-
-function displayConnectionMessage()
-{
-      var message ='';
-      var status = document.getElementById('status')
-      
-      var info = document.getElementById('info');
-      var p = document.createElement("p");
-
-      ros.on('connection', function() {
-        message = 'Connected to websocket server.'
-        status.innerHTML ='Connected'
-      });
-    
-      ros.on('error', function(error) {         
-        message = 'Error connecting to websocket server.'    
-        status.innerHTML ='Disconnected'
-      });
-    
-      ros.on('close', function() {        
-        message = 'Connection to websocket server closed.'
-        status.innerHTML ='Closed'
-      });
-
-      p.innerHTML = message;
-      info.appendChild(p);
-    
-}
-
-function moveAction(linear, angular)
-{
-    
-    initTwist();
-
-    if (linear !== undefined && angular !== undefined) {
-        twist.linear.x = linear;
-        twist.angular.z = angular;
-    } else {
-        twist.linear.x = 0;
-        twist.angular.z = 0;
+    linear: {
+      x: 0.0,
+      y: 0.0,
+      z: 0.0
+    },
+    angular: {
+      x: 0.0,
+      y: 0.0,
+      z: 0.0
     }
-    
-    initVelocityPublisher();
+  });
 
 }
 
-function displayCoordinatesSetting()
-{
-  joystick.style.display = 'none';
-  keys.style.display = 'none';
-  coordinates.style.display='flex';
+function subscribeToTopic() {
+  var listener = new ROSLIB.Topic({
+    ros: ros,
+    name: '/listener',
+    messageType: 'std_msgs/String'
+  });
+
+  listener.subscribe(function (message) {
+    var info = document.getElementById('info');
+    var p = document.createElement("p");
+    p.innerHTML = 'Received message on ' + listener.name + ': ' + message.data
+    listener.unsubscribe();
+    info.appendChild(p);
+
+  });
+}
+
+function manageParamValues() {
+  ros.getParams(function (params) {
+    console.log(params);
+  });
+
+  var maxVelX = new ROSLIB.Param({
+    ros: ros,
+    name: 'max_vel_y'
+  });
+
+  maxVelX.set(0.8);
+  maxVelX.get(function (value) {
+    console.log('MAX VAL: ' + value);
+  });
 
 }
 
-function planCoordinates()
-{
-   coords =[]
-   var info = document.getElementById('info');
-   coords.push(document.getElementById('xcoordinate').value);
-   coords.push(document.getElementById('ycoordinate').value);
-   coords.push(document.getElementById('zcoordinate').value);
-   
-   message = 'Added coordinates x, y, z with values '+ coords[0]+ ', ' + coords[1]+', '+coords[2]+'\n';
-   var p = document.createElement("p");
-   plannedCoordinates.push(coords);
-   p.innerHTML = message;
-   info.appendChild(p);
-   
+function displayConnectionMessage() {
+  var message = '';
+  var status = document.getElementById('status')
+
+  var info = document.getElementById('info');
+  var p = document.createElement("p");
+
+  ros.on('connection', function () {
+    message = 'Connected to websocket server.'
+    status.innerHTML = 'Connected'
+    document.getElementById('connectionStatus').style.backgroundColor = '#4caf50'
+    document.getElementById('connectionStatus').innerHTML = 'Opened'
+  });
+
+  ros.on('error', function (error) {
+    message = 'Error connecting to websocket server.'
+    status.innerHTML = 'Disconnected'
+  });
+
+  ros.on('close', function () {
+    message = 'Connection to websocket server closed.'
+    status.innerHTML = 'Closed'
+    document.getElementById('connectionStatus').style.backgroundColor = '#f44336'
+    document.getElementById('connectionStatus').innerHTML = 'Closed'
+  });
+
+  p.innerHTML = message;
+  info.appendChild(p);
+
 }
 
-function displayJoystick()
-{
+function moveAction(linear, angular) {
+
+  initTwist();
+
+  if (linear !== undefined && angular !== undefined) {
+    twist.linear.x = linear;
+    twist.angular.z = angular;
+  } else {
+    twist.linear.x = 0;
+    twist.angular.z = 0;
+  }
+
+  initVelocityPublisher();
+
+}
+
+function planCoordinates() {
+  coords = []
+  var info = document.getElementById('info');
+  coords.push(document.getElementById('xcoordinate').value);
+  coords.push(document.getElementById('ycoordinate').value);
+  coords.push(document.getElementById('zcoordinate').value);
+
+  message = 'Added coordinates x, y, z with values ' + coords[0] + ', ' + coords[1] + ', ' + coords[2] + '\n';
+  var p = document.createElement("p");
+  plannedCoordinates.push(coords);
+  p.innerHTML = message;
+  info.appendChild(p);
+
+}
+
+function displayJoystick() {
   joystick.style.display = 'flex';
   keys.style.display = 'none';
-  coordinates.style.display='none';
+  coordinates.style.display = 'none';
 
   createJoystick();
 }
 
 createJoystick = function () {
-    var options = {
-      zone: document.getElementById('zone_joystick'),
-      threshold: 0.1,
-      position: { left: 17 + '%' },
-      mode: 'static',
-      size: 150,
-      color: '#000000',
-    };
-    manager = nipplejs.create(options);
-    joyStart(manager);
-    joyMove(manager);
-    joyEnd(manager);
+  var options = {
+    zone: document.getElementById('zone_joystick'),
+    threshold: 0.1,
+    position: { left: 17 + '%' },
+    mode: 'static',
+    size: 150,
+    color: '#000000',
+  };
+  manager = nipplejs.create(options);
+  joyStart(manager);
+  joyMove(manager);
+  joyEnd(manager);
 
-    
+
 }
 
-function joyStart(manager)
-{
+function joyStart(manager) {
   manager.on('start', function (event, nipple) {
     timer = setInterval(function () {
       moveAction(linear_speed, angular_speed);
@@ -187,19 +173,17 @@ function joyStart(manager)
   });
 }
 
-function joyMove(manager)
-{
+function joyMove(manager) {
   manager.on('move', function (event, nipple) {
     max_linear = 5.0; // m/s
     max_angular = 2.0; // rad/s
     max_distance = 75.0; // pixels;
-    linear_speed = Math.sin(nipple.angle.radian) * max_linear * nipple.distance/max_distance;
-    angular_speed = -Math.cos(nipple.angle.radian) * max_angular * nipple.distance/max_distance;
+    linear_speed = Math.sin(nipple.angle.radian) * max_linear * nipple.distance / max_distance;
+    angular_speed = -Math.cos(nipple.angle.radian) * max_angular * nipple.distance / max_distance;
   });
 }
 
-function joyEnd(manager)
-{
+function joyEnd(manager) {
   manager.on('end', function () {
     if (timer) {
       clearInterval(timer);
@@ -210,7 +194,67 @@ function joyEnd(manager)
 
 window.addEventListener('load', (event) => {
 
-    initROS()
-    subscribeToTopic()
-   
+  initROS()
+  subscribeToTopic()
+
 });
+
+$(document).ready(function () {
+  var rangeSlider = function () {
+    var slider = $('.range-slider'),
+      range = $('.range-slider input[type="range"]'),
+      value = $('.range-value');
+    slider.each(function () {
+      value.each(function () {
+        var value = $(this).prev().attr('value');
+        $(this).html(value);
+      });
+      range.on('input', function () {
+        $(this).next(value).html(this.value);
+      });
+    });
+  };
+  rangeSlider();
+});
+
+function getGoalPoseValues() {
+  w = document.getElementById('wCoord').value;
+  x = document.getElementById('xCoord').value;
+  y = document.getElementById('yCoord').value;
+  z = document.getElementById('zCoord').value;
+
+  if (x != '' && w != '' && z != '' & z != '') {
+    // alert(x)
+    coords = []
+    var info = document.getElementById('info');
+    coords.push(w)
+    coords.push(x);
+    coords.push(y);
+    coords.push(z);
+
+    message = 'Executed pose goal: w, x, y, z with values ' + coords[0] + ', ' + coords[1] + ', ' + coords[2] + ', ' + coords[3] + '\n';
+    var p = document.createElement("p");
+    plannedCoordinates.push(coords);
+    p.innerHTML = message;
+    info.appendChild(p);
+  }
+  else {
+    alert('wrong')
+  }
+}
+
+function planCartesian() {
+  alert('planning cartesian')
+}
+function executePlan() {
+  alert('executing plan')
+}
+function loadAllWaypoints() {
+  alert('loading waypoints')
+}
+function runAllWaypoints() {
+  alert('running all waypoints')
+}
+function saveWaypoint() {
+  alert('saving waypoint')
+}
