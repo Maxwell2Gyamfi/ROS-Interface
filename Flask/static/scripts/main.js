@@ -62,6 +62,7 @@ $(document).ready(function () {
 });
 
 function getGoalPoseValues() {
+  coords = []
   w = document.getElementById('wCoord').value;
   x = document.getElementById('xCoord').value;
   y = document.getElementById('yCoord').value;
@@ -69,22 +70,17 @@ function getGoalPoseValues() {
 
   if (x != '' && w != '' && z != '' & z != '') {
     // alert(x)
-    coords = []
-    var info = document.getElementById('info');
     coords.push(w)
     coords.push(x);
     coords.push(y);
     coords.push(z);
-
     message = 'Executed pose goal: w, x, y, z with values ' + coords[0] + ', ' + coords[1] + ', ' + coords[2] + ', ' + coords[3] + '\n';
-    var p = document.createElement("p");
-    plannedCoordinates.push(coords);
-    p.innerHTML = message;
-    info.appendChild(p);
   }
   else {
     alert('wrong')
   }
+
+  return coords
 }
 
 function planCartesian() {
@@ -136,8 +132,6 @@ function loadJointsValuesSpan(jointsValues) {
   document.getElementById('joint5Span').innerHTML = jointsValues[4]
 }
 
-function goToJointState() {
-}
 function requestJointValues() {
   var xhttp = new XMLHttpRequest();
   // var msg = document.getElementById('saveImageSuccess');
@@ -168,4 +162,23 @@ function setJointValues() {
       console.log(error);
     }
   });
+}
+
+function setGoalPoseValues() {
+  var pose = getGoalPoseValues()
+  if (pose.length != 0) {
+    jQuery.ajax({
+      url: '/setGoalPose',
+      type: "POST",
+      data: JSON.stringify(pose),
+      dataType: "json",
+      contentType: 'application/json',
+      success: function (e) {
+        alert('a')
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 }

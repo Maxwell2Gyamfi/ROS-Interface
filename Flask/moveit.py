@@ -12,7 +12,8 @@ from std_msgs.msg import String
 import moveit_commander
 from moveit_commander.conversions import pose_to_list
 
-## END_SUB_TUTORIAL
+
+# END_SUB_TUTORIAL
 
 
 def go_to_joint_state(move_group):
@@ -29,7 +30,7 @@ def go_to_joint_state(move_group):
     move_group.go(joint_goal, wait=True)
 
     # Calling ``stop()`` ensures that there is no residual movement
-    #move_group.stop()
+    # move_group.stop()
 
 
 def go_to_pose_goal(move_group):
@@ -43,13 +44,12 @@ def go_to_pose_goal(move_group):
 
     plan = move_group.go(wait=True)
     # Calling `stop()` ensures that there is no residual movement
-    #move_group.stop()
+    # move_group.stop()
 
     move_group.clear_pose_targets()
 
 
 def plan_cartesian_path(move_group, scale=1):
-
 
     waypoints = []
 
@@ -80,25 +80,23 @@ def main():
     scene = moveit_commander.PlanningSceneInterface()
 
     group_name = "manipulator"
-    move_group= moveit_commander.MoveGroupCommander(group_name)
+    move_group = moveit_commander.MoveGroupCommander(group_name)
 
-    print "============ Printing robot state"
-    print robot.get_current_state()
-    print ""
+    print("============ Printing robot state")
+    print(robot.get_current_state())
+    print("")
 
     print("Current pose")
     print(move_group.get_current_pose().pose)
 
     print("Sending joint commands to movegroup")
     go_to_joint_state(move_group)
-    
 
-    print("Sending pose commands to movegroup")    
+    print("Sending pose commands to movegroup")
     go_to_pose_goal(move_group)
 
-    print("Sending cartesian commands to movegroup")    
+    print("Sending cartesian commands to movegroup")
     plan_cartesian_path(move_group, scale=1)
-
 
 
 if __name__ == "__main__":

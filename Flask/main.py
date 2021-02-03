@@ -2,6 +2,9 @@ from flask import Flask
 from flask import send_file, render_template, Response, request, send_from_directory
 import json
 import types
+from moveit_class import isWorking
+from moveit_class import isWorkingJointState
+from moveit_class import sendCurrentJoints
 app = Flask(__name__)
 
 
@@ -15,15 +18,25 @@ def indexPage():
 
 @app.route('/getJoints')
 def getJoints():
-    joints = [0.0001, 1.211, 2.003, 4.00012, -5.9001]
+    joints = sendCurrentJoints()
     return json.dumps({'success': True, 'joints': joints}), 200, {'ContentType': 'application/json'}
 
 
 @app.route('/setJoints', methods=['GET', 'POST'])
 def setJoints():
     if request.method == 'POST':
-        joints = request.json
-        print(joints)
+        jointsVal = request.json
+        isWorkingJointState(jointsVal)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/setGoalPose', methods=['GET', 'POST'])
+def setGoalPose():
+    if request.method == 'POST':
+        pose = request.json
+
+        pose_dict = {'w': pose[0], 'x': pose[1], 'y': pose[2], 'z': pose[3]}
+        isWorking(pose_dict)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
