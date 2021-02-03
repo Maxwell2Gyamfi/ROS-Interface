@@ -215,6 +215,7 @@ $(document).ready(function () {
     });
   };
   rangeSlider();
+  loadJointValues()
 });
 
 function getGoalPoseValues() {
@@ -257,4 +258,27 @@ function runAllWaypoints() {
 }
 function saveWaypoint() {
   alert('saving waypoint')
+}
+function getJointValues() {
+  joint1 = document.getElementById('joint1').value
+  joint2 = document.getElementById('joint2').value
+  joint3 = document.getElementById('joint3').value
+  joint4 = document.getElementById('joint4').value
+  joint5 = document.getElementById('joint5').value
+}
+function loadJointValues() {
+  document.getElementById('joint1').value = 0.1344
+  document.getElementById('joint1Span').innerHTML = 0.1344
+  document.getElementById('joint2').value = 0.3222
+  document.getElementById('joint2Span').innerHTML = 0.3222
+  document.getElementById('joint3').value = -0.1345
+  document.getElementById('joint3Span').innerHTML = -0.1345
+  document.getElementById('joint4').value = 0.624
+  document.getElementById('joint4Span').innerHTML = 0.624
+  document.getElementById('joint5').value = 0.44123
+  document.getElementById('joint5Span').innerHTML = 0.44123
+}
+function goToJointState() {
+
+
 }

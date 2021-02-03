@@ -225,7 +225,7 @@ input[type="submit"]:hover {
 }
 .range-slider .range-value {
   color: #fff;
-  background-color: #0775c0;
+  background-color:#0775c0;
   /* font-size: 18px; */
   font-weight: 600;
   text-align: center;
@@ -245,7 +245,7 @@ label {
   border-radius: 30% 0 30% 30%;
   text-align: center;
   color: #fff;
-  background-color: #0775c0;
+  background-color:#0775c0;
   padding: 5px 5px;
 }
 #title{

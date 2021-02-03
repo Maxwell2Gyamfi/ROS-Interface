@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="static/styles/main.css" />
   <script type="text/javascript"
     src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
   <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
@@ -16,7 +16,7 @@
 <body>
   <div id="container">
     <div id="logo">
-      <img src="amrc.jpg" alt="" srcset="">
+      <img src="static/images/amrc.jpg" alt="" srcset="">
     </div>
     <nav id="header">
       <ul>
@@ -68,7 +68,7 @@
             <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint5">
             <span class="range-value" id="joint5Span"></span>
           </div>
-          <button onclick="getJointValues()">Adjust Joint Values</button>
+          <button onclick="setJointValues()">Adjust Joint Values</button>
         </div>
       </details>
       <details>
@@ -129,7 +129,7 @@
     <div id="tables">Tables</div> -->
   </div>
 
-  <script src="main.js"></script>
+  <script src="static/scripts/main.js"></script>
 </body>
 
 </html>
