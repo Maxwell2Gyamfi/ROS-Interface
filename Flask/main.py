@@ -2,9 +2,9 @@ from flask import Flask
 from flask import send_file, render_template, Response, request, send_from_directory
 import json
 import types
-from moveit_class import isWorking
-from moveit_class import isWorkingJointState
-from moveit_class import sendCurrentJoints
+from moveit_class import *
+
+
 app = Flask(__name__)
 
 
@@ -34,9 +34,22 @@ def setJoints():
 def setGoalPose():
     if request.method == 'POST':
         pose = request.json
-
         pose_dict = {'w': pose[0], 'x': pose[1], 'y': pose[2], 'z': pose[3]}
         isWorking(pose_dict)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/getCurrentPose')
+def getCurrentPose():
+    pose = getCurrentPoseVal()
+    return json.dumps({'success': True, 'pose': pose}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/saveWaypoint', methods=['GET', 'POST'])
+def saveWaypoint():
+    if request.method == 'POST':
+        waypoint = request.json
+        print(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 

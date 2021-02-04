@@ -89,3 +89,10 @@ def isWorkingJointState(jointsVal):
 def sendCurrentJoints():
     joints = [0.0004, 1.211, 2.003, 4.00012, -5.9001]
     return joints
+
+
+def getCurrentPoseVal():
+    pose = {'orientation': {'w': 1.0},
+            'position': {'x': 0.2, 'y': 0.4, 'z': 2.0}}
+
+    return pose

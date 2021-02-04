@@ -97,7 +97,7 @@ html {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: black;
   border: none;
   color: white;
   padding: 16px 32px;
@@ -251,4 +251,6 @@ label {
 #title{
   font-weight: 300;
   margin-left: 35%;
+  font-size: 1.25rem;
 }
+

@@ -11,6 +11,7 @@
   <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -27,9 +28,11 @@
       </ul>
     </nav>
     <div id="commands">
-      <h2 id="title">Functionalities</h2>
+
+      <h3 id="title"><i class="fa fa-cog" aria-hidden="true"></i> User Settings</h3>
+
       <details>
-        <summary>Pose Goal</summary>
+        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Pose Goal</summary>
         <div id="coordinates">
 
           <input type="number" name="wCoord" id="wCoord" placeholder="set w:">
@@ -40,79 +43,80 @@
         <button onclick="setGoalPoseValues()">Submit</button>
       </details>
       <details>
-        <summary>Joints</summary>
+        <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Joints</summary>
         <div class="joints">
           <div class="range-slider">
             <label>Joint 1</label>
+            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint0">
+            <span class="range-value" id="joint0Span"></span>
+          </div>
+          <div class="range-slider">
+            <label>Joint 2</label>
             <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint1">
             <span class="range-value" id="joint1Span"></span>
           </div>
           <div class="range-slider">
-            <label>Joint 2</label>
+            <label>Joint 3</label>
             <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint2">
             <span class="range-value" id="joint2Span"></span>
-          </div>
-          <div class="range-slider">
-            <label>Joint 3</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint3">
-            <span class="range-value" id="joint3Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 4</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint4">
-            <span class="range-value" id="joint4Span"></span>
+            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint3">
+            <span class="range-value" id="joint3Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 5</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint5">
-            <span class="range-value" id="joint5Span"></span>
+            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint4">
+            <span class="range-value" id="joint4Span"></span>
           </div>
           <button onclick="setJointValues()">Adjust Joint Values</button>
         </div>
       </details>
       <details>
-        <summary>WayPoints</summary>
+        <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
         <div>
-          <input type="text" name="newwaypoint" placeholder="New waypoint Name">
-          <button>Add WaypPoint</button>
+          <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
+          <button onclick="addWayPoint()">Add WaypPoint</button>
         </div>
 
         <div>
           <button>Load All WayPoints</button>
           <button>Run All WayPoints</button>
-          <button>Save WayPoint</button>
+          <button>Delete WayPoint</button>
         </div>
 
       </details>
       <details>
-        <summary>Plan & Execute</summary>
+        <summary><i class="fa fa-tasks" aria-hidden="true"></i> Plan & Execute</summary>
         <button onclick="planCartesian()">Plan Cartesian</button>
         <button onclick="executePlan()">Execute</button>
       </details>
       <details>
-        <summary>Set Visualization</summary>
-        <button>3D URDF View</button>
-        <button>Gazebo View</button>
+        <summary><i class="fa fa-eye" aria-hidden="true"></i> Set Visualization</summary>
+        <button>3D URDF</button>
+        <button>Gazebo</button>
+        <button>Robot and Cell</button>
       </details>
       <details>
-        <summary>Connection Status</summary>
+        <summary><i class="fa fa-plug" aria-hidden="true"></i> Connection Status</summary>
         <button id="connectionStatus"></button>
       </details>
       <details>
-        <summary>Reset</summary>
+        <summary><i class="fa fa-undo" aria-hidden="true"></i> Reset</summary>
         <button class="danger">Reset</button>
       </details>
       <details>
-        <summary>Plots</summary>
+        <summary><i class="fa fa-line-chart" aria-hidden="true"></i> Plots</summary>
         <p>Plots</p>
       </details>
       <details>
-        <summary>Tables</summary>
+        <summary><i class="fa fa-table" aria-hidden="true"></i> Tables</summary>
         <p>Tables</p>
       </details>
       <details>
-        <summary>Logs</summary>
+        <summary><i class="fa fa-history" aria-hidden="true"></i> Logs</summary>
         <p>Logs</p>
       </details>
 
