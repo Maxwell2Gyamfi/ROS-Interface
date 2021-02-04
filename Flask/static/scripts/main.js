@@ -1,5 +1,5 @@
 var ros;
-var totalJoints = 5
+var totalJoints = 7
 
 class Waypoint {
   constructor(coordinates, jointsValues, wayPointName) {

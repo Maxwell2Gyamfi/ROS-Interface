@@ -87,7 +87,7 @@ def isWorkingJointState(jointsVal):
 
 
 def sendCurrentJoints():
-    joints = [0.0004, 1.211, 2.003, 4.00012, -5.9001]
+    joints = [0.0004, 1.211, 2.003, 4.00012, -5.9001, 2.111, 3.444, 6.1134]
     return joints
 
 

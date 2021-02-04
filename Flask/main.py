@@ -3,6 +3,7 @@ from flask import send_file, render_template, Response, request, send_from_direc
 import json
 import types
 from moveit_class import *
+from wayPointsDAO import insertWaypoint
 
 
 app = Flask(__name__)
@@ -49,7 +50,7 @@ def getCurrentPose():
 def saveWaypoint():
     if request.method == 'POST':
         waypoint = request.json
-        print(waypoint)
+        insertWaypoint(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
