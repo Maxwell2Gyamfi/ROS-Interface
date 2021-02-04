@@ -1,5 +1,6 @@
 var ros;
 var totalJoints = 7
+var headerCount = 16
 
 class Waypoint {
   constructor(coordinates, jointsValues, wayPointName) {
@@ -28,7 +29,6 @@ class Waypoint {
   }
 
 }
-
 
 function initROS() {
   ros = new ROSLIB.Ros({
@@ -71,8 +71,6 @@ function displayConnectionMessage() {
     message = ('Connection to Ros closed')
   });
 
-  // p.innerHTML = message;
-  // info.appendChild(p);
 }
 
 var rangeSlider = function () {
@@ -89,7 +87,6 @@ var rangeSlider = function () {
     });
   });
 };
-
 
 function getGoalPoseValues() {
   coords = []
@@ -142,7 +139,6 @@ function saveWaypoint() {
   alert('saving waypoint')
 }
 
-
 function addWayPoint() {
   newwaypoint = document.getElementById('newwaypoint')
   if (newwaypoint.value == '') {
@@ -155,21 +151,6 @@ function addWayPoint() {
     var waypoint = new Waypoint(coordinates, jointValues, waypointName)
     saveWaypoint(waypoint)
   }
-}
-
-function saveWaypoint(waypoint) {
-  jQuery.ajax({
-    url: '/saveWaypoint',
-    type: "POST",
-    data: JSON.stringify(waypoint),
-    dataType: "json",
-    contentType: 'application/json',
-    success: function (e) {
-    },
-    error: function (error) {
-      console.log(error);
-    }
-  });
 }
 
 function getJointValues() {
@@ -191,9 +172,23 @@ function loadJointValues(jointsValues) {
   }
 }
 
+function saveWaypoint(waypoint) {
+  jQuery.ajax({
+    url: '/saveWaypoint',
+    type: "POST",
+    data: JSON.stringify(waypoint),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function (e) {
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+}
+
 function requestJointValues() {
   var xhttp = new XMLHttpRequest();
-  // var msg = document.getElementById('saveImageSuccess');
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var obj = JSON.parse(this.responseText);
@@ -232,7 +227,6 @@ function setGoalPoseValues() {
       dataType: "json",
       contentType: 'application/json',
       success: function (e) {
-
       },
       error: function (error) {
         console.log(error);
@@ -243,7 +237,6 @@ function setGoalPoseValues() {
 
 function getCurrentPoseValues() {
   var xhttp = new XMLHttpRequest();
-  // var msg = document.getElementById('saveImageSuccess');
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var obj = JSON.parse(this.responseText);
@@ -255,4 +248,45 @@ function getCurrentPoseValues() {
   xhttp.open("GET", "/getCurrentPose", true);
   xhttp.send();
 
+}
+
+function loadAllWaypoints() {
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var obj = JSON.parse(this.responseText);
+      if (obj.success === true) {
+        createWaypointsTable(obj)
+      }
+    }
+  }
+  xhttp.open("GET", "/getAllWaypoints", true);
+  xhttp.send();
+
+}
+
+function createWaypointsTable(obj) {
+  wayPointsTable = document.createElement('table')
+  createTableHeader(wayPointsTable)
+  for (i = 0; i < obj.waypoints.length; i++) {
+
+  }
+}
+
+function createTableHeader(table) {
+
+  var headerNames = ['Number', 'Name', 'Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint4', 'Joint5', 'Joint6', 'Joint7', 'w', 'x', 'y', 'z', 'Run', 'Delete']
+  var header = table.createTHead();
+  var row = header.insertRow(-1);
+
+  for (i = 0; i < headerCount; i++) {
+    var cell = row.insertCell(i)
+    cell.innerHTML = headerNames[i]
+  }
+
+}
+
+function clearTable(table) {
+  $(table).remove()
 }

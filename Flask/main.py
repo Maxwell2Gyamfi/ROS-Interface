@@ -3,7 +3,7 @@ from flask import send_file, render_template, Response, request, send_from_direc
 import json
 import types
 from moveit_class import *
-from wayPointsDAO import insertWaypoint
+from wayPointsDAO import *
 
 
 app = Flask(__name__)
@@ -52,6 +52,20 @@ def saveWaypoint():
         waypoint = request.json
         insertWaypoint(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/deleteWaypoint', methods=['GET', 'POST'])
+def deleteWaypoint():
+    if request.method == 'POST':
+        waypointName = request.json
+        deleteSelectedWaypoint(waypointName)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/getAllWaypoints')
+def getAllWaypoints():
+    waypoints = retrieveAllWaypoints()
+    return json.dumps({'success': True, 'waypoints': waypoints}), 200, {'ContentType': 'application/json'}
 
 
 def parse_response(data):

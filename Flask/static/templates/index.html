@@ -91,11 +91,11 @@
         <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
         <div>
           <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
-          <button onclick="addWayPoint()">Add WaypPoint</button>
+          <button onclick="addWayPoint()">Add WayPoint</button>
         </div>
 
         <div>
-          <button>Load All WayPoints</button>
+          <button onclick="loadAllWaypoints()">Load All WayPoints</button>
           <button>Run All WayPoints</button>
           <button>Delete WayPoint</button>
         </div>
@@ -144,6 +144,28 @@
 
     <div id="plots">Plots</div>
     <div id="tables">Tables</div> -->
+  </div>
+  <div id="waypoints_table">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Joint 1</th>
+          <th>Joint 2</th>
+          <th>Joint 3</th>
+          <th>Joint 4</th>
+          <th>Joint 5</th>
+          <th>Joint 6</th>
+          <th>Joint 7</th>
+          <th>Delete</th>
+          <th>Run</th>
+        </tr>
+      </thead>
+
+    </table>
+
   </div>
 
   <script src="static/scripts/main.js"></script>

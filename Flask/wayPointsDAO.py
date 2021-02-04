@@ -48,23 +48,32 @@ def insertWaypoint(obj):
         cur = conn.cursor()
         cur.execute(sql, data_tuple)
         conn.commit()
-        msg = "Record successfully added"
-        print('hello')
-        retrieveWaypoints()
 
     except Error as e:
         print(e)
 
 
-def retrieveWaypoints():
+def retrieveAllWaypoints():
     try:
         conn = create_connection(database)
         sql = "SELECT * FROM waypoints"
         cur = conn.cursor()
         cur.execute(sql)
         rows = cur.fetchall()
-        for row in rows:
-            print(row)
+
+    except Error as e:
+        print(e)
+
+    return rows
+
+
+def deleteSelectedWaypoint(wayPointName):
+    try:
+        conn = create_connection(database)
+        sql = "DELETE FROM waypoints WHERE name=?"
+        cur = conn.cursor()
+        cur.execute(sql, (wayPointName))
+        conn.commit()
     except Error as e:
         print(e)
 
