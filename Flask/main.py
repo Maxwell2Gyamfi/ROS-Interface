@@ -58,7 +58,18 @@ def saveWaypoint():
 def deleteWaypoint():
     if request.method == 'POST':
         waypointName = request.json
+        print(waypointName)
         deleteSelectedWaypoint(waypointName)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/runWaypoint', methods=['GET', 'POST'])
+def runWaypoint():
+    if request.method == 'POST':
+        waypointName = request.json
+        print(waypointName)
+        waypoint = retrieveWaypoint(waypointName)
+        print(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 

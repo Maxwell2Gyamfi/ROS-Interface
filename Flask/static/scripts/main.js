@@ -266,6 +266,37 @@ function loadAllWaypoints() {
 
 }
 
+function runSelectedWaypoint(id) {
+  jQuery.ajax({
+    url: '/runWaypoint',
+    type: "POST",
+    data: JSON.stringify(id),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function (e) {
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+}
+
+function deleteSelectedWaypoint(id) {
+  jQuery.ajax({
+    url: '/deleteWaypoint',
+    type: "POST",
+    data: JSON.stringify(id),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function (e) {
+      loadAllWaypoints()
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+}
+
 function createWaypointsTable(obj) {
   createTableHeader()
   obj.waypoints.forEach(waypoint => {
@@ -312,6 +343,14 @@ function appendWaypoints(obj) {
   var runWaypoint = document.createElement('button')
   var deleteWaypoint = document.createElement('button')
 
+  runWaypoint.onclick = function () {
+    runSelectedWaypoint(this.id)
+  }
+
+  deleteWaypoint.onclick = function () {
+    deleteSelectedWaypoint(this.id)
+  }
+
   runWaypoint.innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
   deleteWaypoint.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>'
 
@@ -323,12 +362,14 @@ function appendWaypoints(obj) {
 
   var itemA = document.createElement('td')
   var itemB = document.createElement('td')
-  itemA.append(deleteWaypoint)
+  deleteWaypoint.id = obj[1]
+  runWaypoint.id = obj[1]
   itemB.append(runWaypoint)
+  itemA.append(deleteWaypoint)
 
   row.append(items[0], items[1], items[2], items[3], items[4],
     items[5], items[6], items[7], items[8], items[9], items[10],
-    items[11], items[12], itemA, itemB)
+    items[11], items[12], itemB, itemA)
 
   wayPointsTable.append(row)
 }

@@ -94,5 +94,8 @@ def sendCurrentJoints():
 def getCurrentPoseVal():
     pose = {'orientation': {'w': 1.0},
             'position': {'x': 0.2, 'y': 0.4, 'z': 2.0}}
-
     return pose
+
+
+def runSelectedWaypoint():
+    print('running wypoint')

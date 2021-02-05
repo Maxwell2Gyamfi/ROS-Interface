@@ -19,14 +19,7 @@
     <div id="logo">
       <img src="static/images/amrc.jpg" alt="" srcset="">
     </div>
-    <nav id="header">
-      <ul>
-        <li>Overview</li>
-        <li>Robot and Cell</li>
-        <li>Sensors</li>
-        <li>Analysis</li>
-      </ul>
-    </nav>
+
     <div id="commands">
 
       <h3 id="title"><i class="fa fa-cog" aria-hidden="true"></i> User Settings</h3>
@@ -90,7 +83,8 @@
       <details>
         <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
         <div>
-          <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
+          <input type="text" name="waypoint" placeholder="New waypoint Name (Adjust coordinates and joints?)"
+            id="newwaypoint">
 
         </div>
 
@@ -147,9 +141,7 @@
   <div id="wayPointsModal" class="modal">
     <div id="waypointsDiv" class="modal-content">
       <span class="close">&times;</span>
-      <table id="wayPointsTable">
-
-      </table>
+      <table id="wayPointsTable"></table>
 
     </div>
   </div>

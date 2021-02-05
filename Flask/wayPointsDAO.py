@@ -67,12 +67,25 @@ def retrieveAllWaypoints():
     return rows
 
 
+def retrieveWaypoint(wayPointName):
+    try:
+        conn = create_connection(database)
+        sql = "SELECT * FROM waypoints WHERE name=?"
+        cur = conn.cursor()
+        cur.execute(sql, (wayPointName,))
+        record = cur.fetchone()
+        cur.close()
+    except Error as e:
+        print(e)
+    return record
+
+
 def deleteSelectedWaypoint(wayPointName):
     try:
         conn = create_connection(database)
         sql = "DELETE FROM waypoints WHERE name=?"
         cur = conn.cursor()
-        cur.execute(sql, (wayPointName))
+        cur.execute(sql, (wayPointName,))
         conn.commit()
     except Error as e:
         print(e)

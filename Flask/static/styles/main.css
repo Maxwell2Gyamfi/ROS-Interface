@@ -6,10 +6,14 @@
   --alternativeLight: #e31566;
 }
 
+body{
+  font-family: 'PT Sans', sans-serif;
+}
+
 html {
   box-sizing: border-box;
   overflow: hidden;
-  font-family: 'PT Sans', sans-serif;
+  /* font-family: 'PT Sans', sans-serif; */
 }
 #container {
   height: 98vh;
@@ -18,7 +22,7 @@ html {
   grid-template: 1fr 5fr 2fr/ 1fr 1fr 1fr;
   gap: 2px;
   grid-template-areas:
-    "logo header header"
+    "logo visualization visualization"
     "commands visualization visualization"
     "commands visualization visualization";
 }
@@ -90,6 +94,7 @@ html {
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
+  font-family: 'PT Sans', sans-serif;
 }
 #selectedCommand {
   grid-area: selectedCommand;
@@ -286,6 +291,7 @@ label {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
+  padding-top: 5px;
   border: 1px solid #888;
   width: 80%;
 }
@@ -319,11 +325,18 @@ th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
-  color: white;
+  color: var(--secondaryLight);
+  background-color: var(--primaryDark);
 }
 
 #wayPointsModal button
 {
   font-size: large;
+  background-color: transparent;
+  background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
+
