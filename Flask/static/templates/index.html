@@ -32,7 +32,7 @@
       <h3 id="title"><i class="fa fa-cog" aria-hidden="true"></i> User Settings</h3>
 
       <details>
-        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Pose Goal</summary>
+        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> New Pose</summary>
         <div id="coordinates">
 
           <input type="number" name="wCoord" id="wCoord" placeholder="set w:">
@@ -91,13 +91,12 @@
         <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
         <div>
           <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
-          <button onclick="addWayPoint()">Add WayPoint</button>
+
         </div>
 
         <div>
-          <button onclick="loadAllWaypoints()">Load All WayPoints</button>
-          <button>Run All WayPoints</button>
-          <button>Delete WayPoint</button>
+          <button onclick="addWayPoint()">Add WayPoint</button>
+          <button onclick="loadAllWaypoints()">Display WayPoints</button>
         </div>
 
       </details>
@@ -145,27 +144,14 @@
     <div id="plots">Plots</div>
     <div id="tables">Tables</div> -->
   </div>
-  <div id="waypoints_table">
+  <div id="wayPointsModal" class="modal">
+    <div id="waypointsDiv" class="modal-content">
+      <span class="close">&times;</span>
+      <table id="wayPointsTable">
 
-    <table>
-      <thead>
-        <tr>
-          <th>Number</th>
-          <th>Name</th>
-          <th>Joint 1</th>
-          <th>Joint 2</th>
-          <th>Joint 3</th>
-          <th>Joint 4</th>
-          <th>Joint 5</th>
-          <th>Joint 6</th>
-          <th>Joint 7</th>
-          <th>Delete</th>
-          <th>Run</th>
-        </tr>
-      </thead>
+      </table>
 
-    </table>
-
+    </div>
   </div>
 
   <script src="static/scripts/main.js"></script>

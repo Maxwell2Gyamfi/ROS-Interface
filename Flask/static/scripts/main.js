@@ -267,24 +267,70 @@ function loadAllWaypoints() {
 }
 
 function createWaypointsTable(obj) {
-  wayPointsTable = document.createElement('table')
-  createTableHeader(wayPointsTable)
-  for (i = 0; i < obj.waypoints.length; i++) {
+  createTableHeader()
+  obj.waypoints.forEach(waypoint => {
+    appendWaypoints(waypoint)
+  })
 
+  var span = document.getElementsByClassName("close")[0];
+  span.onclick = function () {
+    document.getElementById('wayPointsModal').style.display = 'none'
   }
+  document.getElementById('wayPointsModal').style.display = 'block'
+
+}
+function createTableHeader() {
+
+  var headerNames = ['ID', 'Name', 'Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint5', 'Joint6', 'Joint7', 'w', 'x', 'y', 'z', 'Run', 'Delete']
+
+  var wayPointsThead = document.createElement('thead')
+  var wayPointsHeaderTrow = document.createElement('tr')
+  var wayPointsTbody = document.createElement('tbody')
+
+  var wayPointsTable = document.getElementById('wayPointsTable')
+  wayPointsTable.innerHTML = ''
+
+  headerNames.forEach(header => {
+    var tableHead = document.createElement('th')
+    tableHead.innerHTML = header
+    wayPointsHeaderTrow.append(tableHead)
+  })
+
+  wayPointsThead.append(wayPointsHeaderTrow)
+  wayPointsTable.append(wayPointsThead)
+  wayPointsTable.append(wayPointsTbody)
+  document.getElementById('waypointsDiv').append(wayPointsTable)
+
 }
 
-function createTableHeader(table) {
+function appendWaypoints(obj) {
 
-  var headerNames = ['Number', 'Name', 'Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint4', 'Joint5', 'Joint6', 'Joint7', 'w', 'x', 'y', 'z', 'Run', 'Delete']
-  var header = table.createTHead();
-  var row = header.insertRow(-1);
+  var wayPointsTable = document.getElementById('wayPointsTable')
+  var row = document.createElement('tr')
+  var items = []
 
-  for (i = 0; i < headerCount; i++) {
-    var cell = row.insertCell(i)
-    cell.innerHTML = headerNames[i]
+  var runWaypoint = document.createElement('button')
+  var deleteWaypoint = document.createElement('button')
+
+  runWaypoint.innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+  deleteWaypoint.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>'
+
+  for (i = 0; i < obj.length; i++) {
+    var item = document.createElement('td')
+    item.innerText = obj[i]
+    items.push(item)
   }
 
+  var itemA = document.createElement('td')
+  var itemB = document.createElement('td')
+  itemA.append(deleteWaypoint)
+  itemB.append(runWaypoint)
+
+  row.append(items[0], items[1], items[2], items[3], items[4],
+    items[5], items[6], items[7], items[8], items[9], items[10],
+    items[11], items[12], itemA, itemB)
+
+  wayPointsTable.append(row)
 }
 
 function clearTable(table) {

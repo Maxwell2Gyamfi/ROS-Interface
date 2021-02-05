@@ -1,6 +1,15 @@
+:root {
+  --primaryLight: #e6f3ff;
+  --primaryDark: #42a5f5;
+  --secondaryDark: #181818;
+  --secondaryLight: #ffffff;
+  --alternativeLight: #e31566;
+}
+
 html {
   box-sizing: border-box;
   overflow: hidden;
+  font-family: 'PT Sans', sans-serif;
 }
 #container {
   height: 98vh;
@@ -96,8 +105,9 @@ html {
   justify-content: center;
 }
 
-button {
-  background-color: black;
+#container button {
+  color: var(--secondaryLight);
+  background-color: var(--primaryDark);
   border: none;
   color: white;
   padding: 16px 32px;
@@ -106,6 +116,7 @@ button {
   cursor: pointer;
   border-radius: 10px;
   outline:0;
+  font-family: 'PT Sans', sans-serif;
 }
 .danger {
   background-color: #f44336;
@@ -224,9 +235,10 @@ input[type="submit"]:hover {
   box-shadow: 0 0 2px #999 inset, 0 0 0 13px #fff inset, 0 0 3px 3px #dcdcdc;
 }
 .range-slider .range-value {
-  color: #fff;
+  /* color: #fff; */
   /* background-color:#0775c0; */
-  background-color:black;
+  color: var(--secondaryLight);
+  background-color: var(--primaryDark);
   /* font-size: 18px; */
   font-weight: 600;
   text-align: center;
@@ -245,8 +257,8 @@ label {
   font-weight: bold;
   border-radius: 30% 0 30% 30%;
   text-align: center;
-  color: #fff;
-  background-color:black;
+  color: var(--secondaryLight);
+  background-color: var(--primaryDark);
   padding: 5px 5px;
 }
 #title{
@@ -255,3 +267,63 @@ label {
   font-size: 1.25rem;
 }
 
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+table{
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+#wayPointsModal button
+{
+  font-size: large;
+}
