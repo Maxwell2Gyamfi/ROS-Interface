@@ -34,23 +34,21 @@
                 <h1>Register Account</h1>
             </div>
             <div class="form-content">
-                <form>
+                <form method="POST">
                     <div class="form-group"><label for="username">Username</label><input type="text" id="username"
                             name="username" required="required"></div>
                     <div class="form-group"><label for="usersurname">Surname</label><input type="text" id="usersurname"
                             name="usersurname" required="required"></div>
-                    <div class="form-group"><label for="password">Password</label><input type="password" id="password"
-                            name="password" required="required"></div>
+                    <div class="form-group"><label for="password">Password</label><input type="password"
+                            id="userpassword" name="password" required="required"></div>
                     <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
                             name="email" required="required"></div>
-                    <div class="form-group"><button onclick="registerAccount()">Register</button></div>
-                    <span id="msg"></span>
+                    <div class="form-group"><button id="registerMe">Register</button></div>
                 </form>
             </div>
         </div>
     </div>
 </body>
-<script src="static/scripts/main.js"></script>
 <script>
     $(document).ready(function () {
         var panelOne = $('.form-panel.two').height(),
@@ -76,7 +74,22 @@
                 'height': panelOne
             }, 200);
         });
+
+        $('#registerMe').on('click', function (e) {
+            username = $('#username').val()
+            surname = $('#usersurname').val()
+            email = $('#email').val()
+            password = $('#userpassword').val()
+
+            console.log(username)
+            console.log(surname)
+            console.log(email)
+            console.log(password)
+        })
+
     });
 </script>
+
+
 
 </html>

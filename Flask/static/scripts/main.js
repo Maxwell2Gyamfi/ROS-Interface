@@ -278,20 +278,7 @@ function deleteSelectedWaypoint(id) {
 }
 
 function registerAccount() {
-  username = document.getElementById('username')
-  surname = document.getElementById('usersurname')
-  email = document.getElementById('email')
-  password = document.getElementById('password')
 
-
-
-  if (username.value != '' && surname.value != '' && email.value != '' && password.value != '') {
-    document.getElementById('msg').innerHTML = ''
-    document.getElementById('msg').innerHTML = 'All fields completed'
-  }
-  else {
-    document.getElementById('msg').innerHTML = 'Please complete all fields'
-  }
 }
 
 function createWaypointsTable(obj) {
