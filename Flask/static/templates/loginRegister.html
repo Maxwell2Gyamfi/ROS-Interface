@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/styles/login.css" />
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <title>Document</title>
 </head>
@@ -34,7 +35,7 @@
                 <h1>Register Account</h1>
             </div>
             <div class="form-content">
-                <form method="POST">
+                <form id="registration">
                     <div class="form-group"><label for="username">Username</label><input type="text" id="username"
                             name="username" required="required"></div>
                     <div class="form-group"><label for="usersurname">Surname</label><input type="text" id="usersurname"
@@ -44,6 +45,7 @@
                     <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
                             name="email" required="required"></div>
                     <div class="form-group"><button id="registerMe">Register</button></div>
+                    <span id="msg"></span>
                 </form>
             </div>
         </div>
@@ -75,21 +77,8 @@
             }, 200);
         });
 
-        $('#registerMe').on('click', function (e) {
-            username = $('#username').val()
-            surname = $('#usersurname').val()
-            email = $('#email').val()
-            password = $('#userpassword').val()
-
-            console.log(username)
-            console.log(surname)
-            console.log(email)
-            console.log(password)
-        })
-
     });
 </script>
-
-
+<script src="static/scripts/main.js"></script>
 
 </html>

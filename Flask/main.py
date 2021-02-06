@@ -5,7 +5,7 @@ import types
 from moveit_class import *
 from wayPointsDAO import *
 from userDAO import *
-
+from userAccount import User
 
 app = Flask(__name__)
 
@@ -29,11 +29,11 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # username = request.form['username']
-        # usersurname = request.form['usersurname']
-        # password = request.form['password']
-        # email = request.form['email']
-        print('hello')
+        obj = request.json
+        print(obj)
+        user = User(obj['firstname'], obj['surname'],
+                    obj['email'], obj['password'])
+        print(user)
 
 
 @app.route('/getJoints')

@@ -30,6 +30,29 @@ class Waypoint {
 
 }
 
+class User {
+  constructor(firstname, surname, email, password) {
+    this.firstname = firstname
+    this.surname = surname
+    this.password = password
+    this.email = email
+  }
+
+  getFirstName() {
+    return this.firstname
+  }
+  getSurname() {
+    return this.surname
+  }
+  getPassword() {
+    return this.password
+  }
+  getEmail() {
+    return this.email
+  }
+
+}
+
 function initROS() {
   ros = new ROSLIB.Ros({
     url: 'ws://localhost:9090'
@@ -46,6 +69,7 @@ $(document).ready(function () {
   rangeSlider();
   requestJointValues()
   getCurrentPoseValues()
+  grabUserDetails()
 });
 
 function displayConnectionMessage() {
@@ -361,3 +385,40 @@ function appendWaypoints(obj) {
 function clearTable(table) {
   $(table).remove()
 }
+
+function grabUserDetails() {
+
+  $('#registerMe').on('click', function (e) {
+    username = $('#username').val()
+    surname = $('#usersurname').val()
+    email = $('#email').val()
+    password = $('#userpassword').val()
+
+    if (username != '' && surname != '' && email != '' && password != '') {
+      user = new User(username, surname, email, password)
+      registerUser(user)
+    }
+    else {
+      document.getElementById('msg').innerText = "Please fill all the fields"
+    }
+
+  })
+}
+
+function registerUser(user) {
+  jQuery.ajax({
+    url: '/register',
+    type: "POST",
+    data: JSON.stringify(user),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function (e) {
+      document.getElementById('registration').reset()
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+
+}
+
