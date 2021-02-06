@@ -119,26 +119,6 @@ function setCurrentPoseValues(pose) {
 
 }
 
-function planCartesian() {
-  alert('planning cartesian')
-}
-
-function executePlan() {
-  alert('executing plan')
-}
-
-function loadAllWaypoints() {
-  alert('loading waypoints')
-}
-
-function runAllWaypoints() {
-  alert('running all waypoints')
-}
-
-function saveWaypoint() {
-  alert('saving waypoint')
-}
-
 function addWayPoint() {
   newwaypoint = document.getElementById('newwaypoint')
   if (newwaypoint.value == '') {
@@ -295,6 +275,23 @@ function deleteSelectedWaypoint(id) {
       console.log(error);
     }
   });
+}
+
+function registerAccount() {
+  username = document.getElementById('username')
+  surname = document.getElementById('usersurname')
+  email = document.getElementById('email')
+  password = document.getElementById('password')
+
+
+
+  if (username.value != '' && surname.value != '' && email.value != '' && password.value != '') {
+    document.getElementById('msg').innerHTML = ''
+    document.getElementById('msg').innerHTML = 'All fields completed'
+  }
+  else {
+    document.getElementById('msg').innerHTML = 'Please complete all fields'
+  }
 }
 
 function createWaypointsTable(obj) {

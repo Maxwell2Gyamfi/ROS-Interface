@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles/login.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="loginImage"><img src="/static/images/amrc.jpg"></div>
+    <div class="form">
+        <div class="form-toggle"></div>
+        <div class="form-panel one">
+            <div class="form-header">
+                <h1>Account Login</h1>
+            </div>
+            <div class="form-content">
+                <form onsubmit="{{ url_for('login') }}" method="POST">
+                    <div class="form-group"><label for="useremail">Email</label><input type="email" id="useremail"
+                            name="useremail" required="required" /></div>
+                    <div class="form-group"><label for="password">Password</label><input type="password" id="password"
+                            name="password" required="required" /></div>
+                    <div class="form-group"><label class="form-remember"><input type="checkbox" />Remember Me</label><a
+                            class="form-recovery" href="#">Forgot Password?</a></div>
+                    <div class="form-group"><button type="submit">Log In</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="form-panel two">
+            <div class="form-header">
+                <h1>Register Account</h1>
+            </div>
+            <div class="form-content">
+                <form>
+                    <div class="form-group"><label for="username">Username</label><input type="text" id="username"
+                            name="username" required="required"></div>
+                    <div class="form-group"><label for="usersurname">Surname</label><input type="text" id="usersurname"
+                            name="usersurname" required="required"></div>
+                    <div class="form-group"><label for="password">Password</label><input type="password" id="password"
+                            name="password" required="required"></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                            name="email" required="required"></div>
+                    <div class="form-group"><button onclick="registerAccount()">Register</button></div>
+                    <span id="msg"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="static/scripts/main.js"></script>
+<script>
+    $(document).ready(function () {
+        var panelOne = $('.form-panel.two').height(),
+            panelTwo = $('.form-panel.two')[0].scrollHeight;
+
+        $('.form-panel.two').not('.form-panel.two.active').on('click', function (e) {
+            e.preventDefault();
+
+            $('.form-toggle').addClass('visible');
+            $('.form-panel.one').addClass('hidden');
+            $('.form-panel.two').addClass('active');
+            $('.form').animate({
+                'height': panelTwo
+            }, 200);
+        });
+
+        $('.form-toggle').on('click', function (e) {
+            e.preventDefault();
+            $(this).removeClass('visible');
+            $('.form-panel.one').removeClass('hidden');
+            $('.form-panel.two').removeClass('active');
+            $('.form').animate({
+                'height': panelOne
+            }, 200);
+        });
+    });
+</script>
+
+</html>

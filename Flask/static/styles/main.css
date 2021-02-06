@@ -13,7 +13,6 @@ body{
 html {
   box-sizing: border-box;
   overflow: hidden;
-  /* font-family: 'PT Sans', sans-serif; */
 }
 #container {
   height: 98vh;
@@ -339,4 +338,3 @@ th {
     overflow: hidden;
     outline:none;
 }
-

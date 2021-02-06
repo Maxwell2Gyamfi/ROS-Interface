@@ -58,7 +58,9 @@ def verifyUser(email, password):
             if(checkPassword(hashedPassword, password)):
                 return True
             else:
-                return False
+                return 'Invalid Password'
+        else:
+            return 'Account not found'
 
     except Error as e:
         print(e)

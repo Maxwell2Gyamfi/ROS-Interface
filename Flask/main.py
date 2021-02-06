@@ -4,17 +4,36 @@ import json
 import types
 from moveit_class import *
 from wayPointsDAO import *
+from userDAO import *
 
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def indexPage():
+@app.route('/', methods=['GET', 'POST'])
+def login():
     try:
-        return send_file('static/templates/index.html', attachment_filename='index.html')
+        if request.method == 'GET':
+            return send_file('static/templates/loginRegister.html', attachment_filename='loginRegister.html')
+        elif request.method == 'POST':
+            useremail = request.form['useremail']
+            password = request.form['password']
+            msg = verifyUser(useremail, password)
+            if msg is not True:
+                print(msg)
+
     except Exception as e:
         return str(e)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        # username = request.form['username']
+        # usersurname = request.form['usersurname']
+        # password = request.form['password']
+        # email = request.form['email']
+        print('hello')
 
 
 @app.route('/getJoints')
