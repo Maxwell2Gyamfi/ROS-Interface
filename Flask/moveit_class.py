@@ -34,6 +34,9 @@ class RosMoveit():
         joint_goal[6] = 0
 
         self.move_group.go(joint_goal, wait=True)
+    
+    def setGroupName(self,groupName):
+        self.group_name = groupName
 
     def go_to_pose_goal(self, coordinates):
         pose_goal = geometry_msgs.msg.Pose()

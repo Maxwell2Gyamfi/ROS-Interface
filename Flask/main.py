@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import send_file, render_template, Response, request, send_from_directory
+from flask import send_file, render_template, Response, request, send_from_directory, url_for, session, flash, redirect
 import json
 import types
 from moveit_class import *
@@ -8,22 +8,39 @@ from userDAO import *
 from userAccount import User
 
 app = Flask(__name__)
+app.secret_key = 'your secret key'
 
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
     try:
         if request.method == 'GET':
-            return send_file('static/templates/loginRegister.html', attachment_filename='loginRegister.html')
+            return render_template('loginRegister.html', msg='')
         elif request.method == 'POST':
             useremail = request.form['useremail']
             password = request.form['password']
-            msg = verifyUser(useremail, password)
-            if msg is not True:
-                print(msg)
+            userid, username = verifyUser(useremail, password)
+            if userid is False:
+                msg = username
+                return render_template('loginRegister.html', msg=msg)
+            else:
+                session['loggedin'] = True
+                session['id'] = int(userid)
+                session['username'] = username
+                return render_template('index.html', msg='')
 
     except Exception as e:
         return str(e)
+
+
+@app.route('/signout', methods=['GET', 'POST'])
+def signout():
+    print('sdfds')
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    # Redirect to login page
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -33,7 +50,19 @@ def register():
         print(obj)
         user = User(obj['firstname'], obj['surname'],
                     obj['email'], obj['password'])
-        print(user)
+        message = insertUser(user)
+        if message == True:
+            return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+        else:
+            return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@app.route('/setRobot', methods=['GET', 'POST'])
+def setRobot():
+    if request.method == 'POST':
+        name = request.json
+        print(name)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 @app.route('/getJoints')

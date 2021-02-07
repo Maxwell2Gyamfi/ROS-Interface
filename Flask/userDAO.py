@@ -33,8 +33,11 @@ def insertUser(obj):
         hashedPassword = hash_password(password)
         obj.setPassword(hashedPassword)
 
+        userTuple = obj.getUser()
+        print(userTuple)
+
         cur = conn.cursor()
-        cur.execute(sql, obj)
+        cur.execute(sql, userTuple)
         conn.commit()
 
         return True
@@ -54,13 +57,13 @@ def verifyUser(email, password):
         record = cur.fetchone()
 
         if record != None:
-            hashedPassword = dict(record)['password']
+            hashedPassword = record[4]
             if(checkPassword(hashedPassword, password)):
-                return True
+                return record[0], record[1]
             else:
-                return 'Invalid Password'
+                return False, 'Invalid Password, please try again'
         else:
-            return 'Account not found'
+            return False, 'Invalid Credentials, please sign up'
 
     except Error as e:
         print(e)
