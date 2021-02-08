@@ -324,7 +324,7 @@ label {
   padding: 20px;
   padding-top: 5px;
   border: 1px solid #888;
-  width: 80%;
+  width: fit-content;
 }
 
 /* The Close Button */
@@ -527,7 +527,7 @@ th {
   border: var(--border-size) solid black;
   color: var(--color-secondary);
   background-color: var(--color-primary);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: var(--font-family);
   text-transform: lowercase;
   text-shadow: var(--shadow) 2px 2px;
@@ -563,3 +563,15 @@ th {
 .multi-button button:active {
   transform: translateY(var(--border-size));
 }
+@media only screen and (min-device-width: 360px) and (orientation: portrait) { 
+    #container{
+      grid-template-rows: 1fr 2fr 2fr;
+      grid-template-areas: 'logo'
+                          'commands'
+                          'visualization';          
+    position: absolute;
+    margin:0px;
+    height: fit-content;
+    margin-bottom: 10px;
+    }
+  }

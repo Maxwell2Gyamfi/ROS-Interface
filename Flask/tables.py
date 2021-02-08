@@ -52,7 +52,6 @@ def initTables():
     if conn is not None:
         create_table(conn, sql_create_waypoints_table)
         create_table(conn, sql_create_users_table)
-        print('success creating database table')
         conn.close()
 
     else:
