@@ -1,15 +1,17 @@
 var ros;
 var totalJoints = 7
-var headerCount = 16
+var headerCount = 17
+var currentGroup = ''
 
 alertify.set('notifier', 'position', 'top-center');
 alertify.set('notifier', 'delay', 3);
 
 class Waypoint {
-  constructor(coordinates, jointsValues, wayPointName) {
+  constructor(coordinates, jointsValues, wayPointName, groupName) {
     this.coordinates = coordinates
     this.jointValues = jointsValues
     this.wayPointName = wayPointName
+    this.groupName = groupName
   }
 
   getCoordinates() {
@@ -21,6 +23,10 @@ class Waypoint {
   getJointValues() {
     return this.jointValues
   }
+
+  getGroupName() {
+    return this.groupName
+  }
   setCoordinates(coordinates) {
     this.coordinates = coordinates
   }
@@ -29,6 +35,9 @@ class Waypoint {
   }
   setJointValues(jointValues) {
     this.jointValues = jointValues
+  }
+  setGroupName(groupName) {
+    this.groupName = groupName
   }
 
 }
@@ -73,6 +82,7 @@ $(document).ready(function () {
   requestJointValues()
   getCurrentPoseValues()
   grabUserDetails()
+  getRobotType()
 });
 
 function displayConnectionMessage() {
@@ -81,19 +91,16 @@ function displayConnectionMessage() {
   var p = document.createElement("p");
 
   ros.on('connection', function () {
-    document.getElementById('connectionStatus').style.backgroundColor = '#4caf50'
     document.getElementById('connectionStatus').innerHTML = 'Connected'
     message = ('Connected to Ros')
   });
 
   ros.on('error', function (error) {
-    document.getElementById('connectionStatus').style.backgroundColor = '#e31566'
     document.getElementById('connectionStatus').innerHTML = 'Closed'
     message = ('Error connecting to Ros')
   });
 
   ros.on('close', function () {
-    document.getElementById('connectionStatus').style.backgroundColor = '#e31566'
     document.getElementById('connectionStatus').innerHTML = 'Closed'
     message = ('Connection to Ros closed')
   });
@@ -155,7 +162,8 @@ function addWayPoint() {
     var jointValues = getJointValues()
     var coordinates = getGoalPoseValues()
     var waypointName = newwaypoint.value
-    var waypoint = new Waypoint(coordinates, jointValues, waypointName)
+    var groupname = currentGroup
+    var waypoint = new Waypoint(coordinates, jointValues, waypointName, groupname)
     saveWaypoint(waypoint)
   }
 }
@@ -191,7 +199,7 @@ function saveWaypoint(waypoint) {
       alertify.success('Saved waypoint with current pose and joint values');
     },
     error: function (error) {
-      console.log(error);
+      alertify.error(error);
     }
   });
 }
@@ -223,7 +231,7 @@ function setJointValues() {
       alertify.success('Successfully set joint values');
     },
     error: function (error) {
-      console.log(error);
+      alertify.error(error);
     }
   });
 }
@@ -242,7 +250,7 @@ function setGoalPoseValues() {
         alertify.success('Successfully set goal pose');
       },
       error: function (error) {
-        console.log(error);
+        alertify.error(error);
       }
     });
   }
@@ -265,6 +273,7 @@ function getCurrentPoseValues() {
 
 function loadAllWaypoints() {
 
+  var groupName = currentGroup
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -274,7 +283,7 @@ function loadAllWaypoints() {
       }
     }
   }
-  xhttp.open("GET", "/getAllWaypoints", true);
+  xhttp.open("GET", "/getAllWaypoints?group=" + groupName, true);
   xhttp.send();
 
 }
@@ -291,7 +300,7 @@ function runSelectedWaypoint(id) {
       alertify.success('Running selected waypoint');
     },
     error: function (error) {
-      console.log(error);
+      alertify.error(error);
     }
   });
 }
@@ -309,7 +318,7 @@ function deleteSelectedWaypoint(id) {
       loadAllWaypoints()
     },
     error: function (error) {
-      console.log(error);
+      alertify.error(error);
     }
   });
 }
@@ -333,7 +342,7 @@ function createWaypointsTable(obj) {
 }
 function createTableHeader() {
 
-  var headerNames = ['ID', 'Name', 'Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint5', 'Joint6', 'Joint7', 'w', 'x', 'y', 'z', 'Run', 'Delete']
+  var headerNames = ['ID', 'Name', 'GroupName', 'Joint1', 'Joint2', 'Joint3', 'Joint4', 'Joint5', 'Joint6', 'Joint7', 'w', 'x', 'y', 'z', 'Run', 'Delete']
 
   var wayPointsThead = document.createElement('thead')
   var wayPointsHeaderTrow = document.createElement('tr')
@@ -390,7 +399,7 @@ function appendWaypoints(obj) {
 
   row.append(items[0], items[1], items[2], items[3], items[4],
     items[5], items[6], items[7], items[8], items[9], items[10],
-    items[11], items[12], itemB, itemA)
+    items[11], items[12], items[13], itemB, itemA)
 
   wayPointsTable.append(row)
 }
@@ -413,7 +422,7 @@ function grabUserDetails() {
     }
     else {
 
-      alertify.success('Successfully fill in all fields');
+      alertify.error('Please fill in all fields');
     }
 
   })
@@ -506,6 +515,8 @@ $(function () {
     defaultselectbox.val($(this).text());
     $('.selected-item p span').text($('.selectLabel').text());
     setRobotType($('.selectLabel').text())
+    $('#currentGroup').text('Current: ' + $(this).text())
+    currentGroup = $(this).text()
   });
 
 });
@@ -541,7 +552,24 @@ function setRobotType(robotName) {
       alertify.success('Successfully set robot type to ' + robotName);
     },
     error: function (error) {
-      console.log(error);
+      alertify.error(error);
+    }
+  });
+}
+
+function getRobotType() {
+  jQuery.ajax({
+    url: '/getRobot',
+    type: "GET",
+    data: JSON.stringify(),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function (e) {
+      document.getElementById('currentGroup').innerHTML = 'Current: ' + e.groupname
+      currentGroup = e.groupname
+    },
+    error: function (error) {
+      alertify.error(error);
     }
   });
 }

@@ -24,10 +24,10 @@ def insertWaypoint(obj):
     conn = None
     try:
         conn = create_connection()
-        sql = '''INSERT or REPLACE INTO waypoints(name, joint0, joint1, joint2, joint3, joint4, joint5, joint6, w, x, y, z)
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+        sql = '''INSERT or REPLACE INTO waypoints(name, groupname, joint0, joint1, joint2, joint3, joint4, joint5, joint6, w, x, y, z)
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
-        data_tuple = (obj.get('wayPointName'), float(obj['jointValues'][0]), float(obj['jointValues'][1]), float(obj['jointValues'][2]),
+        data_tuple = (obj.get('wayPointName'), obj.get('groupName'), float(obj['jointValues'][0]), float(obj['jointValues'][1]), float(obj['jointValues'][2]),
                       float(obj['jointValues'][3]), float(obj['jointValues'][4]), float(
                           obj['jointValues'][5]), float(obj['jointValues'][6]),
                       float(obj['coordinates'][0]), float(obj['coordinates'][1]), float(obj['coordinates'][2]), float(obj['coordinates'][3]))
@@ -39,12 +39,12 @@ def insertWaypoint(obj):
         print(e)
 
 
-def retrieveAllWaypoints():
+def retrieveAllWaypoints(group_name):
     try:
         conn = create_connection()
-        sql = "SELECT * FROM waypoints"
+        sql = "SELECT * FROM waypoints where groupname=?"
         cur = conn.cursor()
-        cur.execute(sql)
+        cur.execute(sql, (group_name,))
         rows = cur.fetchall()
 
     except Error as e:

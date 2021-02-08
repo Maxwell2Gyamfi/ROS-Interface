@@ -1,6 +1,12 @@
 
 /* START OF REGISTER & LOGIN */
 
+html{
+	background: url('/static/images/robots.jpg') no-repeat center center fixed;
+	background-size: cover;
+	
+}
+
 body{
     font-family: 'PT Sans', sans-serif;
     overflow: hidden;

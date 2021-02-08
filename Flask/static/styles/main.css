@@ -4,6 +4,15 @@
   --secondaryDark: #181818;
   --secondaryLight: #ffffff;
   --alternativeLight: #e31566;
+  --border-size: 0.125rem;
+  --duration: 250ms;
+  --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --font-family: monospace;
+  --color-primary: white;
+  --color-secondary: black;
+  --color-tertiary: dodgerblue;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --space: 1rem;
 }
 
 *,
@@ -105,14 +114,14 @@ html {
   justify-content: center;
 }
 
-#commandSelect button {
+/* #commandSelect button {
   color: white;
   padding: 16px 32px;
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
   font-family: 'PT Sans', sans-serif;
-}
+} */
 #selectedCommand {
   grid-area: selectedCommand;
   display: flex;
@@ -127,7 +136,7 @@ html {
   justify-content: center;
 }
 
-#container button {
+/* #container button {
   color: var(--secondaryLight);
   background-color: #4285F4;
   border: none;
@@ -139,7 +148,7 @@ html {
   border-radius: 10px;
   outline:0;
   font-family: 'PT Sans', sans-serif;
-}
+} */
 .danger {
   background-color: #e31566;
 } /* Red */
@@ -202,7 +211,7 @@ details[open] summary ~ * {
 
 input[type="number"],
 input[type="text"] {
-  width: 65%;
+  width: 98%;
   padding: 12px 20px;
   margin: 8px 2px;
   display: inline-block;
@@ -228,7 +237,7 @@ input[type="submit"]:hover {
   -webkit-appearance: none;
 }
 .range-slider input[type="range"]::-webkit-slider-thumb {
-  background: #4285F4;;
+  background: #4285F4;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -259,8 +268,9 @@ input[type="submit"]:hover {
 .range-slider .range-value {
   /* color: #fff; */
   /* background-color:#0775c0; */
-  color: var(--secondaryLight);
-  background-color: #4285F4;;
+  border: var(--border-size) solid black;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
   /* font-size: 18px; */
   font-weight: 600;
   text-align: center;
@@ -279,9 +289,11 @@ label {
   font-weight: bold;
   border-radius: 30% 0 30% 30%;
   text-align: center;
-  color: var(--secondaryLight);
-  background-color: #4285F4;;
+  border: var(--border-size) solid black;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
   padding: 5px 5px;
+  margin-left: 5px;
 }
 #title{
   font-weight: 300;
@@ -294,7 +306,7 @@ label {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -344,8 +356,9 @@ th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  color: var(--secondaryLight);
-  background-color: var(--primaryDark);
+  border: var(--border-size) solid black;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
 }
 
 #wayPointsModal button
@@ -360,9 +373,9 @@ th {
 }
 
 .cusSelBlock {
-  height: 50px;
+  height: 60px;
   min-width: 250px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 #cusSelectbox {
   height: 100%;
@@ -449,7 +462,7 @@ th {
   border-bottom: 1px solid #333;
   cursor: pointer;
   display: block;
-  line-height: 50px;
+  line-height: 60px;
   list-style: none;
   opacity: 1;
   padding: 0 50px 0 20px;
@@ -494,4 +507,59 @@ th {
 .feaBlock {
   margin: 20px 0;
   text-align: left;
+}
+.multi-button {
+  display: flex;
+  width: 98%;
+  box-shadow: var(--shadow) 4px 4px;
+  margin-bottom: 5px;
+  margin-left: 2px;
+}
+
+.multi-button button {
+  flex-grow: 1;
+  cursor: pointer;
+  position: relative;
+  padding:
+    calc(var(--space) / 1.125)
+    var(--space)
+    var(--space);
+  border: var(--border-size) solid black;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
+  font-size: 1.5rem;
+  font-family: var(--font-family);
+  text-transform: lowercase;
+  text-shadow: var(--shadow) 2px 2px;
+  transition: flex-grow var(--duration) var(--ease);
+}
+
+.multi-button button + button {
+  border-left: var(--border-size) solid black;
+  margin-left: calc(var(--border-size) * -1);
+}
+
+.multi-button button:hover,
+.multi-button button:focus {
+  flex-grow: 2;
+  color: white;
+  outline: none;
+  text-shadow: none;
+  background-color: var(--color-secondary);
+}
+
+.multi-button button:focus {
+  outline: var(--border-size) dashed var(--color-primary);
+  outline-offset: calc(var(--border-size) * -3);
+}
+
+.multi-button:hover button:focus:not(:hover) {
+  flex-grow: 1;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
+  outline-color: var(--color-tertiary);
+}
+
+.multi-button button:active {
+  transform: translateY(var(--border-size));
 }

@@ -6,9 +6,13 @@ from moveit_class import *
 from wayPointsDAO import *
 from userDAO import *
 from userAccount import User
+from tables import initTables
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
+initTables()
+
+groupType = 'manipulator'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -35,7 +39,6 @@ def login():
 
 @app.route('/signout', methods=['GET', 'POST'])
 def signout():
-    print('sdfds')
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
@@ -59,10 +62,17 @@ def register():
 
 @app.route('/setRobot', methods=['GET', 'POST'])
 def setRobot():
+    global groupType
     if request.method == 'POST':
-        name = request.json
-        print(name)
+        groupType = request.json
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/getRobot', methods=['GET', 'POST'])
+def getRobot():
+    print('python')
+    print(groupType)
+    return json.dumps({'success': True, 'groupname': groupType}), 200, {'ContentType': 'application/json'}
 
 
 @app.route('/getJoints')
@@ -123,7 +133,8 @@ def runWaypoint():
 
 @app.route('/getAllWaypoints')
 def getAllWaypoints():
-    waypoints = retrieveAllWaypoints()
+    group_name = request.args.get('group')
+    waypoints = retrieveAllWaypoints(group_name)
     return json.dumps({'success': True, 'waypoints': waypoints}), 200, {'ContentType': 'application/json'}
 
 
@@ -142,6 +153,7 @@ def parse_response(data):
 def is_json(myjson):
     try:
         json_object = json.loads(myjson)
+        print(json_object)
     except ValueError as e:
         return False
     return True

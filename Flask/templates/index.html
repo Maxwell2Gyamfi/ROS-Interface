@@ -28,23 +28,27 @@
       <div id="modelselection">
         <details>
           <summary><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Robot Model</summary>
-          <select name="" id="cusSelectbox">
-            <option value="manipulator">Manipulator</option>
-            <option value="panda">Panda</option>
-            <option value="uknown">Unknown</option>
-          </select>
+          <div class="multi-button">
+            <select name="" id="cusSelectbox">
+              <option value="manipulator">manipulator</option>
+              <option value="panda">panda</option>
+              <option value="uknown">unknown</option>
+            </select>
+            <button id="currentGroup"></button>
+          </div>
         </details>
       </div>
       <details>
         <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> New Pose</summary>
         <div id="coordinates">
-
           <input type="number" name="wCoord" id="wCoord" placeholder="set w:">
           <input type="number" name="xCoord" id="xCoord" placeholder="set x:">
           <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
           <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
         </div>
-        <button onclick="setGoalPoseValues()">Submit</button>
+        <div class="multi-button">
+          <button onclick="setGoalPoseValues()">Submit</button>
+        </div>
       </details>
       <details>
         <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Joints</summary>
@@ -87,18 +91,18 @@
             <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint6">
             <span class="range-value" id="joint6Span"></span>
           </div>
-
-          <button onclick="setJointValues()">Adjust Joint Values</button>
+          <div class="multi-button">
+            <button onclick="setJointValues()">Adjust Joint Values</button>
+          </div>
         </div>
       </details>
       <details>
         <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
         <div>
           <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
-
         </div>
 
-        <div>
+        <div class="multi-button">
           <button onclick="addWayPoint()">Add WayPoint</button>
           <button onclick="loadAllWaypoints()">Display WayPoints</button>
         </div>
@@ -106,18 +110,25 @@
       </details>
       <details>
         <summary><i class="fa fa-tasks" aria-hidden="true"></i> Plan & Execute</summary>
-        <button onclick="planCartesian()">Plan Cartesian</button>
-        <button onclick="executePlan()">Execute</button>
+        <div class="multi-button">
+          <button onclick="planCartesian()">Plan Cartesian</button>
+          <button onclick="executePlan()">Execute</button>
+        </div>
       </details>
+
       <details>
         <summary><i class="fa fa-eye" aria-hidden="true"></i> Set Visualization</summary>
-        <button>3D URDF</button>
-        <button>Gazebo</button>
-        <button>Robot and Cell</button>
+        <div class="multi-button">
+          <button>3D URDF</button>
+          <button>Gazebo</button>
+          <button>Robot and Cell</button>
+        </div>
       </details>
       <details>
         <summary><i class="fa fa-plug" aria-hidden="true"></i> Connection Status</summary>
-        <button id="connectionStatus"></button>
+        <div class="multi-button">
+          <button id="connectionStatus"></button>
+        </div>
       </details>
       <details>
         <summary><i class="fa fa-line-chart" aria-hidden="true"></i> Performance Plots</summary>
@@ -137,11 +148,15 @@
       </details>
       <details>
         <summary><i class="fa fa-undo" aria-hidden="true"></i> Reset</summary>
-        <button style="background-color:  #e31566;">Reset</button>
+        <div class="multi-button">
+          <button style="background-color:  #e31566;">Reset</button>
+        </div>
       </details>
       <details>
         <summary><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-out</summary>
-        <a href="{{ url_for('signout') }}"><button style="background-color: #e31566;">Logout</button></a>
+        <div class="multi-button">
+          <a href="{{ url_for('signout') }}"><button style="background-color: #e31566;">Logout</button></a>
+        </div>
       </details>
     </div>
 
@@ -151,7 +166,6 @@
     <div id="waypointsDiv" class="modal-content">
       <span class="close">&times;</span>
       <table id="wayPointsTable"></table>
-
     </div>
   </div>
 

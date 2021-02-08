@@ -25,6 +25,7 @@ def initTables():
     sql_create_waypoints_table = """ CREATE TABLE IF NOT EXISTS waypoints(
                                         id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                                         name text UNIQUE,
+                                        groupname text,
                                         joint0 real,
                                         joint1 real,
                                         joint2 real,
@@ -51,7 +52,7 @@ def initTables():
     if conn is not None:
         create_table(conn, sql_create_waypoints_table)
         create_table(conn, sql_create_users_table)
-        print('success')
+        print('success creating database table')
         conn.close()
 
     else:

@@ -37,6 +37,9 @@ class RosMoveit():
     
     def setGroupName(self,groupName):
         self.group_name = groupName
+    
+    def getGroupName(self):
+        return self.group_name
 
     def go_to_pose_goal(self, coordinates):
         pose_goal = geometry_msgs.msg.Pose()
@@ -102,3 +105,7 @@ def getCurrentPoseVal():
 
 def runSelectedWaypoint():
     print('running wypoint')
+
+
+def getGroupName():
+    return "manipulator"
