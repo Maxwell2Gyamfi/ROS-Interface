@@ -249,3 +249,8 @@ body{
   }
 
   /* END OF REGISTER & LOGIN */
+  @media only screen and (min-device-width: 360px) and (orientation: landscape) { 
+   html{
+     overflow: auto;
+   }
+  }
