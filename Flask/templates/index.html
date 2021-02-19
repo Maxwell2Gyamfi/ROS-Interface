@@ -12,8 +12,11 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+    integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -39,61 +42,91 @@
         </details>
       </div>
       <details>
-        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> New Pose</summary>
-        <div id="coordinates">
-          <input type="number" name="wCoord" id="wCoord" placeholder="set w:">
+        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Pose</summary>
+        <div id="coordinates" title="Add New Pose">
+          <input type="number" name="aCoord" id="aCoord" placeholder="set a:">
+          <input type="number" name="bCoord" id="bCoord" placeholder="set b:">
+          <input type="number" name="cCoord" id="cCoord" placeholder="set c:">
           <input type="number" name="xCoord" id="xCoord" placeholder="set x:">
           <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
           <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
+          <div class="multi-button">
+            <button onclick="getGoalPoseValues()">Submit</button>
+          </div>
         </div>
         <div class="multi-button">
-          <button onclick="setGoalPoseValues()">Submit</button>
+          <button onclick="addPose()">New Pose</button>
+          <button onclick="retrievePosesHistory()">Pose History</button>
+        </div>
+        <div id="currentPosesDiv" title="Current Pose">
+          <div class="multi-button">
+            <button id="currentPosesButton">Current Pose</button>
+            <button id="xpose"></button>
+            <button id="ypose"></button>
+            <button id="zpose"></button>
+            <button id="wpose"></button>
+          </div>
         </div>
       </details>
       <details>
         <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Joints</summary>
-        <div class="joints">
+        <div class="joints" style="display: none;" title="Joints in Degrees">
           <div class="range-slider">
             <label>Joint 1</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint0">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint0">
             <span class="range-value" id="joint0Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 2</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint1">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint1">
             <span class="range-value" id="joint1Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 3</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint2">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint2">
             <span class="range-value" id="joint2Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 4</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint3">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint3">
             <span class="range-value" id="joint3Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 5</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint4">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint4">
             <span class="range-value" id="joint4Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 6</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint5">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint5">
             <span class="range-value" id="joint5Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 7</label>
-            <input type="range" value="" min="-10" max="10" range="true" step="0.00001" id="joint6">
+            <input type="range" value="" min="-175" max="175" range="true" step="5" id="joint6">
             <span class="range-value" id="joint6Span"></span>
           </div>
           <div class="multi-button">
-            <button onclick="setJointValues()">Adjust Joint Values</button>
+            <button onclick="grabJointValues()">Confirm</button>
           </div>
+        </div>
+        <div class="multi-button">
+          <button onclick="viewJointsinRadians()">View</button>
+          <button onclick="viewJointsinDegrees()">Adjust</button>
+        </div>
+        <div style="display: none;" id="viewJointInRadians" title="Joints in Radians">
+
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+          <p class="radiansJoints"></p>
+
         </div>
       </details>
       <details>
@@ -162,7 +195,6 @@
 
     <div id="visualization">Visualization
       <!-- <object data="http://localhost:8080" type="" width="100%" height="100%"></object> -->
-
     </div>
   </div>
   <div id="wayPointsModal" class="modal">

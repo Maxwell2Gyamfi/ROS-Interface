@@ -47,11 +47,23 @@ def initTables():
                                 password text
                              );"""
 
+    sql_create_poses_table = """ CREATE TABLE IF NOT EXISTS poses(
+                                id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                groupname text,
+                                a real,
+                                b real,
+                                c real,
+                                x real,
+                                y real,
+                                z real
+                             );"""
+
     conn = create_connection()
 
     if conn is not None:
         create_table(conn, sql_create_waypoints_table)
         create_table(conn, sql_create_users_table)
+        create_table(conn, sql_create_poses_table)
         conn.close()
 
     else:

@@ -7,6 +7,8 @@ from wayPointsDAO import *
 from userDAO import *
 from userAccount import User
 from tables import initTables
+from posesDAO import *
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
@@ -50,7 +52,6 @@ def signout():
 def register():
     if request.method == 'POST':
         obj = request.json
-        print(obj)
         user = User(obj['firstname'], obj['surname'],
                     obj['email'], obj['password'])
         message = insertUser(user)
@@ -70,8 +71,6 @@ def setRobot():
 
 @app.route('/getRobot', methods=['GET', 'POST'])
 def getRobot():
-    print('python')
-    print(groupType)
     return json.dumps({'success': True, 'groupname': groupType}), 200, {'ContentType': 'application/json'}
 
 
@@ -116,7 +115,6 @@ def saveWaypoint():
 def deleteWaypoint():
     if request.method == 'POST':
         waypointName = request.json
-        print(waypointName)
         deleteSelectedWaypoint(waypointName)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -125,9 +123,7 @@ def deleteWaypoint():
 def runWaypoint():
     if request.method == 'POST':
         waypointName = request.json
-        print(waypointName)
         waypoint = retrieveWaypoint(waypointName)
-        print(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
@@ -136,6 +132,28 @@ def getAllWaypoints():
     group_name = request.args.get('group')
     waypoints = retrieveAllWaypoints(group_name)
     return json.dumps({'success': True, 'waypoints': waypoints}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/poses', methods=['GET', 'POST'])
+def poses():
+    if request.method == 'POST':
+        pose = request.json
+        print(pose)
+        insertPose(pose, groupType)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/retrieveposes', methods=['GET', 'POST'])
+def retrieveposes():
+    poses = retrieveAllPoses(groupType)
+    print(poses)
+    return json.dumps({'success': True, 'poses': poses}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/static/urdfs/<path:filename>')
+def serveArmModel(filename):
+    """Lets ros3djs access the meshes used to render the arm model"""
+    return send_from_directory(os.path.join(app.root_path, "static/urdfs"), filename)
 
 
 def parse_response(data):
