@@ -43,17 +43,6 @@
       </div>
       <details>
         <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Pose</summary>
-        <div id="coordinates" title="Add New Pose">
-          <input type="number" name="aCoord" id="aCoord" placeholder="set a:">
-          <input type="number" name="bCoord" id="bCoord" placeholder="set b:">
-          <input type="number" name="cCoord" id="cCoord" placeholder="set c:">
-          <input type="number" name="xCoord" id="xCoord" placeholder="set x:">
-          <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
-          <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
-          <div class="multi-button">
-            <button onclick="getGoalPoseValues()">Submit</button>
-          </div>
-        </div>
         <div class="multi-button">
           <button onclick="addPose()">New Pose</button>
           <button onclick="retrievePosesHistory()">Pose History</button>
@@ -67,10 +56,24 @@
             <button id="wpose"></button>
           </div>
         </div>
+        <div class="multi-button">
+          <div id="coordinates" title="Add New Pose" style="display: none;">
+            <input type="number" name="aCoord" id="aCoord" placeholder="set a:">
+            <input type="number" name="bCoord" id="bCoord" placeholder="set b:">
+            <input type="number" name="cCoord" id="cCoord" placeholder="set c:">
+            <input type="number" name="xCoord" id="xCoord" placeholder="set x:">
+            <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
+            <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
+            <div class="multi-button">
+              <button onclick="getGoalPoseValues()">Submit</button>
+              <button onclick="cancelNewPose()">Cancel</button>
+            </div>
+          </div>
+        </div>
       </details>
-      <details>
+      <details id="jointsDetails">
         <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Joints</summary>
-        <div class="joints" style="display: none;" title="Joints in Degrees">
+        <div class="joints">
           <div class="range-slider">
             <label>Joint 1</label>
             <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint0">
@@ -110,13 +113,10 @@
             <span class="range-value" id="joint6Span"></span>
           </div>
           <div class="multi-button">
-            <button onclick="grabJointValues()">Confirm</button>
+            <button onclick="grabJointValues()">Adjust</button>
           </div>
         </div>
-        <div class="multi-button">
-          <button onclick="viewJointsinRadians()">View</button>
-          <button onclick="viewJointsinDegrees()">Adjust</button>
-        </div>
+
         <div style="display: none;" id="viewJointInRadians" title="Joints in Radians">
 
           <p class="radiansJoints"></p>
@@ -201,6 +201,13 @@
     <div id="waypointsDiv" class="modal-content">
       <span class="close">&times;</span>
       <table id="wayPointsTable"></table>
+    </div>
+  </div>
+
+  <div id="posesModal" class="modal">
+    <div id="posesDiv" class="modal-content">
+      <span class="close">&times;</span>
+      <table id="posesTable"></table>
     </div>
   </div>
 

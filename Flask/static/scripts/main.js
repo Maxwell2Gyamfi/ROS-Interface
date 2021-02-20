@@ -11,16 +11,12 @@ alertify.set("notifier", "position", "top-center");
 alertify.set("notifier", "delay", 3);
 
 class Waypoint {
-  constructor(coordinates, jointsValues, wayPointName, groupName) {
-    this.coordinates = coordinates;
+  constructor(jointsValues, wayPointName, groupName) {
     this.jointValues = jointsValues;
     this.wayPointName = wayPointName;
     this.groupName = groupName;
   }
 
-  getCoordinates() {
-    return this.coordinates;
-  }
   getName() {
     return this.wayPointName;
   }
@@ -30,9 +26,6 @@ class Waypoint {
 
   getGroupName() {
     return this.groupName;
-  }
-  setCoordinates(coordinates) {
-    this.coordinates = coordinates;
   }
   setName(wayPointName) {
     this.wayPointName = wayPointName;
@@ -82,41 +75,6 @@ class Poses {
   }
 }
 
-window.addEventListener("load", (event) => {
-  initROS();
-  getJointsState();
-  getGoalPositionOfJoints();
-  getStartingPositionOfJoints();
-  getMoveGroupResult();
-  getMoveGroupGoal();
-  getMoveGroupStatus();
-  displayCurrentPose()
-});
-
-$(document).ready(function () {
-  rangeSlider();
-  // requestJointValues();
-  // getCurrentPoseValues();
-  grabUserDetails();
-  getRobotType();
-  loadJointValues()
-});
-
-var rangeSlider = function () {
-  var slider = $(".range-slider"),
-    range = $('.range-slider input[type="range"]'),
-    value = $(".range-value");
-  slider.each(function () {
-    value.each(function () {
-      var value = $(this).prev().attr("value");
-      $(this).html(value);
-    });
-    range.on("input", function () {
-      $(this).next(value).html(this.value);
-    });
-  });
-};
-
 function getGoalPoseValues() {
   coords = [];
   a = document.getElementById("aCoord").value;
@@ -127,66 +85,41 @@ function getGoalPoseValues() {
   z = document.getElementById("zCoord").value;
 
   if (a != "" && b != "" && c != "" && x != "" && z != "" & z != "") {
-    // alert(x)
     coords.push(a)
     coords.push(b)
     coords.push(c)
     coords.push(x);
     coords.push(y);
     coords.push(z);
-
-    alertify.success("Running pose")
-    closeDialog("#coordinates")
     addPoseToHistory(coords)
 
   } else {
     alertify.error("Please complete all fields")
   }
-
-  // return coords;
 }
 
 function addPose() {
-  openDialog("#coordinates")
+  document.getElementById("coordinates").style.display = "block"
 }
-
-function openDialog(id) {
-  $(id).dialog({
-    autoOpen: false,
-    show: {
-      effect: "explode",
-      duration: 1000,
-      position: { my: "center top", at: "center top+20", of: "window" }
-    },
-    hide: {
-      effect: "explode",
-      duration: 1000
-    }
-  });
-  $(id).dialog("open");
-}
-
-function closeDialog(id) {
-  $(id).dialog("close");
-}
-
 
 function addWayPoint() {
   newwaypoint = document.getElementById("newwaypoint");
+  document.getElementById("jointsDetails").open = true
   if (newwaypoint.value == "") {
-    alert("impossible");
+    alertify.error("Please provide waypoint name")
   } else {
+
     var jointValues = grabJointValues();
-    var coordinates = getGoalPoseValues();
     var waypointName = newwaypoint.value;
     var groupname = currentGroup;
     var waypoint = new Waypoint(
-      coordinates,
       jointValues,
       waypointName,
       groupname
     );
+    console.log(jointValues)
     saveWaypoint(waypoint);
+    document.getElementById("jointsDetails").open = false
   }
 }
 
@@ -200,6 +133,7 @@ function addPoseToHistory(coordinates) {
     contentType: "application/json",
     success: function (e) {
       alertify.success("Added pose to poses history");
+      document.getElementById("coordinates").style.display = "none"
     },
     error: function (error) {
       alertify.error(error);
@@ -218,6 +152,7 @@ function retrievePosesHistory() {
     success: function (e) {
       alertify.success("Retrieved all poses");
       console.log(e)
+      createPosesTable(e)
     },
     error: function (error) {
       alertify.error(error);
@@ -348,17 +283,9 @@ function runSelectedWaypoint(id) {
   });
 }
 
-function viewJointsinDegrees() {
-  openDialog(".joints")
-}
-function viewJointsinRadians() {
-  radians = grabJointValues()
-  for (i = 0; i < totalJoints; i++) {
-    document.getElementsByClassName("radiansJoints")[i].innerHTML = "Joint" + i + ":" + radians[i]
-  }
 
-  openDialog("#viewJointInRadians")
-  $('#viewJointsInRadians').css('display', 'inline-block');
+function cancelNewPose() {
+  document.getElementById("coordinates").style.display = "none"
 }
 
 function deleteSelectedWaypoint(id) {
@@ -379,18 +306,6 @@ function deleteSelectedWaypoint(id) {
 }
 
 function createWaypointsTable(obj) {
-  createTableHeader();
-  obj.waypoints.forEach((waypoint) => {
-    appendWaypoints(waypoint);
-  });
-
-  var span = document.getElementsByClassName("close")[0];
-  span.onclick = function () {
-    document.getElementById("wayPointsModal").style.display = "none";
-  };
-  document.getElementById("wayPointsModal").style.display = "block";
-}
-function createTableHeader() {
   var headerNames = [
     "ID",
     "Name",
@@ -402,31 +317,39 @@ function createTableHeader() {
     "Joint5",
     "Joint6",
     "Joint7",
-    "w",
-    "x",
-    "y",
-    "z",
     "Run",
     "Delete",
   ];
+  var selectedtable = document.getElementById("wayPointsTable")
+  var selectedDiv = document.getElementById("waypointsDiv")
+  createTableHeader(selectedtable, headerNames, selectedDiv);
+  obj.waypoints.forEach((waypoint) => {
+    appendWaypoints(waypoint);
+  });
 
-  var wayPointsThead = document.createElement("thead");
-  var wayPointsHeaderTrow = document.createElement("tr");
-  var wayPointsTbody = document.createElement("tbody");
+  var span = document.getElementsByClassName("close")[0];
+  span.onclick = function () {
+    document.getElementById("wayPointsModal").style.display = "none";
+  };
+  document.getElementById("wayPointsModal").style.display = "block";
+}
+function createTableHeader(selectedtable, headerNames, selectedTableDiv) {
+  var tablehead = document.createElement("thead");
+  var headertrow = document.createElement("tr");
+  var tablebody = document.createElement("tbody");
 
-  var wayPointsTable = document.getElementById("wayPointsTable");
-  wayPointsTable.innerHTML = "";
+  selectedtable.innerHTML = "";
 
   headerNames.forEach((header) => {
     var tableHead = document.createElement("th");
     tableHead.innerHTML = header;
-    wayPointsHeaderTrow.append(tableHead);
+    headertrow.append(tableHead);
   });
 
-  wayPointsThead.append(wayPointsHeaderTrow);
-  wayPointsTable.append(wayPointsThead);
-  wayPointsTable.append(wayPointsTbody);
-  document.getElementById("waypointsDiv").append(wayPointsTable);
+  tablehead.append(headertrow);
+  selectedtable.append(tablehead);
+  selectedtable.append(tablebody);
+  selectedTableDiv.append(selectedtable);
 }
 
 function appendWaypoints(obj) {
@@ -473,15 +396,126 @@ function appendWaypoints(obj) {
     items[7],
     items[8],
     items[9],
-    items[10],
-    items[11],
-    items[12],
-    items[13],
     itemB,
     itemA
   );
 
   wayPointsTable.append(row);
+}
+
+function createPosesTable(obj) {
+
+  var headerNames = [
+    "ID",
+    "GroupName",
+    "A",
+    "B",
+    "C",
+    "X",
+    "Y",
+    "Z",
+    "Run",
+    "Delete",
+  ];
+
+  var selectedtable = document.getElementById("posesTable")
+  var selectedDiv = document.getElementById("posesDiv")
+  createTableHeader(selectedtable, headerNames, selectedDiv);
+  obj.poses.forEach((pose) => {
+    appendPose(pose);
+  });
+
+  var span = document.getElementsByClassName("close")[1];
+  span.onclick = function () {
+    document.getElementById("posesModal").style.display = "none";
+  };
+  document.getElementById("posesModal").style.display = "block";
+
+}
+
+function appendPose(obj) {
+  var posesTable = document.getElementById("posesTable");
+  var row = document.createElement("tr");
+  var items = [];
+
+  var runPose = document.createElement("button");
+  var deletePose = document.createElement("button");
+
+  runPose.onclick = function () {
+    retrievePose(this.id)
+  };
+
+  deletePose.onclick = function () {
+    deleteSelectedPose(this.id)
+  };
+
+  runPose.innerHTML =
+    '<i class="fa fa-play-circle" aria-hidden="true"></i>';
+  deletePose.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+  for (i = 0; i < obj.length; i++) {
+    var item = document.createElement("td");
+    item.innerText = obj[i];
+    items.push(item);
+  }
+
+  var itemA = document.createElement("td");
+  var itemB = document.createElement("td");
+  deletePose.id = obj[0];
+  runPose.id = obj[0];
+  itemB.append(runPose);
+  itemA.append(deletePose);
+
+  row.append(
+    items[0],
+    items[1],
+    items[2],
+    items[3],
+    items[4],
+    items[5],
+    items[6],
+    items[7],
+    itemB,
+    itemA
+  );
+
+  posesTable.append(row);
+}
+
+
+function deleteSelectedPose(id) {
+
+  jQuery.ajax({
+    url: "/deletepose",
+    type: "POST",
+    data: JSON.stringify(id),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (e) {
+      alertify.success("Deleted selected pose");
+      retrievePosesHistory()
+    },
+    error: function (error) {
+      alertify.error(error);
+    },
+  });
+}
+
+function retrievePose(id) {
+  jQuery.ajax({
+    url: "/retrievepose",
+    type: "POST",
+    data: JSON.stringify(id),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (e) {
+      alertify.success("retrieved selected pose");
+
+    },
+    error: function (error) {
+      alertify.error(error);
+    },
+  });
 }
 
 function clearTable(table) {
@@ -530,8 +564,6 @@ function grabJointValues() {
     jointsValues.push(document.getElementById("joint" + i).value);
   }
   var jointsInRadians = convertDegreestoRadians(jointsValues)
-  console.log(jointsInRadians)
-  // closeDialog(".joints")
   return jointsInRadians;
 }
 
@@ -695,8 +727,14 @@ function getMoveGroupResult() {
   group_result.unsubscribe();
 }
 
+function runPose() {
+  convertToQuaternion()
+}
 
-//USER FUNCTIONS
+function convertToQuaternion() {
+  console.log("converting to quartenion")
+}
+
 function grabUserDetails() {
   $("#registerMe").on("click", function (e) {
     username = $("#username").val();
@@ -832,3 +870,36 @@ function focusItems() {
     .first()
     .focus();
 }
+
+var rangeSlider = function () {
+  var slider = $(".range-slider"),
+    range = $('.range-slider input[type="range"]'),
+    value = $(".range-value");
+  slider.each(function () {
+    value.each(function () {
+      var value = $(this).prev().attr("value");
+      $(this).html(value);
+    });
+    range.on("input", function () {
+      $(this).next(value).html(this.value);
+    });
+  });
+};
+
+window.addEventListener("load", (event) => {
+  initROS();
+  getJointsState();
+  getGoalPositionOfJoints();
+  getStartingPositionOfJoints();
+  getMoveGroupResult();
+  getMoveGroupGoal();
+  getMoveGroupStatus();
+  displayCurrentPose()
+});
+
+$(document).ready(function () {
+  rangeSlider();
+  grabUserDetails();
+  getRobotType();
+  loadJointValues()
+});

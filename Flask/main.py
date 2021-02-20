@@ -107,6 +107,7 @@ def getCurrentPose():
 def saveWaypoint():
     if request.method == 'POST':
         waypoint = request.json
+        print(waypoint)
         insertWaypoint(waypoint)
         return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
@@ -148,6 +149,22 @@ def retrieveposes():
     poses = retrieveAllPoses(groupType)
     print(poses)
     return json.dumps({'success': True, 'poses': poses}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/retrievepose', methods=['GET', 'POST'])
+def retrievepose():
+    poseid = request.json
+    pose = retrievePose(poseid)
+    print(pose)
+    return json.dumps({'success': True, 'pose': pose}), 200, {'ContentType': 'application/json'}
+
+
+@app.route('/deletepose', methods=['GET', 'POST'])
+def deletepose():
+    if request.method == 'POST':
+        pose = request.json
+        deletePose(pose)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 @app.route('/static/urdfs/<path:filename>')

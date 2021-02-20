@@ -349,24 +349,47 @@ label {
 table{
   border-collapse: collapse;
   width: 100%;
+ 
 }
 td, th {
   border: 1px solid #ddd;
   padding: 8px;
-}
-
-tr:hover {background-color: #ddd;}
-
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
+  cursor: pointer;
+  position: relative;
+  padding:
+    calc(var(--space) / 1.125)
+    var(--space)
+    var(--space);
   border: var(--border-size) solid black;
   color: var(--color-secondary);
   background-color: var(--color-primary);
+  font-size: 1.2rem;
+  font-family: var(--font-family);
+  text-transform: lowercase;
+  text-shadow: var(--shadow) 2px 2px;
+  
+  
 }
 
-#wayPointsModal button
+td:hover {
+  color: white;
+  text-shadow: none;
+  background-color: var(--color-secondary);
+  outline: var(--border-size) dashed var(--color-primary);
+  outline-offset: calc(var(--border-size) * -3);
+}
+
+th {
+  color: white;
+  /* outline: none; */
+  text-shadow: none;
+  background-color: var(--color-secondary);
+  outline: var(--border-size) dashed var(--color-primary);
+  outline-offset: calc(var(--border-size) * -3);
+  
+}
+
+/* #wayPointsModal button
 {
   font-size: large;
   background-color: transparent;
@@ -375,7 +398,7 @@ th {
     cursor:pointer;
     overflow: hidden;
     outline:none;
-}
+} */
 
 .cusSelBlock {
   height: 60px;

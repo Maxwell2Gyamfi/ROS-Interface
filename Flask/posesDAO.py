@@ -64,7 +64,7 @@ def retrievePose(poseid):
     return record
 
 
-def deleteSelectedWaypoint(poseid):
+def deletePose(poseid):
     try:
         conn = create_connection()
         sql = "DELETE FROM poses WHERE id=?"
