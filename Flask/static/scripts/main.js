@@ -780,6 +780,31 @@ function signout() {
   });
 }
 
+function shutCamera() {
+  jQuery.ajax({
+    url: "/close_video_feed",
+    type: "POST",
+    data: JSON.stringify(),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (e) { },
+    error: function (error) { },
+  });
+}
+
+
+
+function openCamera() {
+  document.getElementById("gazebo").style.display = "none"
+  document.getElementById("videofeed").style.display = "block"
+}
+
+function openGazebo() {
+  document.getElementById("videofeed").style.display = "none"
+  document.getElementById("gazebo").style.display = "block"
+  shutCamera()
+}
+
 $(function () {
   var defaultselectbox = $("#cusSelectbox");
   var numOfOptions = $("#cusSelectbox").children("option").length;

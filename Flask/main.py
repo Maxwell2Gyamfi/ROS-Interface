@@ -9,10 +9,12 @@ from userAccount import User
 from tables import initTables
 from posesDAO import *
 import os
+import cv2
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
 initTables()
+camera = cv2.VideoCapture(0)
 
 groupType = 'manipulator'
 
@@ -171,6 +173,27 @@ def deletepose():
 def serveArmModel(filename):
     """Lets ros3djs access the meshes used to render the arm model"""
     return send_from_directory(os.path.join(app.root_path, "static/urdfs"), filename)
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+def gen_frames():
+    while True:
+        success, frame = camera.read()  # read the camera frame
+        if not success:
+            break
+        else:
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+def closeCamera():
+    pass
 
 
 def parse_response(data):
