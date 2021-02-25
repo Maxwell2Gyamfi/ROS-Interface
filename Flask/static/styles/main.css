@@ -606,6 +606,7 @@ p{
   transition: flex-grow var(--duration) var(--ease);
 }
 
+
 p:hover,
 p:focus {
   flex-grow: 2;
@@ -624,7 +625,7 @@ p:focus {
     position: absolute;
     margin:0px;
     height: fit-content;
-    /* margin-bottom: 10px; */
+    margin-bottom: 0px;
     }
   }
   @media only screen and (min-device-width: 360px) and (orientation: landscape) { 
