@@ -141,40 +141,40 @@
           <div class="range-slider">
             <label>Joint 2</label>
             <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint1"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint1Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 3</label>
             <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint2"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint2Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 4</label>
             <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint3"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint3Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 5</label>
             <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint4"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint4Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 6</label>
             <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint5"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint5Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 7</label>
             <input type="range" value="" min="-175" max="175" range="true" step="5" id="joint6"
-              oninput="adjustSingleJoint(this.value)">
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint6Span"></span>
           </div>
           <!-- <div class="multi-button">
@@ -182,13 +182,11 @@
           </div> -->
         </div>
 
-
       </details>
-
       <details>
         <summary><i class="fa fa-eye" aria-hidden="true"></i> Set Visualization</summary>
         <div class="multi-button">
-          <button>3D URDF</button>
+          <button onclick="displayRvizFeed()">3D URDF</button>
           <button onclick="openGazebo()">Gazebo</button>
           <button onclick="openCamera()">Robot and Cell</button>
         </div>
@@ -241,7 +239,7 @@
         <img src="{{ url_for('video_feed') }}" id="robotcell">
       </div>
 
-      <div style="display: none;" id="urdfViewer">
+      <div id="urdfViewer">
         <img src="" alt="" id="urdf">
       </div>
 

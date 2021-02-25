@@ -1,14 +1,24 @@
-
 var ros;
 var totalJoints = 7;
-var headerCount = 17;
 var currentGroup = "";
-var jointsNames = [];
-var jointsPosition = [];
-var velocity = [];
 
 alertify.set("notifier", "position", "top-center");
 alertify.set("notifier", "delay", 3);
+
+
+window.addEventListener("load", (event) => {
+  initROS();
+  getJointsState();
+  subcribToRvizImages()
+});
+
+$(document).ready(function () {
+  rangeSlider();
+  grabUserDetails();
+  getRobotType();
+  loadJointValues()
+});
+
 
 class Waypoint {
   constructor(jointsValues, wayPointName, groupName) {
@@ -75,6 +85,26 @@ class Poses {
   }
 }
 
+
+function openCamera() {
+  document.getElementById("gazebo").style.display = "none"
+  document.getElementById("videofeed").style.display = "block"
+  document.getElementById("urdf").style.display = "none"
+}
+
+function openGazebo() {
+  document.getElementById("videofeed").style.display = "none"
+  document.getElementById("gazebo").style.display = "block"
+  document.getElementById("urdf").style.display = "none"
+}
+
+function displayRvizFeed() {
+  document.getElementById("videofeed").style.display = "none"
+  document.getElementById("gazebo").style.display = "none"
+  document.getElementById("urdf").style.display = "block"
+
+}
+
 function getGoalPoseValues() {
   coords = [];
   a = document.getElementById("aCoord").value;
@@ -103,11 +133,9 @@ function addPoseInput() {
   document.getElementsByClassName("poseRange")[0].style.display = "none"
 }
 
-
 function addPoseRange() {
   document.getElementById("poseInput").style.display = "none"
   document.getElementsByClassName("poseRange")[0].style.display = "block"
-
 }
 
 function addPoseToHistory(coordinates) {
@@ -413,13 +441,13 @@ function grabPoseRangeValues() {
   }
 }
 
-
-function adjustSingleJoint(value, id) {
-  console.log(value)
-  console.log(value.id)
+function adjustSingleJoint(joint) {
+  console.log(joint.value)
+  console.log(joint.id)
   var jointValue = []
-  jointValue.push(value)
-  convertDegreestoRadians(jointValue)
+  jointValue.push(joint.value)
+  radians = convertDegreestoRadians(jointValue)
+  setJointState(radians, joint.id)
 }
 
 function planPoseRange() {
@@ -453,6 +481,13 @@ function executePose(poseValues) {
   console.log("executing pose")
 }
 
+function convertToQuaternion() {
+  console.log("converting to quartenion")
+}
+
+function convertFromQuaternion() {
+  console.log("converting from quaternion")
+}
 
 function initROS() {
   ros = new ROSLIB.Ros({
@@ -479,6 +514,17 @@ function displayConnectionMessage() {
   ros.on("close", function () {
     document.getElementById("connectionStatus").innerHTML = "Closed";
     message = "Connection to Ros closed";
+  });
+}
+
+function subcribToRvizImages() {
+  var image_topic = new ROSLIB.Topic({
+    ros: ros, name: '/stream1/image/compressed',
+    messageType: 'sensor_msgs/CompressedImage'
+  });
+  image_topic.subscribe(function (message) {
+    document.getElementById('urdf').src = "data:image/jpg;base64," + message.data;
+    image_topic.unsubscribe();
   });
 }
 
@@ -516,16 +562,8 @@ function getJointsState() {
   });
 }
 
-function setJointState() {
+function setJointState(radians, jointID) {
   console.log("setting joint state")
-}
-
-function convertToQuaternion() {
-  console.log("converting to quartenion")
-}
-
-function convertFromQuaternion() {
-  console.log("converting from quaternion")
 }
 
 function grabUserDetails() {
@@ -571,16 +609,6 @@ function signout() {
     success: function (e) { },
     error: function (error) { },
   });
-}
-
-function openCamera() {
-  document.getElementById("gazebo").style.display = "none"
-  document.getElementById("videofeed").style.display = "block"
-}
-
-function openGazebo() {
-  document.getElementById("videofeed").style.display = "none"
-  document.getElementById("gazebo").style.display = "block"
 }
 
 $(function () {
@@ -688,15 +716,3 @@ var rangeSlider = function () {
     });
   });
 };
-
-window.addEventListener("load", (event) => {
-  initROS();
-  getJointsState();
-});
-
-$(document).ready(function () {
-  rangeSlider();
-  grabUserDetails();
-  getRobotType();
-  loadJointValues()
-});
