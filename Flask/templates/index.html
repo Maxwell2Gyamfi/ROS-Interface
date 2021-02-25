@@ -42,22 +42,14 @@
         </details>
       </div>
       <details>
-        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Pose</summary>
+        <summary><i class="fa fa-plus" aria-hidden="true"></i> New Pose</summary>
         <div class="multi-button">
-          <button onclick="addPose()">New Pose</button>
-          <button onclick="retrievePosesHistory()">Pose History</button>
+          <button onclick="addPoseInput()">Input Pose</button>
+          <button onclick="addPoseRange()">Range Pose</button>
         </div>
-        <div id="currentPosesDiv" title="Current Pose">
-          <div class="multi-button">
-            <button id="currentPosesButton">Current Pose</button>
-            <button id="xpose"></button>
-            <button id="ypose"></button>
-            <button id="zpose"></button>
-            <button id="wpose"></button>
-          </div>
-        </div>
+
         <div class="multi-button">
-          <div id="coordinates" title="Add New Pose" style="display: none;">
+          <div id="poseInput" title="Add New Pose" style="display: none;">
             <input type="number" name="aCoord" id="aCoord" placeholder="set a:">
             <input type="number" name="bCoord" id="bCoord" placeholder="set b:">
             <input type="number" name="cCoord" id="cCoord" placeholder="set c:">
@@ -65,88 +57,132 @@
             <input type="number" name="yCoord" id="yCoord" placeholder="set y:">
             <input type="number" name="zCoord" id="zCoord" placeholder="set z:">
             <div class="multi-button">
-              <button onclick="getGoalPoseValues()">Submit</button>
+              <button onclick="planPoseInput()">Plan</button>
+              <button onclick="executePoseInput()">Execute</button>
               <button onclick="cancelNewPose()">Cancel</button>
             </div>
           </div>
         </div>
+
+
+        <div class="poseRange" style="display: none;">
+          <div class="range-slider">
+            <label>a</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="aSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>b</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="bSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>c</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="cSpan"></span>
+          </div>
+
+          <div class="range-slider">
+            <label>x</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="xSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>y</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="ySpan"></span>
+          </div>
+
+          <div class="range-slider">
+            <label>z</label>
+            <input type="range" value="0" min="-5" max="5" range="true" class="poseRangeSlider">
+            <span class="range-value" id="zSpan"></span>
+          </div>
+
+          <div class="multi-button">
+            <button onclick="planPoseRange()">Plan</button>
+            <button onclick="executePoseRange()">Execute</button>
+            <button onclick="cancelNewPose()">Cancel</button>
+          </div>
+        </div>
+
+
+
       </details>
+
+      <details>
+        <summary><i class="fa fa-dot-circle-o" aria-hidden="true"> </i> Poses</summary>
+        <div class="multi-button">
+          <button onclick="retrievePosesHistory()">Pose History</button>
+          <button id="currentPosesButton" onclick="displayCurrentPose()">Current Pose</button>
+        </div>
+        <div id="currentPosesDiv" title="Current Pose" style="display: none;">
+          <div class=" multi-button">
+            <button id="apose"></button>
+            <button id="bpose"></button>
+            <button id="cpose"></button>
+            <button id="xpose"></button>
+            <button id="ypose"></button>
+            <button id="zpose"></button>
+          </div>
+        </div>
+
+      </details>
+
       <details id="jointsDetails">
-        <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Joints</summary>
+        <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Adjust Joints</summary>
         <div class="joints">
           <div class="range-slider">
             <label>Joint 1</label>
-            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint0">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint0"
+              oninput="adjustSingleJoint(this)">
             <span class="range-value" id="joint0Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 2</label>
-            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint1">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint1"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint1Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 3</label>
-            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint2">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint2"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint2Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 4</label>
-            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint3">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint3"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint3Span"></span>
           </div>
           <div class="range-slider">
             <label>Joint 5</label>
-            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint4">
+            <input type="range" value="" min="-170" max="170" range="true" step="5" id="joint4"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint4Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 6</label>
-            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint5">
+            <input type="range" value="" min="-120" max="120" range="true" step="5" id="joint5"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint5Span"></span>
           </div>
 
           <div class="range-slider">
             <label>Joint 7</label>
-            <input type="range" value="" min="-175" max="175" range="true" step="5" id="joint6">
+            <input type="range" value="" min="-175" max="175" range="true" step="5" id="joint6"
+              oninput="adjustSingleJoint(this.value)">
             <span class="range-value" id="joint6Span"></span>
           </div>
-          <div class="multi-button">
+          <!-- <div class="multi-button">
             <button onclick="grabJointValues()">Adjust</button>
-          </div>
+          </div> -->
         </div>
 
-        <div style="display: none;" id="viewJointInRadians" title="Joints in Radians">
 
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-          <p class="radiansJoints"></p>
-
-        </div>
-      </details>
-      <details>
-        <summary><i class="fa fa-map-marker" aria-hidden="true"></i> WayPoints</summary>
-        <div>
-          <input type="text" name="waypoint" placeholder="New waypoint Name" id="newwaypoint">
-        </div>
-
-        <div class="multi-button">
-          <button onclick="addWayPoint()">Add WayPoint</button>
-          <button onclick="loadAllWaypoints()">Display WayPoints</button>
-        </div>
-
-      </details>
-      <details>
-        <summary><i class="fa fa-tasks" aria-hidden="true"></i> Plan & Execute</summary>
-        <div class="multi-button">
-          <button onclick="planCartesian()">Plan Cartesian</button>
-          <button onclick="executePlan()">Execute</button>
-        </div>
       </details>
 
       <details>
@@ -180,6 +216,10 @@
         <p>Sensors</p>
       </details>
       <details>
+        <summary><i class="fa fa-user-plus" aria-hidden="true"></i> Pending Approvals</summary>
+        <p>Pending Approvals</p>
+      </details>
+      <details>
         <summary><i class="fa fa-undo" aria-hidden="true"></i> Reset</summary>
         <div class="multi-button">
           <button style="background-color:  #e31566;">Reset</button>
@@ -201,12 +241,10 @@
         <img src="{{ url_for('video_feed') }}" id="robotcell">
       </div>
 
-    </div>
-  </div>
-  <div id="wayPointsModal" class="modal">
-    <div id="waypointsDiv" class="modal-content">
-      <span class="close">&times;</span>
-      <table id="wayPointsTable"></table>
+      <div style="display: none;" id="urdfViewer">
+        <img src="" alt="" id="urdf">
+      </div>
+
     </div>
   </div>
 

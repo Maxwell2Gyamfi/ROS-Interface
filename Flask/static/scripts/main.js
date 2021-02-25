@@ -98,29 +98,16 @@ function getGoalPoseValues() {
   }
 }
 
-function addPose() {
-  document.getElementById("coordinates").style.display = "block"
+function addPoseInput() {
+  document.getElementById("poseInput").style.display = "block"
+  document.getElementsByClassName("poseRange")[0].style.display = "none"
 }
 
-function addWayPoint() {
-  newwaypoint = document.getElementById("newwaypoint");
-  document.getElementById("jointsDetails").open = true
-  if (newwaypoint.value == "") {
-    alertify.error("Please provide waypoint name")
-  } else {
 
-    var jointValues = grabJointValues();
-    var waypointName = newwaypoint.value;
-    var groupname = currentGroup;
-    var waypoint = new Waypoint(
-      jointValues,
-      waypointName,
-      groupname
-    );
-    console.log(jointValues)
-    saveWaypoint(waypoint);
-    document.getElementById("jointsDetails").open = false
-  }
+function addPoseRange() {
+  document.getElementById("poseInput").style.display = "none"
+  document.getElementsByClassName("poseRange")[0].style.display = "block"
+
 }
 
 function addPoseToHistory(coordinates) {
@@ -163,176 +150,23 @@ function retrievePosesHistory() {
 
 function displayCurrentPose() {
 
-  var pose = [x = 2, y = 3, z = 5, w = 3]
+  var pose = [a = 5, b = 9, c = 4, x = 2, y = 3, z = 5]
 
-  document.getElementById("xpose").innerHTML = "x:" + pose[0];
-  document.getElementById("ypose").innerHTML = "y:" + pose[1];
-  document.getElementById("zpose").innerHTML = "z:" + pose[2];
-  document.getElementById("wpose").innerHTML = "w:" + pose[3];
-  document.getElementById("currentPosesDiv").style.visibility = "visible"
-}
-
-function saveWaypoint(waypoint) {
-  jQuery.ajax({
-    url: "/saveWaypoint",
-    type: "POST",
-    data: JSON.stringify(waypoint),
-    dataType: "json",
-    contentType: "application/json",
-    success: function (e) {
-      alertify.success("Saved waypoint with current pose and joint values");
-    },
-    error: function (error) {
-      alertify.error(error);
-    },
-  });
-}
-
-// function requestJointValues() {
-//   var xhttp = new XMLHttpRequest();
-//   xhttp.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       var obj = JSON.parse(this.responseText);
-//       if (obj.success === true) {
-//         loadJointValues(obj.joints);
-//       }
-//     }
-//   };
-//   xhttp.open("GET", "/getJoints", true);
-//   xhttp.send();
-// }
-
-// function setJointValues() {
-//   var joints = getJointValues();
-//   jQuery.ajax({
-//     url: "/setJoints",
-//     type: "POST",
-//     data: JSON.stringify(joints),
-//     dataType: "json",
-//     contentType: "application/json",
-//     success: function (e) {
-//       alertify.success("Successfully set joint values");
-//     },
-//     error: function (error) {
-//       alertify.error(error);
-//     },
-//   });
-// }
-
-function setGoalPoseValues() {
-  var pose = getGoalPoseValues();
-  if (pose.length != 0) {
-    jQuery.ajax({
-      url: "/setGoalPose",
-      type: "POST",
-      data: JSON.stringify(pose),
-      dataType: "json",
-      contentType: "application/json",
-      success: function (e) {
-        alertify.success("Successfully set goal pose");
-      },
-      error: function (error) {
-        alertify.error(error);
-      },
-    });
-  }
-}
-
-function getCurrentPoseValues() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var obj = JSON.parse(this.responseText);
-      if (obj.success === true) {
-        setCurrentPoseValues(obj.pose);
-      }
-    }
-  };
-  xhttp.open("GET", "/getCurrentPose", true);
-  xhttp.send();
-}
-
-function loadAllWaypoints() {
-  var groupName = currentGroup;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var obj = JSON.parse(this.responseText);
-      if (obj.success === true) {
-        createWaypointsTable(obj);
-      }
-    }
-  };
-  xhttp.open("GET", "/getAllWaypoints?group=" + groupName, true);
-  xhttp.send();
-}
-
-function runSelectedWaypoint(id) {
-  jQuery.ajax({
-    url: "/runWaypoint",
-    type: "POST",
-    data: JSON.stringify(id),
-    dataType: "json",
-    contentType: "application/json",
-    success: function (e) {
-      alertify.success("Running selected waypoint");
-    },
-    error: function (error) {
-      alertify.error(error);
-    },
-  });
+  document.getElementById("apose").innerHTML = "a:" + pose[0];
+  document.getElementById("bpose").innerHTML = "b:" + pose[1];
+  document.getElementById("cpose").innerHTML = "c:" + pose[2];
+  document.getElementById("xpose").innerHTML = "x:" + pose[3];
+  document.getElementById("ypose").innerHTML = "y:" + pose[4];
+  document.getElementById("zpose").innerHTML = "z:" + pose[5];
+  document.getElementById("currentPosesDiv").style.display = "block"
 }
 
 
 function cancelNewPose() {
-  document.getElementById("coordinates").style.display = "none"
+  document.getElementById("poseInput").style.display = "none"
+  document.getElementsByClassName("poseRange")[0].style.display = "none"
 }
 
-function deleteSelectedWaypoint(id) {
-  jQuery.ajax({
-    url: "/deleteWaypoint",
-    type: "POST",
-    data: JSON.stringify(id),
-    dataType: "json",
-    contentType: "application/json",
-    success: function (e) {
-      alertify.success("Deleted selected waypoint");
-      loadAllWaypoints();
-    },
-    error: function (error) {
-      alertify.error(error);
-    },
-  });
-}
-
-function createWaypointsTable(obj) {
-  var headerNames = [
-    "ID",
-    "Name",
-    "GroupName",
-    "Joint1",
-    "Joint2",
-    "Joint3",
-    "Joint4",
-    "Joint5",
-    "Joint6",
-    "Joint7",
-    "Run",
-    "Delete",
-  ];
-  var selectedtable = document.getElementById("wayPointsTable")
-  var selectedDiv = document.getElementById("waypointsDiv")
-  createTableHeader(selectedtable, headerNames, selectedDiv);
-  obj.waypoints.forEach((waypoint) => {
-    appendWaypoints(waypoint);
-  });
-
-  var span = document.getElementsByClassName("close")[0];
-  span.onclick = function () {
-    document.getElementById("wayPointsModal").style.display = "none";
-  };
-  document.getElementById("wayPointsModal").style.display = "block";
-}
 function createTableHeader(selectedtable, headerNames, selectedTableDiv) {
   var tablehead = document.createElement("thead");
   var headertrow = document.createElement("tr");
@@ -352,57 +186,6 @@ function createTableHeader(selectedtable, headerNames, selectedTableDiv) {
   selectedTableDiv.append(selectedtable);
 }
 
-function appendWaypoints(obj) {
-  var wayPointsTable = document.getElementById("wayPointsTable");
-  var row = document.createElement("tr");
-  var items = [];
-
-  var runWaypoint = document.createElement("button");
-  var deleteWaypoint = document.createElement("button");
-
-  runWaypoint.onclick = function () {
-    runSelectedWaypoint(this.id);
-  };
-
-  deleteWaypoint.onclick = function () {
-    deleteSelectedWaypoint(this.id);
-  };
-
-  runWaypoint.innerHTML =
-    '<i class="fa fa-play-circle" aria-hidden="true"></i>';
-  deleteWaypoint.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
-
-  for (i = 0; i < obj.length; i++) {
-    var item = document.createElement("td");
-    item.innerText = obj[i];
-    items.push(item);
-  }
-
-  var itemA = document.createElement("td");
-  var itemB = document.createElement("td");
-  deleteWaypoint.id = obj[1];
-  runWaypoint.id = obj[1];
-  itemB.append(runWaypoint);
-  itemA.append(deleteWaypoint);
-
-  row.append(
-    items[0],
-    items[1],
-    items[2],
-    items[3],
-    items[4],
-    items[5],
-    items[6],
-    items[7],
-    items[8],
-    items[9],
-    itemB,
-    itemA
-  );
-
-  wayPointsTable.append(row);
-}
-
 function createPosesTable(obj) {
 
   var headerNames = [
@@ -414,7 +197,8 @@ function createPosesTable(obj) {
     "X",
     "Y",
     "Z",
-    "Run",
+    "Plan",
+    "Execute",
     "Delete",
   ];
 
@@ -425,7 +209,7 @@ function createPosesTable(obj) {
     appendPose(pose);
   });
 
-  var span = document.getElementsByClassName("close")[1];
+  var span = document.getElementsByClassName("close")[0];
   span.onclick = function () {
     document.getElementById("posesModal").style.display = "none";
   };
@@ -438,20 +222,32 @@ function appendPose(obj) {
   var row = document.createElement("tr");
   var items = [];
 
-  var runPose = document.createElement("button");
+  var plan = document.createElement("button");
+  var execute = document.createElement("button")
   var deletePose = document.createElement("button");
 
-  runPose.onclick = function () {
-    retrievePose(this.id)
+  plan.className = "btnRun"
+  execute.className = "btnRun"
+  deletePose.className = "btnDelete"
+
+  plan.onclick = function () {
+    var selectdpose = retrievePose(this.id)
+    planPose(selectdpose)
+
   };
+
+  execute.onclick = function () {
+    var selectdpose = retrievePose(this.id)
+    executePose(selectdpose)
+  }
 
   deletePose.onclick = function () {
     deleteSelectedPose(this.id)
   };
 
-  runPose.innerHTML =
-    '<i class="fa fa-play-circle" aria-hidden="true"></i>';
-  deletePose.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+  plan.innerHTML = "Plan"
+  execute.innerHTML = "Execute"
+  deletePose.innerHTML = "Delete"
 
   for (i = 0; i < obj.length; i++) {
     var item = document.createElement("td");
@@ -461,9 +257,13 @@ function appendPose(obj) {
 
   var itemA = document.createElement("td");
   var itemB = document.createElement("td");
+  var itemC = document.createElement("td");
+
   deletePose.id = obj[0];
-  runPose.id = obj[0];
-  itemB.append(runPose);
+  plan.id = obj[0];
+  execute.id = obj[0]
+  itemC.append(execute)
+  itemB.append(plan);
   itemA.append(deletePose);
 
   row.append(
@@ -476,12 +276,12 @@ function appendPose(obj) {
     items[6],
     items[7],
     itemB,
+    itemC,
     itemA
   );
 
   posesTable.append(row);
 }
-
 
 function deleteSelectedPose(id) {
 
@@ -502,6 +302,7 @@ function deleteSelectedPose(id) {
 }
 
 function retrievePose(id) {
+  var poseValues = []
   jQuery.ajax({
     url: "/retrievepose",
     type: "POST",
@@ -509,7 +310,13 @@ function retrievePose(id) {
     dataType: "json",
     contentType: "application/json",
     success: function (e) {
+      console.log(e)
+      for (i = 2; i < e.pose.length; i++) {
+        poseValues.push(e.pose[i])
+      }
+      console.log(poseValues)
       alertify.success("retrieved selected pose");
+      return poseValues
 
     },
     error: function (error) {
@@ -567,6 +374,7 @@ function grabJointValues() {
   return jointsInRadians;
 }
 
+
 function loadJointValues(joints) {
 
   joints = [0.785398163, 0.8726646259971648, 0.8726646259971648, 2.0943951023931953, 0.3490658503988659, 3.141592653589793, 1.0471975511965976]
@@ -594,8 +402,57 @@ function convertDegreestoRadians(jointsPositionDegrees) {
   for (i = 0; i < jointsPositionDegrees.length; i++) {
     radians.push(jointsPositionDegrees[i] * (pi / 180))
   }
+  console.log(radians)
   return radians
 }
+
+function grabPoseRangeValues() {
+  poseValues = []
+  for (i = 0; i < 6; i++) {
+    poseValues.push(document.getElementsByClassName("poseRangeSlider")[i].value)
+  }
+}
+
+
+function adjustSingleJoint(value, id) {
+  console.log(value)
+  console.log(value.id)
+  var jointValue = []
+  jointValue.push(value)
+  convertDegreestoRadians(jointValue)
+}
+
+function planPoseRange() {
+  var poseValues = grabPoseRangeValues()
+  planPose(poseValues)
+}
+
+function planPoseInput() {
+  var poseValues = grabInputPoseValues()
+  planPose(poseValues)
+}
+
+function planPose(poseValues) {
+  convertToQuaternion()
+  console.log("planning pose")
+
+}
+
+function executePoseRange() {
+  var poseValues = grabPoseRangeValues()
+  executePose(poseValues)
+}
+
+function executePoseInput() {
+  var poseValues = grabInputPoseValues()
+  executePose(poseValues)
+}
+
+function executePose(poseValues) {
+  convertToQuaternion()
+  console.log("executing pose")
+}
+
 
 function initROS() {
   ros = new ROSLIB.Ros({
@@ -624,7 +481,6 @@ function displayConnectionMessage() {
     message = "Connection to Ros closed";
   });
 }
-
 
 function getCurrentPose() {
   var poseTopic = new ROSLIB.Topic({
@@ -655,84 +511,21 @@ function getJointsState() {
       message.position +
       ":"
     );
-    jointsNames = message.name;
-    jointsPosition = message.position;
-    velocity = message.velocity;
     loadJointValues(jointsPosition)
-
     joints_listener.unsubscribe();
   });
 }
 
-function getGoalPositionOfJoints() {
-  var goal_state = new ROSLIB.Topic({
-    ros: ros,
-    name: "/goal_joint_states",
-    messageType: "sensor_msgs/JointState",
-  });
-  goal_state.subscribe(function (message) {
-    console.log("Received message on " + goal_state.name + ": " + message.data);
-    goal_state.unsubscribe();
-  });
-}
-
-function getStartingPositionOfJoints() {
-  var start_position = new ROSLIB.Topic({
-    ros: ros,
-    name: "/start_joint_states",
-    messageType: "sensor_msgs/JointState",
-  });
-
-  start_position.subscribe(function (message) {
-    console.log(
-      "Received message on " + start_position.name + ": " + message.data
-    );
-    start_position.unsubscribe();
-  });
-}
-
-function getMoveGroupStatus() {
-  var group_status = new ROSLIB.Topic({
-    ros: ros,
-    name: "/move_group/status",
-    messageType: "actionlib_msgs/GoalStatusArray",
-  });
-  group_status.subscribe(function (message) {
-    console.log("status running");
-  });
-  group_status.unsubscribe();
-}
-
-function getMoveGroupGoal() {
-  var group_goal = new ROSLIB.Topic({
-    ros: ros,
-    name: "/move_group/goal",
-    messageType: "moveit_msgs/MoveGroupActionGoal",
-  });
-  group_goal.subscribe(function (message) {
-    console.log("goal running");
-  });
-  group_goal.unsubscribe();
-}
-
-function getMoveGroupResult() {
-  var group_result = new ROSLIB.Topic({
-    ros: ros,
-    name: "/move_group/result",
-    messageType: "moveit_msgs/MoveGroupActionResult",
-  });
-  group_result.subscribe(function (message) {
-    console.log("result running");
-  });
-  group_result.unsubscribe();
-}
-
-function runPose() {
-  convertToQuaternion()
+function setJointState() {
+  console.log("setting joint state")
 }
 
 function convertToQuaternion() {
   console.log("converting to quartenion")
+}
+
+function convertFromQuaternion() {
+  console.log("converting from quaternion")
 }
 
 function grabUserDetails() {
@@ -780,20 +573,6 @@ function signout() {
   });
 }
 
-function shutCamera() {
-  jQuery.ajax({
-    url: "/close_video_feed",
-    type: "POST",
-    data: JSON.stringify(),
-    dataType: "json",
-    contentType: "application/json",
-    success: function (e) { },
-    error: function (error) { },
-  });
-}
-
-
-
 function openCamera() {
   document.getElementById("gazebo").style.display = "none"
   document.getElementById("videofeed").style.display = "block"
@@ -802,7 +581,6 @@ function openCamera() {
 function openGazebo() {
   document.getElementById("videofeed").style.display = "none"
   document.getElementById("gazebo").style.display = "block"
-  shutCamera()
 }
 
 $(function () {
@@ -914,12 +692,6 @@ var rangeSlider = function () {
 window.addEventListener("load", (event) => {
   initROS();
   getJointsState();
-  getGoalPositionOfJoints();
-  getStartingPositionOfJoints();
-  getMoveGroupResult();
-  getMoveGroupGoal();
-  getMoveGroupStatus();
-  displayCurrentPose()
 });
 
 $(document).ready(function () {

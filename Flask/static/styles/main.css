@@ -53,6 +53,30 @@ html {
     "commands visualization visualization";
 }
 
+.btnDelete{
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  background-color: red;
+  border-radius: 30%;
+}
+
+
+.btnRun{
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  background-color:#4CAF50;
+  border-radius: 30%;
+}
 
 #logo {
   grid-area: logo;
@@ -115,6 +139,11 @@ html {
   justify-content: center;
 }
 #robotcell{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#urdf{
   width: 100%;
   height: 100%;
   overflow: hidden;
