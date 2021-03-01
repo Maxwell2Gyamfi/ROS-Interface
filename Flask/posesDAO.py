@@ -44,7 +44,6 @@ def retrieveAllPoses(group_name):
         cur = conn.cursor()
         cur.execute(sql, (group_name,))
         rows = cur.fetchall()
-
     except Error as e:
         print(e)
 

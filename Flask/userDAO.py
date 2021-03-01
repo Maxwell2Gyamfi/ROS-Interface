@@ -26,8 +26,8 @@ def insertUser(obj):
     conn = None
     try:
         conn = create_connection()
-        sql = '''INSERT INTO users(firstName, surname, email, password)
-        VALUES(?,?,?,?);'''
+        sql = '''INSERT INTO users(firstName, surname, active, email, password)
+        VALUES(?,?,?,?,?);'''
 
         password = obj.getPassword()
         hashedPassword = hash_password(password)
@@ -39,12 +39,54 @@ def insertUser(obj):
         cur = conn.cursor()
         cur.execute(sql, userTuple)
         conn.commit()
-
+        print("new user added")
         return True
 
     except Error as e:
         print(e)
         return False
+
+
+def updateUserStatus(userID):
+    try:
+        conn = create_connection()
+        sql = ''' UPDATE users SET active = ? WHERE id = ?'''
+        cur = conn.cursor()
+        data_tuple = (True, userID)
+        cur.execute(sql, data_tuple)
+        conn.commit()
+    except Error as e:
+        print(e)
+
+
+def retrieveUserAccount(obj):
+    try:
+        conn = create_connection()
+        sql = "SELECT id, firstName, surname, email FROM users WHERE id=?"
+        cur = conn.cursor()
+        cur.execute(sql, (obj,))
+        record = cur.fetchone()
+        print("record is")
+        print(record)
+        cur.close()
+    except Error as e:
+        print(e)
+    return record
+
+
+def retrieveUserID(obj):
+    try:
+        conn = create_connection()
+        sql = "SELECT id FROM users WHERE email=?"
+        cur = conn.cursor()
+        cur.execute(sql, (obj,))
+        record = cur.fetchone()
+        print("record is")
+        print(record[0])
+        cur.close()
+    except Error as e:
+        print(e)
+    return record[0]
 
 
 def verifyUser(email, password):
@@ -55,17 +97,23 @@ def verifyUser(email, password):
         cur = conn.cursor()
         cur.execute(sql, (email,))
         record = cur.fetchone()
-
+        print("user record")
+        print(record)
+        print(email)
         if record != None:
-            hashedPassword = record[4]
+            hashedPassword = record[5]
             if(checkPassword(hashedPassword, password)):
-                return record[0], record[1]
+                if(record[3] == 0):
+                    return False, "Account waiting for approval"
+                else:
+                    return record[0], record[1]
             else:
                 return False, 'Invalid Password, please try again'
         else:
             return False, 'Invalid Credentials, please sign up'
 
     except Error as e:
+        print("cooreectsdf")
         print(e)
         return False
 

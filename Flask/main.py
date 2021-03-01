@@ -6,12 +6,17 @@ from userDAO import *
 from userAccount import User
 from tables import initTables
 from posesDAO import *
+from approvals import ApprovalsClass
+from approvals import ApprovalsDAO
 import os
 import cv2
 
 app = Flask(__name__)
 app.secret_key = 'your secret key'
 initTables()
+admin = User(None, "admin", "admin", True,
+             "admin@admin.com", "password")
+insertUser(admin)
 camera = cv2.VideoCapture(0)
 
 groupType = 'manipulator'
@@ -25,6 +30,7 @@ def login():
         elif request.method == 'POST':
             useremail = request.form['useremail']
             password = request.form['password']
+
             userid, username = verifyUser(useremail, password)
             if userid is False:
                 msg = username
@@ -52,13 +58,40 @@ def signout():
 def register():
     if request.method == 'POST':
         obj = request.json
-        user = User(obj['firstname'], obj['surname'],
+        user = User(None, obj['firstname'], obj['surname'], False,
                     obj['email'], obj['password'])
         message = insertUser(user)
         if message == True:
+            user.ID = retrieveUserID(user.getEmail())
+            approv = ApprovalsClass(None, user, False)
+            approvalObj = ApprovalsDAO()
+            approvalObj.insertApproval(approv)
             return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
         else:
             return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@app.route("/retrievePendingApprovals", methods=['GET', 'POST'])
+def retrievePendingApprovals():
+    approvObj = ApprovalsDAO()
+    pendingUsers = []
+    pendinapprovals = approvObj.retrieveAllPendingApprovals()
+
+    for i in range(0, len(pendinapprovals)):
+        pendingUsers.append(retrieveUserAccount(pendinapprovals[i][1]))
+
+    print(pendingUsers)
+    return json.dumps({'success': True, 'pendingapprovals': pendingUsers}), 200, {'ContentType': 'application/json'}
+
+
+@app.route("/approvePendingAccount", methods=['GET', 'POST'])
+def approvePendingAccount():
+    if request.method == 'POST':
+        id = request.json
+        approvObj = ApprovalsDAO()
+        approvObj.updateApproval(id)
+        updateUserStatus(id)
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 @app.route('/setRobot', methods=['GET', 'POST'])

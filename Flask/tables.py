@@ -2,6 +2,8 @@ import sqlite3
 from sqlite3 import Error
 import os
 import shutil
+from userDAO import insertUser
+from userAccount import User
 
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -43,6 +45,7 @@ def initTables():
                                 id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                                 firstName text,
                                 surname text,
+                                active boolean,
                                 email text UNIQUE,
                                 password text
                              );"""
@@ -58,12 +61,19 @@ def initTables():
                                 z real
                              );"""
 
+    sql_create_approvals_table = """ CREATE TABLE IF NOT EXISTS approvals(
+                                id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                accountID integer UNIQUE,
+                                actioned boolean
+                             );"""
+
     conn = create_connection()
 
     if conn is not None:
         create_table(conn, sql_create_waypoints_table)
         create_table(conn, sql_create_users_table)
         create_table(conn, sql_create_poses_table)
+        create_table(conn, sql_create_approvals_table)
         conn.close()
 
     else:

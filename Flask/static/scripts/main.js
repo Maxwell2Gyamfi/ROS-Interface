@@ -13,6 +13,7 @@ window.addEventListener("load", (event) => {
 });
 
 $(document).ready(function () {
+  retrieveApprovals()
   rangeSlider();
   grabUserDetails();
   getRobotType();
@@ -212,6 +213,58 @@ function createTableHeader(selectedtable, headerNames, selectedTableDiv) {
   selectedtable.append(tablehead);
   selectedtable.append(tablebody);
   selectedTableDiv.append(selectedtable);
+}
+
+function createPendingAccounTables(obj) {
+
+  var headerNames = [
+    "ID",
+    "Name",
+    "Surname",
+    "Email",
+    "Approve",
+  ];
+
+  var selectedtable = document.getElementById("pendingTable")
+  var selectedDiv = document.getElementById("pendingDiv")
+  createTableHeader(selectedtable, headerNames, selectedDiv);
+  obj.pendingapprovals.forEach((account) => {
+    appendAccount(account);
+  });
+}
+
+function appendAccount(obj) {
+  var pendingTable = document.getElementById("pendingTable");
+  var row = document.createElement("tr");
+  var items = [];
+
+  var approve = document.createElement("button");
+  approve.className = "btnRun"
+
+  approve.onclick = function () {
+    approveAccount(this.id)
+  };
+
+  approve.innerHTML = "Approve"
+
+  for (i = 0; i < obj.length; i++) {
+    var item = document.createElement("td");
+    item.innerText = obj[i];
+    items.push(item);
+  }
+
+  var itemA = document.createElement("td");
+  approve.id = obj[0];
+  itemA.append(approve);
+
+  row.append(
+    items[0],
+    items[1],
+    items[2],
+    items[3],
+    itemA
+  );
+  pendingTable.append(row);
 }
 
 function createPosesTable(obj) {
@@ -591,7 +644,7 @@ function registerUser(user) {
     contentType: "application/json",
     success: function (e) {
       document.getElementById("registration").reset();
-      alertify.success("Successfully registered, please sign in");
+      alertify.success("Successfully registered, an admin will approve your account shortly");
     },
     error: function (error) {
       alertify.error("Email already present, please sign in");
@@ -607,6 +660,37 @@ function signout() {
     dataType: "json",
     contentType: "application/json",
     success: function (e) { },
+    error: function (error) { },
+  });
+}
+
+function retrieveApprovals() {
+  jQuery.ajax({
+    url: "/retrievePendingApprovals",
+    type: "GET",
+    data: JSON.stringify(),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (e) {
+      console.log(e)
+      createPendingAccounTables(e)
+    },
+    error: function (error) { },
+  });
+}
+
+
+function approveAccount(id) {
+  jQuery.ajax({
+    url: "/approvePendingAccount",
+    type: "POST",
+    data: JSON.stringify(id),
+    dataType: "json",
+    contentType: "application/json",
+    success: function (e) {
+      alertify.success("Successfully approved user")
+      retrieveApprovals()
+    },
     error: function (error) { },
   });
 }
