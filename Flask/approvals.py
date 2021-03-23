@@ -1,11 +1,12 @@
-from userAccount import User
 import sqlite3
 from sqlite3 import Error
+
+from userAccount import User
 
 database = "database.db"
 
 
-class ApprovalsClass():
+class ApprovalsClass:
     def __init__(self, ID, user, actioned):
         self.ID = ID
         self.user = user
@@ -21,13 +22,13 @@ class ApprovalsClass():
         return self.actioned
 
     def __str__(self):
-        return f'{self.ID} {self.user} {self.actioned} '
+        return f"{self.ID} {self.user} {self.actioned} "
 
     def __repr__(self):
-        return f'{self.ID} {self.user} {self.actioned} '
+        return f"{self.ID} {self.user} {self.actioned} "
 
 
-class ApprovalsDAO():
+class ApprovalsDAO:
     def __init__(self):
         self.conn = self.create_connection()
 
@@ -41,13 +42,10 @@ class ApprovalsDAO():
         return connection
 
     def insertApproval(self, approval):
-        print("approvals")
-        print(approval)
         try:
-            sql = '''INSERT or REPLACE INTO approvals(accountID, actioned)
-                    VALUES(?, ?);'''
-            data_tuple = (approval.user.ID,
-                          approval.isActioned())
+            sql = """INSERT or REPLACE INTO approvals(accountID, actioned)
+                    VALUES(?, ?);"""
+            data_tuple = (approval.user.ID, approval.isActioned())
             cur = self.conn.cursor()
             cur.execute(sql, data_tuple)
             self.conn.commit()
@@ -57,7 +55,7 @@ class ApprovalsDAO():
 
     def updateApproval(self, userID):
         try:
-            sql = ''' UPDATE approvals SET actioned = ? WHERE accountID = ?'''
+            sql = """ UPDATE approvals SET actioned = ? WHERE accountID = ?"""
             cur = self.conn.cursor()
             data_tuple = (True, userID)
             cur.execute(sql, data_tuple)
@@ -76,3 +74,12 @@ class ApprovalsDAO():
         except Error as e:
             print(e)
         return rows
+
+    def deleteApproval(self, userID):
+        try:
+            sql = "DELETE FROM approvals WHERE id=?"
+            cur = self.conn.cursor()
+            cur.execute(sql, (userID,))
+            self.conn.commit()
+        except Error as e:
+            print(e)
