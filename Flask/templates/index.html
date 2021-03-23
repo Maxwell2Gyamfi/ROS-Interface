@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="static/styles/main.css" />
+  <script type="text/javascript"
+    src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+    integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="logo">
+      <img src="static/images/amrc.jpg" alt="" srcset="">
+    </div>
+
+    <div id="commands">
+      <div class="multi-button" style="margin-top: 5px;">
+      <button><i class="fa fa-cog" aria-hidden="true"></i> User Settings</button>
+    </div>
+     
+      <details open>
+        <summary><i class="fa fa-plus" aria-hidden="true"></i> Pose</summary>
+        <div class="multi-button">
+          <button onclick="addPoseInput()"><i class="fa fa-pencil" aria-hidden="true"></i> Input</button>
+          <button onclick="addPoseRange()"><i class="fa fa-sliders" aria-hidden="true"></i> Range</button>
+          <button onclick="retrieveSavedPoses()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Routines</button>
+        </div>
+        
+        <div class="multi-button">
+          <button onclick="retrievePosesHistory()"><i class="fa fa-history" aria-hidden="true"></i> Recent</button>
+          <button id="currentPosesButton" onclick="displayCurrentPose()"><i class="fa fa-spinner" aria-hidden="true"></i> Current</button>
+          <button onclick="fetchValues()"><i class="fa fa-refresh" aria-hidden="true"></i> Fetch</button>
+        </div>
+       
+          <div id="poseInput" title="Add New Pose" style="display: none;">
+           
+            <div style="margin-bottom: 5px;">
+            <label for="aCoord">A</label>
+            <input type="number" name="aCoord" id="aCoord" value="0" min="-90" max="90" class="inputPose">
+            <label for="bCoord">B</label>
+            <input type="number" name="bCoord" id="bCoord" value="0" min="-90" max="90" class="inputPose">
+            <label for="cCoord">C</label>
+            <input type="number" name="cCoord" id="cCoord" value="0" min="0" max="360" class="inputPose">
+          </div>
+          <div style="margin-bottom: 5px;">
+            <label for="xCoord">X</label>
+            <input type="number" name="xCoord" id="xCoord" value="0" class="inputPose" min="0" max="2">
+            <label for="aCoord">Y</label>
+            <input type="number" name="yCoord" id="yCoord" value="0" class="inputPose" min="0" max="2">
+            <label for="aCoord">Z</label>
+            <input type="number" name="zCoord" id="zCoord" value="0" class="inputPose" min="0" max="2">
+          </div>
+        
+            <div class="multi-button">
+              <button onclick="planPoseInput()">Plan</button>
+              <button onclick="executePoseInput()">Execute</button>
+              <button onclick="cancelNewPose()">Cancel</button>
+            </div>
+          </div>
+     
+        <div class="poseRange" style="display: none;">
+          <div class="range-slider">
+            <label>A</label>
+            <input type="range" value="0" min="-90" max="90" range="true" class="poseRangeSlider">
+            <span class="range-value" id="aSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>B</label>
+            <input type="range" value="0" min="-90" max="90" range="true" class="poseRangeSlider">
+            <span class="range-value" id="bSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>C</label>
+            <input type="range" value="0" min="0" max="360" range="true" class="poseRangeSlider">
+            <span class="range-value" id="cSpan"></span>
+          </div>
+
+          <div class="range-slider">
+            <label>X</label>
+            <input type="range" value="0" min="0" max="2" range="true" class="poseRangeSlider" step="0.1">
+            <span class="range-value" id="xSpan"></span>
+          </div>
+          <div class="range-slider">
+            <label>Y</label>
+            <input type="range" value="0" min="0" max="2" range="true" class="poseRangeSlider" step="0.1">
+            <span class="range-value" id="ySpan"></span>
+          </div>
+
+          <div class="range-slider">
+            <label>Z</label>
+            <input type="range" value="0" min="0" max="2" range="true" class="poseRangeSlider" step="0.1">
+            <span class="range-value" id="zSpan"></span>
+          </div>
+
+          <div class="multi-button">
+            <button onclick="planPoseRange()">Plan</button>
+            <button onclick="executePoseRange()">Execute</button>
+            <button onclick="cancelNewPose()">Cancel</button>
+          </div>
+        </div>
+
+
+      </details>
+
+      <details id="jointsDetails" open>
+        <summary><i class="fa fa-share-alt" aria-hidden="true"></i> Adjust Joints</summary>
+        <div class="joints" style="margin-bottom: 5px;">
+        </div>
+
+      </details>
+     
+      <details open>
+        <summary><i class="fa fa-toggle-on" aria-hidden="true"></i> Actions</summary>
+
+        <div class="multi-button">
+          <button onclick="retrieveApprovals()"><i class="fa fa-user-plus" aria-hidden="true"></i> Approvals</button>
+          <button style="background-color: #e31566; color: white;" onclick="resetJoints()"><i class="fa fa-eraser" aria-hidden="true" ></i> Reset Rbt</button>
+          <a href="{{ url_for('signout') }}"><button style="background-color: #e31566; color: white;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button></a>
+        </div>
+        
+        <div class="multi-button">
+          <button onclick="displayRvizFeed()"><i class="fa fa-eye" aria-hidden="true"></i> 3D URDF</button>
+          <button onclick="openCamera()"><i class="fa fa-video-camera" aria-hidden="true"></i> Robot and Cell</button>
+        </div>
+        
+        <div id="modelselection">
+            <div class="multi-button">
+              <select name="robotSelection"  id="robotSelection" onchange="populateRangeSlider(this)">
+              </select>
+              <button onclick="openAddGroup()" style="background-color: #4CAF50; color: white;"><i class="fa fa-plus" aria-hidden="true"></i> New Rbt</button>
+              <button onclick="openDeleteGroup()" style="background-color: #e31566; color: white;"><i class="fa fa-trash" aria-hidden="true"></i> Delete Rbt</button>
+            </div>
+      
+        </div>
+    
+      </details>
+    </div>
+
+    <div id="visualization">
+      <div id="videofeed" style="display: none;">
+        <img src="{{ url_for('video_feed') }}" id="robotcell">
+      </div>
+      <canvas id="urdf"></canvas>
+    </div>
+  </div>
+
+  <div id="pendingModal" class="modal">
+    <div id="pendingDiv" class="modal-content">
+      <span class="close">&times;</span>
+      <div class="multi-button">
+        <button style="background-color: black; color: white;"><i class="fa fa-user-plus" aria-hidden="true"></i>Pending Approvals</button>
+      </div>
+      <table id="pendingTable"></table>
+    </div>
+  </div>
+
+  <div id="addGroupModal" class="modal">
+    <div id="addGroupDiv" class="modal-content">
+   
+    </div>
+  </div>
+
+  <div id="deleteGroupModal" class="modal">
+    <div id="deleteGroupDiv" class="modal-content" style="width: 20%;">
+      <span class="close" id="deleteClose">&times;</span>
+      <div class="multi-button">
+        <button style="background-color: black; color: white;"><i class="fa fa-plus" aria-hidden="true"></i> Delete Robot</button>
+        </div>
+        <select name="delRobotSelection"  id="delRobotSelection" style="margin-bottom: 5px; width: 100%;">
+        </select>
+        <div class="multi-button">
+        <button onclick="deleteRobot()" style="background-color: #e31566; color: white;">Confirm</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="savePoseModal" class="modal">
+    <div id="savePoseDiv" class="modal-content">
+      <span class="close" id="poseClose">&times;</span>
+      <div class="multi-button">
+        <button style="background-color: black; color: white;"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save recent Pose</button>
+        </div>
+      <form id="poseForm">
+        <div class="multi-button">
+          <button style="background-color: black; color: white;">Pose Name</button>
+          <input type="text" name="poseName" id="poseName" minlength="3" required any="">
+        </div>
+        <div class="multi-button">
+        <button type="submit" style="background-color: #4CAF50">Confirm</button>
+        <button id="btncloseModal" style="background-color: #e31566;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="savedPosesModal" class="modal">
+  <div id="savedPosesDiv" class="modal-content">
+    <span class="close" onclick="hideSavedPosesDiv()">&times;</span>
+    <div class="multi-button">
+      <button style="background-color: black; color: white;"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Saved Poses</button>
+    </div>
+    <table id="savedPosesTable" style="margin-bottom: 5px;"></table>
+    <div class="multi-button">
+      <button onclick="planSelectedPoses()">Plan Sel.</button>
+      <button onclick="executeSelectedPoses()">Execute Sel</button>
+      <button onclick="deleteSelectedPoses()" style="background-color: #e31566;">Delete Sel.</button>
+    </div>
+  </div>
+  </div>
+
+
+  <div id="currentPoseModal" class="modal">
+    <div id="currentPoseDiv" class="modal-content">
+      <span class="close" onclick="hideCurrentPoseDiv()">&times;</span>
+      <table id="currentPoseTable"></table>
+    </div>
+  </div>
+
+    <div id="posesModal" class="modal">
+      <div id="posesDiv" class="modal-content">
+        <span class="close" onclick="hidePosesDiv()">&times;</span>
+        <table id="posesTable"></table>
+      </div>
+    </div>
+    
+    
+
+  <script src="static/scripts/main.js"></script>
+</body>
+
+</html>
