@@ -99,13 +99,11 @@ class Robot {
 function openCamera() {
   document.getElementById("videofeed").style.display = "block";
   document.getElementById("urdf").style.display = "none";
-  console.log("displaying camera");
 }
 
 function displayRvizFeed() {
   document.getElementById("videofeed").style.display = "none";
   document.getElementById("urdf").style.display = "block";
-  console.log("displaying rviz");
 }
 
 function grabPoseInputValues() {
@@ -128,8 +126,6 @@ function addPoseRange() {
 }
 
 function addPoseToHistory(coordinates) {
-  console.log("history");
-  console.log(coordinates);
   var posetoHistory = new Poses("", coordinates);
   jQuery.ajax({
     url: "/poses",
@@ -137,7 +133,7 @@ function addPoseToHistory(coordinates) {
     data: JSON.stringify(posetoHistory),
     dataType: "json",
     contentType: "application/json",
-    success: function (e) {},
+    success: function (e) { },
     error: function (error) {
       alertify.error(error);
     },
@@ -455,7 +451,6 @@ function retrieveRobots(selectName) {
     dataType: "json",
     contentType: "application/json",
     success: function (e) {
-      console.log(e.robots);
       var robotSelect = document.getElementById(selectName);
       robotSelect.innerHTML = "";
       populateSelectOption(e.robots, robotSelect, e.current);
@@ -514,7 +509,6 @@ function retrieveRobotJoints() {
     dataType: "json",
     contentType: "application/json",
     success: function (e) {
-      console.log(e.joints);
       createJointRanges(e.joints);
       document.getElementById("robotSelection").value = e.joints[0][1];
     },
@@ -532,7 +526,6 @@ function retrieveSavedPoses() {
     dataType: "json",
     contentType: "application/json",
     success: function (e) {
-      console.log(e.poses);
       var headerNames = ["Name", "A", "B", "C", "X", "Y", "Z", "Select"];
       createSavedPosesTable(e, headerNames);
     },
@@ -615,9 +608,11 @@ function createJointRanges(obj) {
 }
 
 function createCurrentPoseTable(pose) {
-  if (pose != null) {
+  console.log(pose);
+  if (pose.length > 0) {
     var headerNames = ["A°", "B°", "C°", "X (m) ", "Y (m)", "Z (m)"];
     var selectedtable = document.getElementById("currentPoseTable");
+    selectedtable.innerHTML = "";
     var selectedDiv = document.getElementById("currentPoseDiv");
     document.getElementById("currentPoseModal").style.display = "block";
     createTableHeader(selectedtable, headerNames, selectedDiv);
@@ -633,7 +628,7 @@ function appendCurrentPose(obj) {
   var items = [];
   for (i = 0; i < obj.length; i++) {
     var item = document.createElement("td");
-    item.innerText = obj[i];
+    // item.innerText = obj[i];
     item.innerText = obj[i].toFixed(2);
     items.push(item);
   }
@@ -713,8 +708,6 @@ function createTableHeader(selectedtable, headerNames) {
   var headertrow = document.createElement("tr");
   var tablebody = document.createElement("tbody");
 
-  selectedtable.innerHTML = "";
-
   headerNames.forEach((header) => {
     var tableHead = document.createElement("th");
     tableHead.innerHTML = header;
@@ -742,7 +735,7 @@ function createSavedPosesTable(obj, headerNames) {
   if (obj != null) {
     var selectedtable = document.getElementById("savedPosesTable");
     var selectedDiv = document.getElementById("savedPosesModal");
-
+    selectedtable.innerHTML = "";
     selectedDiv.style.display = "block";
 
     createTableHeader(selectedtable, headerNames);
@@ -795,9 +788,6 @@ function createPosesTable(obj, headerNames) {
   var selectedDiv = document.getElementById("posesModal");
   posesTable.innerHTML = "";
   selectedDiv.style.display = "block";
-  document.getElementById("currentPoseDiv").style.display = "none";
-  document.getElementById("poseInput").style.display = "none";
-  document.getElementsByClassName("poseRange")[0].style.display = "none";
 
   createTableHeader(selectedtable, headerNames, selectedDiv);
   obj.poses.forEach((pose) => {
@@ -837,7 +827,6 @@ function appendPose(obj) {
   deletePose.style.color = "white";
 
   save.onclick = function () {
-    console.log(this.id);
     openSavePoseModal(this.id);
   };
 
@@ -934,7 +923,7 @@ function retrievePose(id, action) {
       for (i = 2; i < e.pose.length - 1; i++) {
         poseValues.push(e.pose[i]);
       }
-      console.log(poseValues);
+
       action == "plan" ? planPose(poseValues) : executePose(poseValues);
     },
     error: function (error) {
@@ -980,7 +969,7 @@ function convertDegreestoRadians(jointsPositionDegrees) {
   for (i = 0; i < jointsPositionDegrees.length; i++) {
     radians.push(jointsPositionDegrees[i] * (pi / 180));
   }
-  console.log(radians);
+
   return radians;
 }
 
@@ -1043,7 +1032,7 @@ function subcribToRvizImages() {
   image_topic.subscribe(function (message) {
     var can = document.getElementById("urdf");
     can.innerHtml = "";
-    console.log("getting image");
+
     var image = document.getElementById("urdf");
     convertImage(message, can);
     image.src = "data:image/jpg;base64," + message.data;
@@ -1132,7 +1121,6 @@ function updatePoseFields(pose) {
 }
 
 function executePose(poseValues) {
-  console.log("executing pose");
   if (isAddedPose == false) {
     addPoseToHistory(poseValues);
   }
@@ -1142,7 +1130,6 @@ function executePose(poseValues) {
   poseValues[2] = poseValues[2] * (pi / 180);
   var str = poseValues.toString();
 
-  console.log(str);
   var psGoal = new ROSLIB.Topic({
     ros: ros,
     name: "/pose_goal_change",
@@ -1196,7 +1183,6 @@ function getJointsState() {
 }
 
 function setJointState(joints) {
-  console.log("setting joint state");
   var str = joints.toString();
   var jntSt = new ROSLIB.Topic({
     ros: ros,
@@ -1231,8 +1217,6 @@ function getPoseFeedback() {
   });
 
   feedback_listener.subscribe(function (message) {
-    console.log(message);
-    console.log(message.feedback.state);
     if (message.feedback.state == "IDLE") {
       alertify.success(message.status.text);
     }
@@ -1301,8 +1285,8 @@ function signout() {
     data: JSON.stringify(),
     dataType: "json",
     contentType: "application/json",
-    success: function (e) {},
-    error: function (error) {},
+    success: function (e) { },
+    error: function (error) { },
   });
 }
 function retrieveApprovals() {
@@ -1313,10 +1297,9 @@ function retrieveApprovals() {
     dataType: "json",
     contentType: "application/json",
     success: function (e) {
-      console.log(e);
       createPendingAccounTables(e);
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 function approveAccount(id) {
@@ -1330,7 +1313,7 @@ function approveAccount(id) {
       alertify.success("Successfully approved user");
       retrieveApprovals();
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 
@@ -1345,7 +1328,7 @@ function denyAccount(id) {
       alertify.success("Successfully deleted user");
       retrieveApprovals();
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 
