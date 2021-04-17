@@ -15,7 +15,12 @@ from geometry_msgs.msg import Pose
 from moveit_commander.conversions import pose_to_list
 from std_msgs.msg import String
 
-## END_SUB_TUTORIAL
+
+def joint_change_js(data):
+    joints_js = data.data
+    str_js = joints_js.split(",")
+    joints_values = list(map(float, str_js))
+    go_to_joint_state(joints_values)
 
 
 def go_to_joint_state(joints_values):
@@ -28,28 +33,6 @@ def go_to_joint_state(joints_values):
         move_group.go(joint_goal, wait=True)
     except:
         print("error setting joint value")
-
-
-def go_to_pose_goal(pose):
-    try:
-        pose_goal = geometry_msgs.msg.Pose()
-        pose_goal.orientation.x = float(pose.orientation.x)
-        pose_goal.orientation.y = float(pose.orientation.y)
-        pose_goal.orientation.z = float(pose.orientation.z)
-        pose_goal.orientation.w = float(pose.orientation.w)
-
-        pose_goal.position.x = float(pose.position.x)
-        pose_goal.position.y = float(pose.position.y)
-        pose_goal.position.z = float(pose.position.z)
-
-        move_group.set_pose_target(pose_goal)
-        my_plan = move_group.plan()
-        move_group.execute(my_plan)
-        # move_group.stop()
-        move_group.clear_pose_targets()
-
-    except:
-        print("error performing pose")
 
 
 def plan_to_pose_goal(pose):
@@ -104,11 +87,9 @@ def convert_quaternion_to_euler():
     return myPose
 
 
-def joint_change_js(data):
-    joints_js = data.data
-    str_js = joints_js.split(",")
-    joints_values = list(map(float, str_js))
-    go_to_joint_state(joints_values)
+def execute_pose_goal(data):
+    pose = convert_euler_to_quaternion(data)
+    go_to_pose_goal(pose)
 
 
 def convert_euler_to_quaternion(data):
@@ -116,29 +97,41 @@ def convert_euler_to_quaternion(data):
     str_js = pose_js.split(",")
 
     pose_values = list(map(float, str_js))
-
     roll = pose_values[0]
     pitch = pose_values[1]
     yaw = pose_values[2]
 
-    print(pose_values)
-
     quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
-
     print(quaternion)
     pose = list_to_dict(pose_values, quaternion)
-
     return pose
+
+
+def go_to_pose_goal(pose):
+    try:
+        pose_goal = geometry_msgs.msg.Pose()
+        pose_goal.orientation.x = float(pose.orientation.x)
+        pose_goal.orientation.y = float(pose.orientation.y)
+        pose_goal.orientation.z = float(pose.orientation.z)
+        pose_goal.orientation.w = float(pose.orientation.w)
+
+        pose_goal.position.x = float(pose.position.x)
+        pose_goal.position.y = float(pose.position.y)
+        pose_goal.position.z = float(pose.position.z)
+
+        move_group.set_pose_target(pose_goal)
+        my_plan = move_group.plan()
+        move_group.execute(my_plan)
+        # move_group.stop()
+        move_group.clear_pose_targets()
+
+    except:
+        print("error performing pose")
 
 
 def plan_pose_goal(data):
     pose = convert_euler_to_quaternion(data)
     plan_to_pose_goal(pose)
-
-
-def execute_pose_goal(data):
-    pose = convert_euler_to_quaternion(data)
-    go_to_pose_goal(pose)
 
 
 def list_to_dict(pose_values, quaternion):
@@ -181,7 +174,7 @@ rospy.Subscriber("pose_goal_plan", String, plan_pose_goal)
 rospy.Subscriber("set_group_name", String, setGroupName)
 
 pub = rospy.Publisher("current_pose_js", Pose, queue_size=10)
-robot = moveit_commander.RobotCommander()
+# robot = moveit_commander.RobotCommander()
 
 group_name = "manipulator"
 move_group = moveit_commander.MoveGroupCommander(group_name)

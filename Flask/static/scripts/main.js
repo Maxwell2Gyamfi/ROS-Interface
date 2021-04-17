@@ -1033,9 +1033,9 @@ function subcribToRvizImages() {
     var can = document.getElementById("urdf");
     can.innerHtml = "";
 
-    var image = document.getElementById("urdf");
+    // var image = document.getElementById("urdf");
     convertImage(message, can);
-    image.src = "data:image/jpg;base64," + message.data;
+    // image.src = "data:image/jpg;base64," + message.data;
     // image_topic.unsubscribe();
   });
 }
@@ -1068,7 +1068,6 @@ function convertImage(imgMes, can) {
   }
 
   ctx.putImageData(imgData, 0, 0);
-  // document.getElementById("visualization").replaceChild(can);
 }
 
 function getCurrentPose() {
@@ -1084,16 +1083,11 @@ function getCurrentPose() {
     pose.push(eulerToDegrees(message.orientation.x.toPrecision()));
     pose.push(eulerToDegrees(message.orientation.y.toPrecision()));
     pose.push(eulerToDegrees(message.orientation.z.toPrecision()));
-    // points.push(message.orientation.x);
-    // points.push(message.orientation.y);
-    // points.push(message.orientation.z);
-
-    // pose = convertRadiansToDegrees(points);
     pose.push(message.position.x);
     pose.push(message.position.y);
     pose.push(message.position.z);
 
-    // pose.unshift(a, b, c);
+
     currentPose = pose;
     updatePoseFields(pose);
     poseTopic.unsubscribe();
@@ -1117,7 +1111,6 @@ function updatePoseFields(pose) {
       i
     ].toFixed(2);
   }
-  // createPosesTable(pose);
 }
 
 function executePose(poseValues) {
@@ -1141,7 +1134,6 @@ function executePose(poseValues) {
   });
   psGoal.publish(data);
 
-  // setTimeout(getJointsState, 1000);
 }
 
 function fetchValues() {
@@ -1220,7 +1212,6 @@ function getPoseFeedback() {
     if (message.feedback.state == "IDLE") {
       alertify.success(message.status.text);
     }
-    // feedback_listener.unsubscribe();
   });
 }
 
@@ -1278,6 +1269,7 @@ function registerUser(user) {
     },
   });
 }
+
 function signout() {
   jQuery.ajax({
     url: "/signout",

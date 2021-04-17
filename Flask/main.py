@@ -42,13 +42,20 @@ def initManipulator():
     robotID = robotDB.getRobotID("manipulator")
     print(robotID[0])
     if success == True:
-        jointDB.insertJoint(Joint("manipulator", "Joint 1", -170, 170, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 2", -120, 120, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 3", -170, 170, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 4", -120, 120, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 5", -170, 170, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 6", -120, 120, robotID[0]))
-        jointDB.insertJoint(Joint("manipulator", "Joint 7", -175, 175, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 1", -170, 170, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 2", -120, 120, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 3", -170, 170, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 4", -120, 120, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 5", -170, 170, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 6", -120, 120, robotID[0]))
+        jointDB.insertJoint(
+            Joint("manipulator", "Joint 7", -175, 175, robotID[0]))
         print("inserted joints")
 
     else:
@@ -63,7 +70,6 @@ def login():
         elif request.method == "POST":
             useremail = request.form["useremail"]
             password = request.form["password"]
-
             userid, username = verifyUser(useremail, password)
             if userid is False:
                 msg = username
@@ -238,7 +244,8 @@ def getRobots():
         if robots is not None:
             print(robots)
             return (
-                json.dumps({"success": True, "robots": robots, "current": groupType}),
+                json.dumps(
+                    {"success": True, "robots": robots, "current": groupType}),
                 200,
                 {"ContentType": "application/json"},
             )
