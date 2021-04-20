@@ -18,7 +18,7 @@ class Pose:
         self.robotID = robotID
 
     def getPoseName(self):
-        return self.poseName
+        return self.posename
 
     def isPoseSaved(self):
         return self.isSaved

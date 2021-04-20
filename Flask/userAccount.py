@@ -129,6 +129,19 @@ def retrieveUserID(obj):
     return record[0]
 
 
+def retrieveNonActiveUsers():
+    try:
+        conn = create_connection()
+        sql = "SELECT id, firstName, surname, email FROM users WHERE active=?"
+        cur = conn.cursor()
+        cur.execute(sql, (0,))
+        rows = cur.fetchall()
+        print(rows)
+        return rows
+    except Error as e:
+        print(e)
+
+
 def verifyUser(email, password):
     conn = None
     try:
@@ -153,8 +166,6 @@ def verifyUser(email, password):
             return False, "Invalid Credentials, please sign up"
 
     except Error as e:
-        print("cooreectsdf")
-        print(e)
         return False
 
 

@@ -62,12 +62,14 @@ html {
   width: 98vw;
   display: grid;
   margin: 10px;
-  grid-template: 1fr 5fr 2fr/ 1fr 1fr 1fr;
+  /* grid-template: 1fr 5fr/ 1fr 2fr; */
+  grid-template-rows: 1fr 5fr;
+  grid-template-columns: 1fr 2fr;
   gap: 2px;
   grid-template-areas:
-    "logo visualization visualization"
-    "commands visualization visualization"
-    "commands visualization visualization";
+    "logo visualization"
+    "commands visualization";
+  /* "commands visualization"; */
 }
 
 .btnActions {
@@ -107,6 +109,7 @@ html {
 #visualization {
   grid-area: visualization;
   border: gray 2px solid;
+  width: 100%;
 }
 
 #robotcell {
@@ -368,7 +371,7 @@ th {
   border: var(--border-size) solid black;
   color: var(--color-secondary);
   background-color: var(--color-primary);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: var(--font-family);
   letter-spacing: 2px;
 }
@@ -466,9 +469,10 @@ p:focus {
   border: white 2px solid;
 }
 
-@media only screen and (min-device-width: 360px) and (orientation: portrait) {
+@media only screen and (min-device-width: 768px) and (orientation: portrait) {
   #container {
-    grid-template-rows: 1fr 2fr 2fr;
+    grid-template-rows: auto 2fr;
+    grid-template-columns: auto;
     grid-template-areas:
       "logo"
       "commands"
@@ -477,11 +481,5 @@ p:focus {
     margin: 0px;
     height: fit-content;
     margin-bottom: 0px;
-  }
-}
-
-@media only screen and (min-device-width: 360px) and (orientation: landscape) {
-  html {
-    overflow: auto;
   }
 }

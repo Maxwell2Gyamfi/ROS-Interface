@@ -3,7 +3,6 @@ import os
 import types
 
 import cv2
-from approvals import ApprovalsClass, ApprovalsDAO
 from flask import (
     Flask,
     Response,
@@ -16,6 +15,7 @@ from flask import (
     session,
     url_for,
 )
+
 from poses import *
 from robot import *
 from tables import initTables
@@ -42,20 +42,13 @@ def initManipulator():
     robotID = robotDB.getRobotID("manipulator")
     print(robotID[0])
     if success == True:
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 1", -170, 170, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 2", -120, 120, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 3", -170, 170, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 4", -120, 120, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 5", -170, 170, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 6", -120, 120, robotID[0]))
-        jointDB.insertJoint(
-            Joint("manipulator", "Joint 7", -175, 175, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 1", -170, 170, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 2", -120, 120, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 3", -170, 170, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 4", -120, 120, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 5", -170, 170, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 6", -120, 120, robotID[0]))
+        jointDB.insertJoint(Joint("manipulator", "Joint 7", -175, 175, robotID[0]))
         print("inserted joints")
 
     else:
@@ -70,6 +63,7 @@ def login():
         elif request.method == "POST":
             useremail = request.form["useremail"]
             password = request.form["password"]
+
             userid, username = verifyUser(useremail, password)
             if userid is False:
                 msg = username
@@ -103,10 +97,6 @@ def register():
         )
         message = insertUser(user)
         if message == True:
-            user.ID = retrieveUserID(user.getEmail())
-            approv = ApprovalsClass(None, user, False)
-            approvalObj = ApprovalsDAO()
-            approvalObj.insertApproval(approv)
             return (
                 json.dumps({"success": True}),
                 200,
@@ -122,13 +112,7 @@ def register():
 
 @app.route("/retrievePendingApprovals", methods=["GET", "POST"])
 def retrievePendingApprovals():
-    approvObj = ApprovalsDAO()
-    pendingUsers = []
-    pendinapprovals = approvObj.retrieveAllPendingApprovals()
-    for i in range(0, len(pendinapprovals)):
-        useraccount = retrieveUserAccount(pendinapprovals[i][1])
-        if useraccount is not None:
-            pendingUsers.append(useraccount)
+    pendingUsers = retrieveNonActiveUsers()
     return (
         json.dumps({"success": True, "pendingapprovals": pendingUsers}),
         200,
@@ -140,8 +124,6 @@ def retrievePendingApprovals():
 def approvePendingAccount():
     if request.method == "POST":
         id = request.json
-        approvObj = ApprovalsDAO()
-        approvObj.updateApproval(id)
         updateUserStatus(id)
         return json.dumps({"success": True}), 200, {"ContentType": "application/json"}
 
@@ -150,9 +132,6 @@ def approvePendingAccount():
 def denyPendingAccount():
     if request.method == "POST":
         id = request.json
-        print(id)
-        approvObj = ApprovalsDAO()
-        approvObj.deleteApproval(id)
         deleteUser(id)
         return json.dumps({"success": True}), 200, {"ContentType": "application/json"}
 
@@ -244,8 +223,7 @@ def getRobots():
         if robots is not None:
             print(robots)
             return (
-                json.dumps(
-                    {"success": True, "robots": robots, "current": groupType}),
+                json.dumps({"success": True, "robots": robots, "current": groupType}),
                 200,
                 {"ContentType": "application/json"},
             )

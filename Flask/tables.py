@@ -3,7 +3,7 @@ import shutil
 import sqlite3
 from sqlite3 import Error
 
-# from userAccount import *
+from userAccount import *
 
 # from userDAO import insertUser
 
@@ -25,22 +25,6 @@ def create_table(conn, create_table_sql):
 
 
 def initTables():
-    sql_create_waypoints_table = """ CREATE TABLE IF NOT EXISTS waypoints(
-                                        id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                        name text UNIQUE,
-                                        groupname text,
-                                        joint0 real,
-                                        joint1 real,
-                                        joint2 real,
-                                        joint3 real,
-                                        joint4 real,
-                                        joint5 real,
-                                        joint6 real,
-                                        w real,
-                                        x real,
-                                        y real,
-                                        z real
-                                    ); """
 
     sql_create_users_table = """ CREATE TABLE IF NOT EXISTS users(
                                 id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -49,12 +33,6 @@ def initTables():
                                 active boolean,
                                 email text UNIQUE,
                                 password text
-                             );"""
-
-    sql_create_approvals_table = """ CREATE TABLE IF NOT EXISTS approvals(
-                                id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                accountID integer UNIQUE,
-                                actioned boolean
                              );"""
 
     sql_create_robots_table = """ CREATE TABLE IF NOT EXISTS robots(
@@ -90,10 +68,9 @@ def initTables():
     conn = create_connection()
 
     if conn is not None:
-        create_table(conn, sql_create_waypoints_table)
+
         create_table(conn, sql_create_users_table)
         create_table(conn, sql_create_poses_table)
-        create_table(conn, sql_create_approvals_table)
         create_table(conn, sql_create_robots_table)
         create_table(conn, sql_create_joints_table)
         conn.close()
