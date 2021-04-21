@@ -1,0 +1,21 @@
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/libiiwa_hw.so
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/iiwa_hw/iiwa_hw-bin
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_hw.pc
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_hw/cmake/iiwa_hwConfig-version.cmake
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_hw/cmake/iiwa_hwConfig.cmake
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/cmake.lock, /home/academy/iiwa_stack_ws/devel/./cmake.lock)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/libiiwa_hw.so, /home/academy/iiwa_stack_ws/devel/lib/libiiwa_hw.so)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/pkgconfig/iiwa_hw.pc, /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_hw.pc)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/iiwa_hw/iiwa_hw-bin, /home/academy/iiwa_stack_ws/devel/lib/iiwa_hw/iiwa_hw-bin)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/share/iiwa_hw/cmake/iiwa_hwConfig-version.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_hw/cmake/iiwa_hwConfig-version.cmake)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/share/iiwa_hw/cmake/iiwa_hwConfig.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_hw/cmake/iiwa_hwConfig.cmake)
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/libiiwa_hw.so
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_hw.pc
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/iiwa_hw/iiwa_hw-bin
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_hw/cmake/iiwa_hwConfig-version.cmake
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_hw/cmake/iiwa_hwConfig.cmake
+Already unlinked: {}

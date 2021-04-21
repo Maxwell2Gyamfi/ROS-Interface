@@ -1,0 +1,6 @@
+[ 25%] [34m[1mGenerating include/rviz_camera_stream/moc_camera_display.cpp[0m
+[35m[1mScanning dependencies of target rviz_camera_stream[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/rviz_camera_stream.dir/src/camera_display.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/rviz_camera_stream.dir/include/rviz_camera_stream/moc_camera_display.cpp.o[0m
+[100%] [32m[1mLinking CXX shared library /home/rosie2/iiwa_stack_ws_max/devel/.private/rviz_camera_stream/lib/librviz_camera_stream.so[0m
+[100%] Built target rviz_camera_stream

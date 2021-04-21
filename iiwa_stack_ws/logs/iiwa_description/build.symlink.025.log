@@ -1,0 +1,13 @@
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_description.pc
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_description/cmake/iiwa_descriptionConfig-version.cmake
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_description/cmake/iiwa_descriptionConfig.cmake
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_description/cmake.lock, /home/academy/iiwa_stack_ws/devel/./cmake.lock)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_description/lib/pkgconfig/iiwa_description.pc, /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_description.pc)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_description/share/iiwa_description/cmake/iiwa_descriptionConfig.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_description/cmake/iiwa_descriptionConfig.cmake)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_description/share/iiwa_description/cmake/iiwa_descriptionConfig-version.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_description/cmake/iiwa_descriptionConfig-version.cmake)
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_description.pc
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_description/cmake/iiwa_descriptionConfig.cmake
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_description/cmake/iiwa_descriptionConfig-version.cmake
+Already unlinked: {}

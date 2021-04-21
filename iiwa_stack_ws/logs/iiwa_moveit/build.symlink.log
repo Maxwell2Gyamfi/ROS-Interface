@@ -1,0 +1,13 @@
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_moveit.pc
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig-version.cmake
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig.cmake
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_moveit/cmake.lock, /home/academy/iiwa_stack_ws/devel/./cmake.lock)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_moveit/lib/pkgconfig/iiwa_moveit.pc, /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_moveit.pc)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_moveit/share/iiwa_moveit/cmake/iiwa_moveitConfig-version.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig-version.cmake)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_moveit/share/iiwa_moveit/cmake/iiwa_moveitConfig.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig.cmake)
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_moveit.pc
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig-version.cmake
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_moveit/cmake/iiwa_moveitConfig.cmake
+Already unlinked: {}

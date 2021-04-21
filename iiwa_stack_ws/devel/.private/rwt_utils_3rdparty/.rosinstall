@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/academy/iiwa_stack_ws/devel/.private/rwt_utils_3rdparty/setup.sh

@@ -1,0 +1,27 @@
+[35m[1mScanning dependencies of target iiwa_msgs_generate_messages_cpp[0m
+[  0%] Built target iiwa_msgs_generate_messages_cpp
+[35m[1mScanning dependencies of target iiwa_ros[0m
+[  9%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/cartesian_wrench.cpp.o[0m
+[  9%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/joint_position.cpp.o[0m
+[ 19%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/iiwa_ros.cpp.o[0m
+[ 19%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/cartesian_pose.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/joint_torque.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/external_joint_torque.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/joint_velocity.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/state/destination_reached.cpp.o[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/generic_command.cpp.o[0m
+[ 47%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/cartesian_pose.cpp.o[0m
+[ 52%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/cartesian_pose_linear.cpp.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/joint_position.cpp.o[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/joint_position_velocity.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/command/joint_velocity.cpp.o[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/service/control_mode.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/service/path_parameters.cpp.o[0m
+[ 80%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/service/path_parameters_lin.cpp.o[0m
+[ 85%] [32mBuilding CXX object CMakeFiles/iiwa_ros.dir/src/service/time_to_destination.cpp.o[0m
+[ 90%] [32m[1mLinking CXX shared library /home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/lib/libiiwa_ros.so[0m
+[ 90%] Built target iiwa_ros
+[35m[1mScanning dependencies of target iiwa_ros_test[0m
+[ 95%] [32mBuilding CXX object CMakeFiles/iiwa_ros_test.dir/src/main.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/lib/iiwa_ros/iiwa_ros_test[0m
+[100%] Built target iiwa_ros_test
