@@ -1,7 +1,7 @@
 # ROS-Interface
 ![Screenshot 2021-03-23 180010](https://user-images.githubusercontent.com/46795132/112195283-aff72e00-8c01-11eb-8148-9e4e37aa9957.png)
 
-<img src="https://ams02pap001files.storage.live.com/y4m9WWKvbE9qXBQWsmZWfsrwIxigTRxsXmBAMF3An-GqmP7pj2CsJthydx3JSHunwf-yQdAMRoCCbe9r4l5NUzGxSdscadgC_QPPMB2hZAbSMt67iXVTYAyMMx2IwydHBA6Nis4qhi2aS8wYJ4_4vBJ0YX14HiJKtUvlLp1TyWPkFS7AxIWYs6GLC2IVxCf3zia?width=3762&height=1806&cropmode=none" width="3500" />
+
 
 # Rosie2.0
 ## ROS installation
