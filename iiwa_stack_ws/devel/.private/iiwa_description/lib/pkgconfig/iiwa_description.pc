@@ -1,0 +1,8 @@
+prefix=/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_description
+
+Name: iiwa_description
+Description: Description of iiwa_description
+Version: 1.4.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

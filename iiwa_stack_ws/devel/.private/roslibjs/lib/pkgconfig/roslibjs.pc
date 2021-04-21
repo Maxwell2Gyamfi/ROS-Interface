@@ -1,0 +1,8 @@
+prefix=/home/academy/iiwa_stack_ws/devel/.private/roslibjs
+
+Name: roslibjs
+Description: Description of roslibjs
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

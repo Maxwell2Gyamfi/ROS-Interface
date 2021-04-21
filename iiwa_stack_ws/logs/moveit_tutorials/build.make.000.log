@@ -1,0 +1,45 @@
+[35m[1mScanning dependencies of target controller_manager_example[0m
+[  2%] [32mBuilding CXX object doc/controller_configuration/CMakeFiles/controller_manager_example.dir/src/moveit_controller_manager_example.cpp.o[0m
+[35m[1mScanning dependencies of target interactivity_utils[0m
+[  4%] [32mBuilding CXX object doc/interactivity/CMakeFiles/interactivity_utils.dir/src/interactive_robot.cpp.o[0m
+[  6%] [32m[1mLinking CXX shared library /home/academy/iiwa_stack_ws/devel/.private/moveit_tutorials/lib/libcontroller_manager_example.so[0m
+[  6%] Built target controller_manager_example
+[35m[1mScanning dependencies of target ros_api_tutorial[0m
+[  9%] [32mBuilding CXX object doc/kinematics/CMakeFiles/ros_api_tutorial.dir/src/ros_api_tutorial.cpp.o[0m
+[ 11%] [32mBuilding CXX object doc/interactivity/CMakeFiles/interactivity_utils.dir/src/imarker.cpp.o[0m
+[ 13%] [32m[1mLinking CXX executable /home/academy/iiwa_stack_ws/devel/.private/moveit_tutorials/lib/moveit_tutorials/ros_api_tutorial[0m
+[ 13%] Built target ros_api_tutorial
+[35m[1mScanning dependencies of target motion_planning_api_tutorial[0m
+[ 15%] [32mBuilding CXX object doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/src/motion_planning_api_tutorial.cpp.o[0m
+[ 18%] [32mBuilding CXX object doc/interactivity/CMakeFiles/interactivity_utils.dir/src/pose_string.cpp.o[0m
+[35m[1mScanning dependencies of target motion_planning_pipeline_tutorial[0m
+[ 20%] [32mBuilding CXX object doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/src/motion_planning_pipeline_tutorial.cpp.o[0m
+[ 22%] [32m[1mLinking CXX shared library /home/academy/iiwa_stack_ws/devel/.private/moveit_tutorials/lib/libinteractivity_utils.so[0m
+[ 22%] Built target interactivity_utils
+[35m[1mScanning dependencies of target move_group_interface_tutorial[0m
+[ 25%] [32mBuilding CXX object doc/move_group_interface/CMakeFiles/move_group_interface_tutorial.dir/src/move_group_interface_tutorial.cpp.o[0m
+[35m[1mScanning dependencies of target cylinder_segment[0m
+[ 27%] [32mBuilding CXX object doc/perception_pipeline/CMakeFiles/cylinder_segment.dir/src/cylinder_segment.cpp.o[0m
+[01m[Kc++:[m[K [01;31m[Kinternal compiler error: [m[KKilled (program cc1plus)
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <file:///usr/share/doc/gcc-7/README.Bugs> for instructions.
+make[2]: *** [doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/src/motion_planning_api_tutorial.cpp.o] Error 4
+make[1]: *** [doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/build.make:62: recipe for target 'doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/src/motion_planning_api_tutorial.cpp.o' failed
+CMakeFiles/Makefile2:4325: recipe for target 'doc/motion_planning_api/CMakeFiles/motion_planning_api_tutorial.dir/all' failed
+[01m[Kc++:[m[K [01;31m[Kinternal compiler error: [m[KKilled (program cc1plus)
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <file:///usr/share/doc/gcc-7/README.Bugs> for instructions.
+doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/build.make:62: recipe for target 'doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/src/motion_planning_pipeline_tutorial.cpp.o' failed
+make[2]: *** [doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/src/motion_planning_pipeline_tutorial.cpp.o] Error 4
+CMakeFiles/Makefile2:4380: recipe for target 'doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/all' failed
+make[1]: *** [doc/motion_planning_pipeline/CMakeFiles/motion_planning_pipeline_tutorial.dir/all] Error 2
+[ 29%] [32m[1mLinking CXX executable /home/academy/iiwa_stack_ws/devel/.private/moveit_tutorials/lib/moveit_tutorials/move_group_interface_tutorial[0m
+[ 29%] Built target move_group_interface_tutorial
+[ 31%] [32m[1mLinking CXX executable /home/academy/iiwa_stack_ws/devel/.private/moveit_tutorials/lib/moveit_tutorials/cylinder_segment[0m
+[ 31%] Built target cylinder_segment
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

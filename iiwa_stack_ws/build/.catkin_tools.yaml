@@ -1,0 +1,6 @@
+devel_space: /home/rosie2/iiwa_stack_ws_max/devel
+install: false
+install_space: /home/rosie2/iiwa_stack_ws_max/install
+profile: default
+source_space: /home/rosie2/iiwa_stack_ws_max/src
+workspace: /home/rosie2/iiwa_stack_ws_max

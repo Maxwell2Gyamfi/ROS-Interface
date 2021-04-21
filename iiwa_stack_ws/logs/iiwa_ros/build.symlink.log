@@ -1,0 +1,21 @@
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/libiiwa_ros.so
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/iiwa_ros/iiwa_ros_test
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_ros.pc
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake
+Symlinking /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_ros/cmake/iiwa_rosConfig.cmake
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/cmake.lock, /home/academy/iiwa_stack_ws/devel/./cmake.lock)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/lib/libiiwa_ros.so, /home/academy/iiwa_stack_ws/devel/lib/libiiwa_ros.so)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/lib/pkgconfig/iiwa_ros.pc, /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_ros.pc)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/lib/iiwa_ros/iiwa_ros_test, /home/academy/iiwa_stack_ws/devel/lib/iiwa_ros/iiwa_ros_test)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/share/iiwa_ros/cmake/iiwa_rosConfig.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_ros/cmake/iiwa_rosConfig.cmake)
+Cleaning: (/home/academy/iiwa_stack_ws/devel/.private/iiwa_ros/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake, /home/academy/iiwa_stack_ws/devel/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake)
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/libiiwa_ros.so
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_ros.pc
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/lib/iiwa_ros/iiwa_ros_test
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_ros/cmake/iiwa_rosConfig.cmake
+Already unlinked: {}
+Unlinking: /home/academy/iiwa_stack_ws/devel/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake
+Already unlinked: {}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>roslibjs</name>
+  <version>0.0.0</version>
+  <description>The roslibjs package</description>
+
+  <maintainer email="garaemon@todo.todo">garaemon</maintainer>
+  <author email="garaemon@todo.todo">garaemon</author>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>
