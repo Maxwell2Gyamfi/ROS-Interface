@@ -1,0 +1,8 @@
+prefix=/home/academy/iiwa_stack_ws/install
+
+Name: rwt_utils_3rdparty
+Description: Description of rwt_utils_3rdparty
+Version: 0.0.3
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

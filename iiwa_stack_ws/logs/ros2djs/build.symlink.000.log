@@ -1,0 +1,3 @@
+Symlinking /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/ros2djs.pc
+Symlinking /home/academy/iiwa_stack_ws/devel/share/ros2djs/cmake/ros2djsConfig.cmake
+Symlinking /home/academy/iiwa_stack_ws/devel/share/ros2djs/cmake/ros2djsConfig-version.cmake

@@ -1,0 +1,8 @@
+prefix=/home/academy/iiwa_stack_ws/install
+
+Name: roslibjs_experimental
+Description: Description of roslibjs_experimental
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

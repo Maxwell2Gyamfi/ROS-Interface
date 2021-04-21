@@ -1,0 +1,8 @@
+prefix=/home/academy/iiwa_stack_ws/install
+
+Name: rviz_camera_stream
+Description: Description of rviz_camera_stream
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/academy/iiwa_stack_ws/devel/.private/iiwa_gazebo/setup.sh

@@ -1,0 +1,5 @@
+iiwa_stack/iiwa_control
+/home/academy/iiwa_stack_ws/devel/.private/iiwa_control/cmake.lock /home/academy/iiwa_stack_ws/devel/./cmake.lock
+/home/academy/iiwa_stack_ws/devel/.private/iiwa_control/lib/pkgconfig/iiwa_control.pc /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/iiwa_control.pc
+/home/academy/iiwa_stack_ws/devel/.private/iiwa_control/share/iiwa_control/cmake/iiwa_controlConfig.cmake /home/academy/iiwa_stack_ws/devel/share/iiwa_control/cmake/iiwa_controlConfig.cmake
+/home/academy/iiwa_stack_ws/devel/.private/iiwa_control/share/iiwa_control/cmake/iiwa_controlConfig-version.cmake /home/academy/iiwa_stack_ws/devel/share/iiwa_control/cmake/iiwa_controlConfig-version.cmake

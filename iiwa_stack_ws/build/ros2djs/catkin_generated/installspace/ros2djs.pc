@@ -1,0 +1,8 @@
+prefix=/home/academy/iiwa_stack_ws/install
+
+Name: ros2djs
+Description: Description of ros2djs
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
