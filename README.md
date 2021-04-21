@@ -18,6 +18,12 @@ Go to the folder iiwa_stack_ws and download the dependencies
 cd ROS-Interface/iiwa_stack_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
+
+Remove build space
+```
+catkin clean -b
+```
+
 Build the workspace :
 ```
 catkin build
