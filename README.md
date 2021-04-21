@@ -26,7 +26,53 @@ Source the workspace :
 ```
 source devel/setup.bash
 ```
-Test the installation was successful by launching the iiwa demo
+Test the installation was successful by launching the iiwa web_interface
 ```
 roslaunch iiwa_moveit web_interface.launch
 ```
+
+
+## Flask installation
+
+Go to the folder Flask
+```
+cd ROS-Interface/Flask
+```
+
+Configure a python environmnent
+```
+sudo apt install python3-venv
+python3 -m venv my-project-env
+source my-project-env/bin/activate
+```
+
+Install python dependencies
+```
+sudo apt install python3-pip
+pip install Flask
+pip install opencv-python
+```
+
+## Run Web Interface
+
+Go to folder Flask
+```
+cd ROS-Interface/Flask
+```
+
+Activate python environment
+```
+source my-project-env/bin/activate
+```
+Execute web app
+```
+export FLASK_APP="main.py"
+flask run -h 0.0.0.0
+```
+
+Launch the iiwa web_interface in a new terminal
+```
+roslaunch iiwa_moveit web_interface.launch
+```
+
+
