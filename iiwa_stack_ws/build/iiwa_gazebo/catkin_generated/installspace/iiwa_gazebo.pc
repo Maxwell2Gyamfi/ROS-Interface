@@ -1,8 +1,0 @@
-prefix=/home/rosie2/iiwa_stack_ws_max/install
-
-Name: iiwa_gazebo
-Description: Description of iiwa_gazebo
-Version: 1.4.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

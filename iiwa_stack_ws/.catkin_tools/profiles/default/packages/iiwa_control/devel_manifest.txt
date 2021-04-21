@@ -1,5 +1,0 @@
-iiwa_stack/iiwa_control
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_control/cmake.lock /home/rosie2/iiwa_stack_ws_max/devel/./cmake.lock
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_control/lib/pkgconfig/iiwa_control.pc /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_control.pc
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_control/share/iiwa_control/cmake/iiwa_controlConfig-version.cmake /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_control/cmake/iiwa_controlConfig-version.cmake
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_control/share/iiwa_control/cmake/iiwa_controlConfig.cmake /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_control/cmake/iiwa_controlConfig.cmake

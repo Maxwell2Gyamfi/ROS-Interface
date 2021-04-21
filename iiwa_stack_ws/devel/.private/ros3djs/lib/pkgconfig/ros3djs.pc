@@ -1,8 +1,0 @@
-prefix=/home/academy/iiwa_stack_ws/devel/.private/ros3djs
-
-Name: ros3djs
-Description: Description of ros3djs
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

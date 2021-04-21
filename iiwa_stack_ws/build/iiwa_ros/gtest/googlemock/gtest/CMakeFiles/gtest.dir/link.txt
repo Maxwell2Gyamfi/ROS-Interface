@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libgtest.so -o libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o  -L/home/rosie2/iiwa_stack_ws_max/build/iiwa_ros/gtest/googlemock/gtest/src -Wl,-rpath,/home/rosie2/iiwa_stack_ws_max/build/iiwa_ros/gtest/googlemock/gtest/src -lpthread 

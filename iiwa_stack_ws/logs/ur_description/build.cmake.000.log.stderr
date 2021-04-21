@@ -1,4 +1,0 @@
-[31m[1mCMake Error[0m at /home/academy/iiwa_stack_ws/src/ur5_webgui/ur_description_www/CMakeLists.txt:4 (catkin_package):
-  Unknown CMake command "catkin_package".
-
-

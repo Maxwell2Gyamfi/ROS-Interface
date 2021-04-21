@@ -1,7 +1,0 @@
-iiwa_stack/iiwa_ros
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/cmake.lock /home/rosie2/iiwa_stack_ws_max/devel/./cmake.lock
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/lib/libiiwa_ros.so /home/rosie2/iiwa_stack_ws_max/devel/lib/libiiwa_ros.so
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/lib/iiwa_ros/iiwa_ros_test /home/rosie2/iiwa_stack_ws_max/devel/lib/iiwa_ros/iiwa_ros_test
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/lib/pkgconfig/iiwa_ros.pc /home/rosie2/iiwa_stack_ws_max/devel/lib/pkgconfig/iiwa_ros.pc
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_ros/cmake/iiwa_rosConfig-version.cmake
-/home/rosie2/iiwa_stack_ws_max/devel/.private/iiwa_ros/share/iiwa_ros/cmake/iiwa_rosConfig.cmake /home/rosie2/iiwa_stack_ws_max/devel/share/iiwa_ros/cmake/iiwa_rosConfig.cmake
