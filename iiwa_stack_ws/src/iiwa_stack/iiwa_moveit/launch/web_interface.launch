@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+
+    <node pkg="iiwa_moveit" type="moveit.py" name="moveit_web" output="screen">
+    </node>
+
+    <include file="$(find iiwa_moveit)/launch/demo.launch">
+        <arg name="rviz" value="false" />
+
+
+    </include>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+
+
+    </include>
+
+    <include file="$(find rviz_camera_stream)/launch/demo.launch">
+
+
+    </include>
+
+
+</launch>
