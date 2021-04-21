@@ -32,11 +32,16 @@ Source the workspace :
 ```
 source devel/setup.bash
 ```
+
+Make moveit.py file executable
+```
+sudo chmod +x  src/iiwa_stack/iiwa_moveit/scripts/moveit.py
+```
+
 Test the installation was successful by launching the iiwa web_interface
 ```
 roslaunch iiwa_moveit web_interface.launch
 ```
-
 
 ## Flask installation
 
@@ -55,6 +60,7 @@ source my-project-env/bin/activate
 Install python dependencies
 ```
 sudo apt install python3-pip
+pip install --upgrade pip
 pip install Flask
 pip install opencv-python
 pip install python-box
