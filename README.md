@@ -57,6 +57,7 @@ Install python dependencies
 sudo apt install python3-pip
 pip install Flask
 pip install opencv-python
+pip install bbox
 ```
 
 ## Run Web Interface
