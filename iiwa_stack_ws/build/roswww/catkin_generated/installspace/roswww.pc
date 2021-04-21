@@ -1,8 +1,0 @@
-prefix=/home/academy/iiwa_stack_ws/install
-
-Name: roswww
-Description: Description of roswww
-Version: 0.1.12
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,1 +1,0 @@
-/home/academy/iiwa_stack_ws/devel/.private/iiwa_msgs/share/iiwa_msgs/msg/MoveToCartesianPoseGoal.msg

@@ -1,1 +1,0 @@
-/home/academy/iiwa_stack_ws/devel/.private/ros2djs/share/ros2djs/cmake/ros2djsConfig.cmake

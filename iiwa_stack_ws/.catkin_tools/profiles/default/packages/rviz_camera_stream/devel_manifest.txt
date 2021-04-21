@@ -1,6 +1,0 @@
-iiwa_stack/rviz_camera_stream
-/home/academy/iiwa_stack_ws/devel/.private/rviz_camera_stream/cmake.lock /home/academy/iiwa_stack_ws/devel/./cmake.lock
-/home/academy/iiwa_stack_ws/devel/.private/rviz_camera_stream/lib/librviz_camera_stream.so /home/academy/iiwa_stack_ws/devel/lib/librviz_camera_stream.so
-/home/academy/iiwa_stack_ws/devel/.private/rviz_camera_stream/lib/pkgconfig/rviz_camera_stream.pc /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/rviz_camera_stream.pc
-/home/academy/iiwa_stack_ws/devel/.private/rviz_camera_stream/share/rviz_camera_stream/cmake/rviz_camera_streamConfig.cmake /home/academy/iiwa_stack_ws/devel/share/rviz_camera_stream/cmake/rviz_camera_streamConfig.cmake
-/home/academy/iiwa_stack_ws/devel/.private/rviz_camera_stream/share/rviz_camera_stream/cmake/rviz_camera_streamConfig-version.cmake /home/academy/iiwa_stack_ws/devel/share/rviz_camera_stream/cmake/rviz_camera_streamConfig-version.cmake

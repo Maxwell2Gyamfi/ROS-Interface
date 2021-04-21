@@ -1,8 +1,0 @@
-prefix=/home/academy/iiwa_stack_ws/devel/.private/roswww
-
-Name: roswww
-Description: Description of roswww
-Version: 0.1.12
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

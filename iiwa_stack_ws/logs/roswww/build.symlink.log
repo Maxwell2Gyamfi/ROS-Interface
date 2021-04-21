@@ -1,4 +1,0 @@
-Symlinking /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/roswww.pc
-Symlinking /home/academy/iiwa_stack_ws/devel/lib/python2.7/dist-packages/roswww/__init__.py
-Symlinking /home/academy/iiwa_stack_ws/devel/share/roswww/cmake/roswwwConfig.cmake
-Symlinking /home/academy/iiwa_stack_ws/devel/share/roswww/cmake/roswwwConfig-version.cmake

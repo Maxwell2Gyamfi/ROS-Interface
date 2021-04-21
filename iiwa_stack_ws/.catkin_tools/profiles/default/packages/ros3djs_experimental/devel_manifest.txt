@@ -1,5 +1,0 @@
-rwt_ros/ros3djs_experimental
-/home/academy/iiwa_stack_ws/devel/.private/ros3djs_experimental/cmake.lock /home/academy/iiwa_stack_ws/devel/./cmake.lock
-/home/academy/iiwa_stack_ws/devel/.private/ros3djs_experimental/lib/pkgconfig/ros3djs_experimental.pc /home/academy/iiwa_stack_ws/devel/lib/pkgconfig/ros3djs_experimental.pc
-/home/academy/iiwa_stack_ws/devel/.private/ros3djs_experimental/share/ros3djs_experimental/cmake/ros3djs_experimentalConfig-version.cmake /home/academy/iiwa_stack_ws/devel/share/ros3djs_experimental/cmake/ros3djs_experimentalConfig-version.cmake
-/home/academy/iiwa_stack_ws/devel/.private/ros3djs_experimental/share/ros3djs_experimental/cmake/ros3djs_experimentalConfig.cmake /home/academy/iiwa_stack_ws/devel/share/ros3djs_experimental/cmake/ros3djs_experimentalConfig.cmake

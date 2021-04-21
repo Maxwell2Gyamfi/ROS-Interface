@@ -1,5 +1,0 @@
-[  0%] Built target iiwa_msgs_generate_messages_cpp
-[ 25%] [32m[1mLinking CXX shared library /home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/libiiwa_hw.so[0m
-[ 50%] Built target iiwa_hw
-[ 75%] [32m[1mLinking CXX executable /home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/iiwa_hw/iiwa_hw-bin[0m
-[100%] Built target iiwa_hw-bin

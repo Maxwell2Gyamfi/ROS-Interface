@@ -1,1 +1,0 @@
-/home/academy/iiwa_stack_ws/devel/.private/rwt_utils_3rdparty/lib/pkgconfig/rwt_utils_3rdparty.pc

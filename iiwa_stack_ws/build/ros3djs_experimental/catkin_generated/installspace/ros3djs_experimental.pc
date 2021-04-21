@@ -1,8 +1,0 @@
-prefix=/home/academy/iiwa_stack_ws/install
-
-Name: ros3djs_experimental
-Description: Description of ros3djs_experimental
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

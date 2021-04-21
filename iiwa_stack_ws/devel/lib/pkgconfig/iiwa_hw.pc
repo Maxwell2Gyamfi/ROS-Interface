@@ -1,1 +1,0 @@
-/home/academy/iiwa_stack_ws/devel/.private/iiwa_hw/lib/pkgconfig/iiwa_hw.pc
