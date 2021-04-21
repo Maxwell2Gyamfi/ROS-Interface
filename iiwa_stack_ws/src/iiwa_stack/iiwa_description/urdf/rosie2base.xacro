@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro" >
+  <xacro:macro name="rosie2_base">
+    
+    <joint name="world_to_table" type="fixed">
+      <parent link="world"/>
+      <child link="base"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link
+      name="base">
+      <inertial>
+        <origin
+          xyz="-7.6417091746513E-05 0.40001338309557 0.164858799827291"
+          rpy="0 0 0" />
+        <mass
+          value="53.6277106242961" />
+        <inertia
+          ixx="6.3670548916442"
+          ixy="-1.9067207201396E-05"
+          ixz="3.77494926341754E-05"
+          iyy="4.38733657045515"
+          iyz="3.54070945707606E-05"
+          izz="5.36753756395971" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0.5"
+          rpy="-1.5708 0 0" />
+        <geometry>
+          <mesh
+            filename="package://iiwa_description/meshes/base/visual/rosie2base.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0.5"
+          rpy="-1.5708 0 0" />
+        <geometry>
+          <mesh
+            filename="package://iiwa_description/meshes/base/collision/rosie2base.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="base_adjustment" type="fixed">
+      <parent link="base"/>
+      <child link="base_link"/>
+      <origin xyz="0 0.2 0.9" rpy="0 0 0"/>
+    </joint>
+    
+    <link name="base_link"/>
+
+  </xacro:macro>
+</robot>
+<!--Only difference so far is that I added xacro:macro-->
