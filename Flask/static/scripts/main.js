@@ -133,7 +133,7 @@ function addPoseToHistory(coordinates) {
     data: JSON.stringify(posetoHistory),
     dataType: "json",
     contentType: "application/json",
-    success: function (e) {},
+    success: function (e) { },
     error: function (error) {
       alertify.error(error);
     },
@@ -1010,6 +1010,14 @@ function initROS() {
   });
 }
 
+function showLoader() {
+  document.getElementsByClassName("loader")[0].style.visibility = "visible";
+}
+
+function hideLoader() {
+  document.getElementsByClassName("loader")[0].style.visibility = "hidden";
+}
+
 function hexToBase64(str) {
   return btoa(
     String.fromCharCode.apply(
@@ -1139,6 +1147,7 @@ function executePose(poseValues) {
   var data = new ROSLIB.Message({
     data: str,
   });
+  showLoader();
   psGoal.publish(data);
 
   // setTimeout(getJointsState, 1000);
@@ -1164,6 +1173,7 @@ function planPose(poseValues) {
   var data = new ROSLIB.Message({
     data: str,
   });
+  showLoader();
   psGoal.publish(data);
 }
 
@@ -1193,6 +1203,7 @@ function setJointState(joints) {
   var data = new ROSLIB.Message({
     data: str,
   });
+  showLoader();
   jntSt.publish(data);
 }
 
@@ -1217,9 +1228,12 @@ function getPoseFeedback() {
   });
 
   feedback_listener.subscribe(function (message) {
+    console.log(message);
     if (message.feedback.state == "IDLE") {
       alertify.success(message.status.text);
+      hideLoader();
     }
+
     // feedback_listener.unsubscribe();
   });
 }
@@ -1285,8 +1299,8 @@ function signout() {
     data: JSON.stringify(),
     dataType: "json",
     contentType: "application/json",
-    success: function (e) {},
-    error: function (error) {},
+    success: function (e) { },
+    error: function (error) { },
   });
 }
 function retrieveApprovals() {
@@ -1299,7 +1313,7 @@ function retrieveApprovals() {
     success: function (e) {
       createPendingAccounTables(e);
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 function approveAccount(id) {
@@ -1313,7 +1327,7 @@ function approveAccount(id) {
       alertify.success("Successfully approved user");
       retrieveApprovals();
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 
@@ -1328,7 +1342,7 @@ function denyAccount(id) {
       alertify.success("Successfully deleted user");
       retrieveApprovals();
     },
-    error: function (error) {},
+    error: function (error) { },
   });
 }
 
