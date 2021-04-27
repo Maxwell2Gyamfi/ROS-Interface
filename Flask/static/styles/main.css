@@ -63,8 +63,10 @@ html {
   display: grid;
   margin: 10px;
   /* grid-template: 1fr 5fr/ 1fr 2fr; */
+  /* grid-template-rows: 1fr 5fr;
+  grid-template-columns: 1fr 2fr; */
   grid-template-rows: 1fr 5fr;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr minmax(600px, 2fr);
   gap: 2px;
   grid-template-areas:
     "logo visualization"
@@ -573,7 +575,21 @@ p:focus {
 
 @media only screen and (min-device-width: 768px) and (orientation: portrait) {
   #container {
-    grid-template-rows: auto 2fr;
+    grid-template-rows: 1fr minmax(420px, 2fr) 2fr;
+    grid-template-columns: auto;
+    grid-template-areas:
+      "logo"
+      "commands"
+      "visualization";
+    position: absolute;
+    margin: 0px;
+    height: fit-content;
+    margin-bottom: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  #container {
+    grid-template-rows: 1fr minmax(200px, 2fr) 2fr;
     grid-template-columns: auto;
     grid-template-areas:
       "logo"
