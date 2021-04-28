@@ -127,8 +127,7 @@
 
         <div class="multi-button">
           <button onclick="retrieveApprovals()"><i class="fa fa-user-plus" aria-hidden="true"></i> Approvals</button>
-          <button style="background-color: #e31566; color: white;" onclick="resetJoints()"><i class="fa fa-eraser"
-              aria-hidden="true"></i> Reset Rbt</button>
+
           <a href="{{ url_for('signout') }}"><button style="background-color: #e31566; color: white;"><i
                 class="fa fa-sign-out" aria-hidden="true"></i> Logout</button></a>
         </div>
@@ -138,14 +137,19 @@
           <button onclick="openCamera()"><i class="fa fa-video-camera" aria-hidden="true"></i> Robot and Cell</button>
         </div>
 
+        <div class="multi-button">
+          <button style="background-color: #e31566; color: white;" onclick="resetJoints()"><i class="fa fa-eraser"
+              aria-hidden="true"></i> Reset Robot</button>
+          <button onclick="openDeleteGroup()" style="background-color: #e31566; color: white;"><i class="fa fa-trash"
+              aria-hidden="true"></i> Delete Robot</button>
+        </div>
+
         <div id="modelselection">
           <div class="multi-button">
             <select name="robotSelection" id="robotSelection" onchange="populateRangeSlider(this)">
             </select>
             <button onclick="openAddGroup()" style="background-color: #4CAF50; color: white;"><i class="fa fa-plus"
-                aria-hidden="true"></i> New Rbt</button>
-            <button onclick="openDeleteGroup()" style="background-color: #e31566; color: white;"><i class="fa fa-trash"
-                aria-hidden="true"></i> Delete Rbt</button>
+                aria-hidden="true"></i> New Robot</button>
           </div>
 
         </div>

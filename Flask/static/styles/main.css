@@ -586,10 +586,27 @@ p:focus {
     height: fit-content;
     margin-bottom: 0px;
   }
+  html {
+    overflow: auto;
+  }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-height: 430px) and (orientation: landscape) {
   #container {
-    grid-template-rows: 1fr minmax(200px, 2fr) 2fr;
+    height: fit-content;
+    grid-template-rows: 1fr 5fr;
+    grid-template-columns: 1fr minmax(600px, 2fr);
+    grid-template-areas:
+      "logo visualization"
+      "commands visualization";
+  }
+  html {
+    overflow: auto;
+  }
+}
+
+@media only screen and (max-width: 430px) and (orientation: portrait) {
+  #container {
+    grid-template-rows: 1fr minmax(420px, 2fr) 2fr;
     grid-template-columns: auto;
     grid-template-areas:
       "logo"
@@ -599,5 +616,8 @@ p:focus {
     margin: 0px;
     height: fit-content;
     margin-bottom: 0px;
+  }
+  html {
+    overflow: auto;
   }
 }
